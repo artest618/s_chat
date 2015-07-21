@@ -1,0 +1,111 @@
+*{margin:0;padding: 0;}
+.bigbox{width: 100%;
+     overflow: hidden;
+     min-height: 630px;}
+.box{margin-left: 80px;
+     margin-top: 40px;
+}
+.box-l{margin-top: 40px;
+       margin-left: 50px;
+       height: 560px;
+}
+.box-in{width: 840px;
+        height: 560px;
+        
+}
+.box-in-t{line-height: 57px;}
+.box-in-c{height: 503px;
+          overflow: hidden;
+          position: relative;
+}
+.box-c-l{width: 630px;}
+.box-c-r{width: 210px;
+         
+}
+.r-c2 p{text-indent: 2em;
+        line-height: 26px;
+}
+.mt32{margin-top: 32px;}
+.l-c1{height: 330px;
+      overflow: hidden;
+}
+.l-c2{height: 32px;}
+.l-c3{height:138px }
+.l-c3-b{padding-top: 4px;
+        height: 35px;
+}
+.l-c1-c1 a{text-decoration: none;
+           overflow: hidden;
+}
+.row-l{width:71px;
+      overflow: hidden;
+}
+.row-r{margin-left: -20px;}
+.row-l img{border-radius: 50%;
+           width:60%;
+           display: block;
+           
+}
+.l-c1-c2{margin-top: 10px;
+         
+         padding-left: 100px;
+}
+.row-r-in{min-width: 50px;
+          max-width: 460px;
+          border-radius: 5px;
+          position: relative;
+          min-height: 32px;
+          line-height: 32px;
+          color: #000;
+          text-indent: 1em;
+         
+          
+}
+
+.mright{margin-right: -25px;}
+
+
+.row-r-in em.ls{position: absolute;
+             top:12px;
+             left:-12px;
+             width: 12px;
+             height: 9px;
+             background-image: url(../images/ls.jpg);
+}
+.row-r-in em.rs{position: absolute;
+	         top:12px;
+             right:-12px;
+             height: 9px;
+             width: 12px;
+             background-image: url(../images/rs.jpg);
+ }
+
+.l-c1-c3{overflow: hidden;}
+.row{display: block;
+     width: 95%;
+     overflow: hidden;
+}
+
+.r-c1-l,.r-c1{overflow: hidden;}
+.r-c1-l img{border-radius: 50%;
+            width: 40%;
+}
+.r-c1-r{margin-left: -38px;}
+
+.pl10{padding-left: 10px;}
+.p20{padding-top: 20px;
+     padding-bottom: 20px;
+}
+
+.box-l-c ul li{background-image: url(../images/custom_r3_c1.jpg);
+               height: 38px;
+               line-height: 38px;
+               padding-left: 55px;
+               background-position: 10px 0;
+               background-repeat: no-repeat;
+}
+.box-l-c ul li.current{background-image: url(../images/custom_r1_c1.jpg);}
+.foot{position:absolute;
+      right: 10px;
+      bottom: 10px;
+}

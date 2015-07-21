@@ -6,6 +6,6 @@ var UserService = {
         JDB.query(sql,function(err,vals,fields){
             console.log(JSON.stringify(vals));
         });
-    },
+    }
 
 }
