@@ -1,3 +1,4 @@
+var CounselorService=require("./services/counselor.js");
 var actions = {
     root: function(req, res){
         if (req.session.user == null) {
@@ -26,6 +27,19 @@ var actions = {
         } else {
             res.send({name: req.session.user});
         }
+    },
+    /**
+     * 创建顾问
+     * @param req
+     * @param res
+     */
+    createCounselor:function(req,res){
+        debugger;
+        CounselorService.createCounselor({uid: req.query.uid,uname:req.query.uname},function(res_obj){
+                console.log(res_obj);
+                res.send(res_obj);
+        });
     }
+
 }
 module.exports=actions; 

@@ -45,6 +45,11 @@ var routedefines = [
         'pathname': '/getSignedUser',
         'handler': actions.getSignedUser,
         'method': 'post'
+    },
+    {
+        'pathname': '/createCounselor',
+        'handler': actions.createCounselor,
+        'method': 'get'
     }
 ];
 
