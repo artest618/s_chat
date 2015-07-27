@@ -37,7 +37,7 @@ var CounselorService = {
                         console.log(JSON.stringify(result));
                         callback({"code":"10001","msg":msg});
                     }else{
-                        console.log('insert successfully,affected 4 rows.')
+                        console.log('create Invalid');
                     }
 
                 });

@@ -82,16 +82,20 @@ JDB = {
                               conn.commit(function(cerr){
                                   if(cerr){
                                       conn.rollback(function(){
-                                          throw cerr;
+                                          console.log('error--'+cerr);
+                                          callback(false);
+                                          //throw cerr;
                                       });
                                       return false;
                                   }
                                   console.log('commit successfully and transaction end.');
-                                  callback();
+                                  callback(true);
                               });
                           }else{
                               conn.rollback(function(){
-                                  throw cerr;
+                                  console.log('error--'+cerr);
+                                  callback(false);
+                                  //throw cerr;
                               });
                           }
                       }
