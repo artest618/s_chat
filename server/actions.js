@@ -34,10 +34,9 @@ var actions = {
      * @param res
      */
     createCounselor:function(req,res){
-        debugger;
         CounselorService.createCounselor({uid: req.query.uid,uname:req.query.uname},function(res_obj){
                 console.log(res_obj);
-                res.send(res_obj);
+                res.json(res_obj);
         });
     }
 
