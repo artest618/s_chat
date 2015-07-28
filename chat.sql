@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : chat
+Source Server         : local
 Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : chat
@@ -10,12 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-07-28 18:20:00
+Date: 2015-07-28 23:39:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
--- Table structure for `tb_grouplist`
+-- Table structure for tb_grouplist
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_grouplist`;
 CREATE TABLE `tb_grouplist` (
@@ -27,33 +28,35 @@ CREATE TABLE `tb_grouplist` (
   `grouptype` int(2) NOT NULL COMMENT '群类型 1.顾问群2.客户群3.客户经理群',
   `groupnum` varchar(32) NOT NULL COMMENT '群号？',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='所有群列表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='所有群列表';
 
 -- ----------------------------
 -- Records of tb_grouplist
 -- ----------------------------
+INSERT INTO `tb_grouplist` VALUES ('3', '1', '管理员', '管理员', '顾问群', '1', '1_1000');
 
 -- ----------------------------
--- Table structure for `tb_group_userlist`
+-- Table structure for tb_group_userlist
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_group_userlist`;
 CREATE TABLE `tb_group_userlist` (
-  `id` int(32) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT,
   `userid` int(9) NOT NULL COMMENT '用户ID',
   `username` varchar(32) NOT NULL COMMENT '用户名称',
   `usercname` varchar(32) DEFAULT NULL COMMENT '中文名称',
   `usertype` int(2) NOT NULL COMMENT '用户类型',
   `groupid` int(2) NOT NULL COMMENT '群ID',
   `jointime` datetime NOT NULL COMMENT '加入时间',
+  PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='群成员列表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='群成员列表';
 
 -- ----------------------------
 -- Records of tb_group_userlist
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `tb_userinfo`
+-- Table structure for tb_userinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_userinfo`;
 CREATE TABLE `tb_userinfo` (
@@ -61,22 +64,21 @@ CREATE TABLE `tb_userinfo` (
   `uid` int(9) unsigned zerofill NOT NULL COMMENT '用户ID',
   `name` varchar(32) NOT NULL COMMENT '用户名称',
   `cname` varchar(16) NOT NULL COMMENT '中文名称',
-  `usertype` int(2) NOT NULL COMMENT '用户类型 1.普通用户 2.顾问',
+  `usertype` int(2) NOT NULL COMMENT '用户类型 1.客户2.客户经理3.顾问',
   `headicon` varchar(1024) DEFAULT 'images/headers/default.png' COMMENT '头像',
   `groupcount` int(2) unsigned zerofill DEFAULT '00' COMMENT '拥有群数',
   `createdate` datetime NOT NULL COMMENT '创建时间',
   `delflag` int(1) DEFAULT '1' COMMENT '删除标记 0 代表已删除 1代表未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of tb_userinfo
 -- ----------------------------
-INSERT INTO `tb_userinfo` VALUES ('6', '000000123', '张三', '张三', '2', 'images/headers/default.png', '03', '2015-07-28 16:13:34', '1');
 
 -- ----------------------------
--- Table structure for `tb_usertype`
+-- Table structure for tb_usertype
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_usertype`;
 CREATE TABLE `tb_usertype` (
