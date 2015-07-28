@@ -1,20 +1,38 @@
-var JDB=require("./server/mysqldbfactory.js");
+var JDB=require("../mysqldbfactory.js");
 
 var UserService = {
-    checkuser: function(uid, callback){
+    checkuser: function(uid, onsuccess, onerror){
         var sql = 'SELECT * FROM TB_USERINFO WHERE UID=' + uid;
         JDB.query(sql,function(err,vals,fields){
             //console.log(JSON.stringify(vals));
             if(err){
                 console.log(JSON.stringify(err));
+                onerror && onerror(err);
             }
+            for(var i in vals){
+                if(vals[i].delflag == 0){
+                    onsuccess(true, vals[i]);
+                    return;
+                }
+            }
+            onsuccess(false);
+        });
+    },
+    checkuserByName: function(name, callback) {
+        var sql = 'SELECT * FROM TB_USERINFO WHERE NAME=\'' + name + '\'';
+        JDB.query(sql, function (err, vals, fields) {
             callback(vals);
         });
     },
-    checkuserByName: function(name, callback){
-        var sql = 'SELECT * FROM TB_USERINFO WHERE NAME=\'' + name + '\'';
-        JDB.query(sql, function(err, vals, fields){
-            callback(vals);
-        });
+
+    addUser: function(user, onsuccess, onerror){
+        var sql = 'INSERT INTO TB_USERINFO VALUES (?,?,?,?,?,?)';
+        JDB.oper(sql, function(res){
+            if(res){
+
+            }
+        })
     }
 }
+
+module.exports=UserService;

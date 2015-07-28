@@ -1,10 +1,40 @@
+var userSerivce = require('./services/user.js');
+var FI = require('./services/finterfaces');
 var CounselorService=require("./services/counselor.js");
+
 var actions = {
     root: function(req, res){
         if (req.session.user == null) {
-            res.redirect('/signin');
-        } else {
-            res.sendfile('client/views/index.html');
+            //res.redirect('/signin');
+            var uid = req.query.uid, pid = req.query.pid;
+            console.log(uid);
+            if(!uid){
+                res.send('<script>alert("用户标识错误！");window.close();</script>');
+                return;
+            }
+            if(!FI.checkSigned(uid)){
+                res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
+                return;
+            }
+            userSerivce.checkuser(uid, function(flag, user){
+                if(flag){
+                    req.session.user = JSON.stringify(user);
+                    console.log(JSON.stringify(user));
+                    return res.sendfile('client/views/index.html');
+                } else{
+                    var user = FI.syncUser(uid);
+                    if(!user){
+                        return res.redirect('/signin');
+                    }
+                    userSerivce.addUser(user, function(){
+                        req.session.user = user;
+                        return res.sendfile('client/views/index.html');
+                    });
+                    return;
+                }
+            });
+        }else{
+            return res.sendfile('client/views/index.html');
         }
     },
     signinpage: function(req, res){
