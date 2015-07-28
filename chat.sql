@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local
+Source Server         : chat
 Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : chat
@@ -10,13 +10,12 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-07-27 23:00:50
+Date: 2015-07-28 18:20:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
--- Table structure for tb_grouplist
+-- Table structure for `tb_grouplist`
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_grouplist`;
 CREATE TABLE `tb_grouplist` (
@@ -25,17 +24,17 @@ CREATE TABLE `tb_grouplist` (
   `ownername` varchar(32) NOT NULL COMMENT '所有者名称',
   `ownercname` varchar(16) NOT NULL COMMENT '所有者中文名称',
   `groupname` varchar(64) NOT NULL COMMENT '群名称',
-  `grouptype` int(2) NOT NULL COMMENT '群类型',
+  `grouptype` int(2) NOT NULL COMMENT '群类型 1.顾问群2.客户群3.客户经理群',
   `groupnum` varchar(32) NOT NULL COMMENT '群号？',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='所有群列表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='所有群列表';
 
 -- ----------------------------
 -- Records of tb_grouplist
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for tb_group_userlist
+-- Table structure for `tb_group_userlist`
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_group_userlist`;
 CREATE TABLE `tb_group_userlist` (
@@ -54,7 +53,7 @@ CREATE TABLE `tb_group_userlist` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for tb_userinfo
+-- Table structure for `tb_userinfo`
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_userinfo`;
 CREATE TABLE `tb_userinfo` (
@@ -69,14 +68,15 @@ CREATE TABLE `tb_userinfo` (
   `delflag` int(1) DEFAULT '1' COMMENT '删除标记 0 代表已删除 1代表未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of tb_userinfo
 -- ----------------------------
+INSERT INTO `tb_userinfo` VALUES ('6', '000000123', '张三', '张三', '2', 'images/headers/default.png', '03', '2015-07-28 16:13:34', '1');
 
 -- ----------------------------
--- Table structure for tb_usertype
+-- Table structure for `tb_usertype`
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_usertype`;
 CREATE TABLE `tb_usertype` (

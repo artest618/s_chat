@@ -27,34 +27,49 @@ var CounselorService = {
      * @param callback
      */
     createCounselor: function(userInfo, callback){
+        var self= this;
+        var sql = "INSERT INTO TB_USERINFO (uid, name, cname, usertype, groupcount, createdate)  " +
+                  "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 2, 3, '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
+        var msg = "创建成功",msg_error = "顾问已存在，请不要重复创建";
+            this.queryCounselor(userInfo,function(vals){
+                if(vals.length==0){
+                    JDB.oper(sql, function(result){
+                        if(result){
+                            console.log(JSON.stringify(result));
+                            //callback({"code":"10001","msg":msg});
+                            self.createCGroup(userInfo,function(c_g_r){
+                                if(c_g_r){
+                                    callback({"code":"10001","msg":msg});
+                                }else{
+                                    console.log('create Invalid');
+                                }
+                            });
+                        }else{
+                            console.log('create Invalid');
+                        }
 
-        var sql = "INSERT INTO TB_USERINFO (uid, name, cname, usertype, groupcount, createdate)  VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 2, 3, '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
-        var msg="创建成功",msg_error="顾问已存在，请不要重复创建";
-        this.queryCounselor(userInfo,function(vals){
-            if(vals.length==0){
-                JDB.oper(sql, function(result){
-                    if(result){
-                        console.log(JSON.stringify(result));
-                        callback({"code":"10001","msg":msg});
-                    }else{
-                        console.log('create Invalid');
-                    }
+                    });
+                }else{
+                    callback({"code":"10002","msg":msg_error});
+                }
 
-                });
-            }else{
-                callback({"code":"10002","msg":msg_error});
-            }
-
-        });
+            });
 
     },
     /**
      * 创建顾问所关联的群组
-     * @param name
+     * @param userInfo
      * @param callback
      */
-    createCGroup: function(name, callback){
+    createCGroup: function(userInfo, callback){
+        var sql =["INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.name+"的客户群")+"', 2, '"+(userInfo.uid+"_"+Math.ceil(Math.random()*1000))+"')",
+            "INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.name+"的客户经理群")+"',3, '"+(userInfo.uid+"_"+Math.ceil(Math.random()*1000))+"')"
 
+        ] ;
+        var msg = "",msg_error = "";
+        JDB.oper(sql, function(result){
+                callback(result);
+        });
     },
     /**
      * 加入顾问群
