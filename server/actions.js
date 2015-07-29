@@ -1,7 +1,7 @@
 var userSerivce = require('./services/user.js');
 var FI = require('./services/finterfaces');
 var CounselorService=require("./services/counselor.js");
-var util = require("./util.js")
+var util = require("./_util.js");
 
 var actions = {
     root: function(req, res){
