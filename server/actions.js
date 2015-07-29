@@ -38,6 +38,9 @@ var actions = {
         }
     },
     getUserInfo: function(req,res){
+        if(! res.session.user){
+            return res.redirect('/signin');
+        }
         res.send( res.session.user );
     },
     signinpage: function(req, res){

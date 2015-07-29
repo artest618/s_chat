@@ -46,7 +46,7 @@ CREATE TABLE `tb_group_userlist` (
   `usercname` varchar(32) DEFAULT NULL COMMENT '中文名称',
   `usertype` int(2) NOT NULL COMMENT '用户类型',
   `groupid` int(2) NOT NULL COMMENT '群ID',
-  `jointime` datetime NOT NULL COMMENT '加入时间',
+  `jointime` TIMESTAMP COMMENT '加入时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='群成员列表';
@@ -67,7 +67,7 @@ CREATE TABLE `tb_userinfo` (
   `usertype` int(2) NOT NULL COMMENT '用户类型 1.客户2.客户经理3.顾问',
   `headicon` varchar(1024) DEFAULT 'images/headers/default.png' COMMENT '头像',
   `groupcount` int(2) unsigned zerofill DEFAULT '00' COMMENT '拥有群数',
-  `createdate` datetime NOT NULL COMMENT '创建时间',
+  `createdate` TIMESTAMP COMMENT '创建时间',
   `delflag` int(1) DEFAULT '1' COMMENT '删除标记 0 代表已删除 1代表未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)

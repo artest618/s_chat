@@ -26,11 +26,11 @@ var UserService = {
     },
 
     addUser: function(user, onsuccess, onerror){
-        var sql = 'INSERT INTO TB_USERINFO VALUES (?,?,?,?,?,?)';
-        JDB.oper(sql, function(res){
-            if(res){
-
-            }
+        var sql = 'INSERT INTO TB_USERINFO (uid, name, cname, usertype, headicon) VALUES ('+
+            user.uid + ',\'' + user.name + '\',\'' + user.cname + '\',' +
+            user.usertype + ',\'' + user.headicon + '\')';
+        JDB.oper([sql], function(res){
+            onsuccess(res);
         })
     }
 }
