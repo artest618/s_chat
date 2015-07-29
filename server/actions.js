@@ -38,10 +38,15 @@ var actions = {
         }
     },
     getUserInfo: function(req,res){
-        if(! res.session.user){
+        console.log('get user info....');
+        if(! req.session.user){
             return res.redirect('/signin');
         }
-        res.send( res.session.user );
+        res.send( req.session.user );
+    },
+    getChatList: function(req, res){
+        var user = JSON.parse(req.session.user);
+
     },
     signinpage: function(req, res){
         res.sendfile('client/views/signin.html');

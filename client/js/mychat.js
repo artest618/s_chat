@@ -1,7 +1,7 @@
 "use strict";
 
-define('zepto', ['../js/zepto'], function($){
-    return $;
+define('zepto', ['../js/zepto'], function(){
+    return Zepto;
 });
 
 require.config({
@@ -9,13 +9,29 @@ require.config({
     waitSeconds: 30,
     paths: {
         domReady: "domReady",
-        ejs: "ejs"
+        ejs: "ejs",
+        common: "common"
     }
 });
 
-require(['zepto', 'domReady', 'ejs'], function($, $dom, EJS){
+var app = {};
+
+require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     $dom(function(){
-        alert('ss');
+        Common.post({
+            url: '/getUserInfo',
+            data: {'name': '1111'},
+            sucess: function(data){
+                app.user = data;
+            },
+            error: function(err){
+
+            }
+        });
+
+        Common.post({
+
+        })
     });
 });
 

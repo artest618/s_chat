@@ -1,7 +1,7 @@
 var FI = {
     syncUser: function(uid){
         return {
-            name: 'Zhang San',
+            name: 'Zhang San' + parseInt(Math.random()*0xffffff),
             uid: parseInt(Math.random()*0xffffff),
             cname: '张三',
             usertype: '1',
