@@ -91,3 +91,14 @@ CREATE TABLE `tb_usertype` (
 -- ----------------------------
 -- Records of tb_usertype
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_contacthistory_list
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_contacthistory_list`;
+CREATE TABLE `tb_contacthistory_list`(
+  `user` int(9) NOT NULL COMMENT '用户ID',
+  `toid` int(9) NOT NULL COMMENT '聊天对象id',
+  `totype` int(2) NOT NULL COMMENT '聊天对象类型',
+  `lastchattime` datetime  COMMENT '最后一次聊天时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='聊天列表'
