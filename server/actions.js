@@ -1,13 +1,13 @@
 var userSerivce = require('./services/user.js');
 var FI = require('./services/finterfaces');
 var CounselorService=require("./services/counselor.js");
+var util = require("./util.js")
 
 var actions = {
     root: function(req, res){
         if (req.session.user == null) {
             //res.redirect('/signin');
-            var uid = req.query.uid, pid = req.query.pid;
-            console.log(uid);
+            var uid = req.query.uid, pid = req.query.pid, ua = util.isMobile(req);
             if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
@@ -20,7 +20,7 @@ var actions = {
                 if(flag){
                     req.session.user = JSON.stringify(user);
                     console.log(JSON.stringify(user));
-                    return res.sendfile('client/views/index.html');
+                    return res.sendfile(ua ? 'client/views/index_m.html' : 'client/views/index.html');
                 } else{
                     var user = FI.syncUser(uid);
                     if(!user){
@@ -36,6 +36,9 @@ var actions = {
         }else{
             return res.sendfile('client/views/index.html');
         }
+    },
+    getUserInfo: function(req,res){
+        res.send( res.session.user );
     },
     signinpage: function(req, res){
         res.sendfile('client/views/signin.html');

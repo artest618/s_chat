@@ -3,7 +3,7 @@ var FI = {
         return false;
     },
     checkSigned: function(uid){
-        return false;
+        return true;
     }
 }
 

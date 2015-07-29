@@ -33,4 +33,10 @@ var util={};
         curr = new Date().Format(fmt);
         return curr;
     };
+
+    util.isMobile = function(req){
+        var ua = req.headers['user-agent'];
+        console.log(ua);
+        return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
+    }
 module.exports=util;
