@@ -27,40 +27,77 @@ var CounselorService = {
      * @param callback
      */
     createCounselor: function(userInfo, callback){
+        var self= this;
+        var sql = "INSERT INTO TB_USERINFO (uid, name, cname, usertype, groupcount, createdate)  " +
+                  "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3, 3, '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
+        var msg = "创建成功",msg_error = "顾问已存在，请不要重复创建";
+            this.queryCounselor(userInfo,function(vals){
+                if(vals.length==0){
+                    JDB.oper(sql, function(result){
+                        if(result){
+                            console.log(JSON.stringify(result));
+                            //callback({"code":"10001","msg":msg});
+                            self.createCGroup(userInfo,function(c_g_r){
+                                if(c_g_r){
+                                    var new_arr=[];
+                                    //再根据uid 查询
+                                    self.queryGroupByOwer(userInfo.uid,function(all_group){
+                                        for(i in all_group){
+                                            new_arr.push({"group_name":all_group[i].groupname,"group_id":all_group[i].groupnum});
+                                        }
+                                        callback({"code":"10001","list":new_arr});
+                                    });
 
-        var sql = "INSERT INTO TB_USERINFO (uid, name, cname, usertype, groupcount, createdate)  VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 2, 3, '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
-        var msg="创建成功",msg_error="顾问已存在，请不要重复创建";
-        this.queryCounselor(userInfo,function(vals){
-            if(vals.length==0){
-                JDB.oper(sql, function(result){
-                    if(result){
-                        console.log(JSON.stringify(result));
-                        callback({"code":"10001","msg":msg});
-                    }else{
-                        console.log('create Invalid');
-                    }
+                                }else{
+                                    console.log('create Invalid');
+                                }
+                            });
+                        }else{
+                            console.log('create Invalid');
+                        }
 
-                });
-            }else{
-                callback({"code":"10002","msg":msg_error});
-            }
+                    });
+                }else{
+                    callback({"code":"10002","msg":msg_error});
+                }
 
-        });
+            });
 
     },
     /**
      * 创建顾问所关联的群组
-     * @param name
+     * @param userInfo
      * @param callback
      */
-    createCGroup: function(name, callback){
+    createCGroup: function(userInfo, callback){
+        var sql , msg , msg_error ,self=this,admin_id=1;
+
+        //admin_id 为顾问群的拥有者的ID暂定为1,根据这个id查询组信息
+        self.queryGroupByOwer(admin_id,function(group){
+
+            sql =["INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户群")+"', 2, '"+(userInfo.uid+"_"+Math.ceil(Math.random()*1000))+"')",
+                "INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户经理群")+"',3, '"+(userInfo.uid+"_"+Math.ceil(Math.random()*1000))+"')",
+                "INSERT INTO TB_GROUP_USERLIST (userid, username, usercname, usertype, groupid, jointime) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3,'"+group[0].id+"', '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')"
+            ] ;
+
+            JDB.oper(sql, function(result){
+                callback(result);
+            });
+
+        });
 
     },
-    /**
-     * 加入顾问群
-     */
-    joinCounselors:function(){
 
+    /**
+     * 根据owner 查询组信息
+     * @param ower_id
+     * @param callback
+     */
+    queryGroupByOwer:function(ower_id,callback){
+        var sql = 'SELECT * FROM TB_GROUPLIST WHERE OWNER=\'' + ower_id + '\'';
+        JDB.query(sql, function(err, vals, fields){
+            callback(vals);
+        });
     }
 };
 
