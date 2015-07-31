@@ -8,7 +8,8 @@ var actions = {
     root: function(req, res){
         if (req.session.user == null) {
             //res.redirect('/signin');
-            var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req);
+            var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req)，
+                send_target = ua ? 'client/views/index_m.html' : 'client/views/index.html';
             if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
@@ -21,7 +22,7 @@ var actions = {
                 if(flag){
                     req.session.user = JSON.stringify(user);
                     console.log(JSON.stringify(user));
-                    return res.sendfile(ua ? 'client/views/index_m.html' : 'client/views/index.html');
+                    return res.sendfile(send_target);
                 } else{
                     var user = FI.syncUser(uid);
                     if(!user){
@@ -29,7 +30,7 @@ var actions = {
                     }
                     userSerivce.addUser(user, function(){
                         req.session.user = user;
-                        return res.sendfile('client/views/index.html');
+                        return res.sendfile(send_target);
                     });
                     return;
                 }

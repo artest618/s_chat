@@ -2,7 +2,7 @@
  * Created by tony on 15-7-26.
  */
 var JDB=require("../mysqldbfactory.js");
-var util=require("../util.js");
+var _util=require("../_util.js");
 
 /**
  * 顾问相关信息
@@ -29,7 +29,7 @@ var CounselorService = {
     createCounselor: function(userInfo, callback){
         var self= this;
         var sql = "INSERT INTO TB_USERINFO (uid, name, cname, usertype, groupcount, createdate)  " +
-                  "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3, 3, '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
+                  "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3, 3, '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
         var msg = "创建成功",msg_error = "顾问已存在，请不要重复创建";
             this.queryCounselor(userInfo,function(vals){
                 if(vals.length==0){
@@ -75,9 +75,9 @@ var CounselorService = {
         //admin_id 为顾问群的拥有者的ID暂定为1,根据这个id查询组信息
         self.queryGroupByOwer(admin_id,function(group){
 
-            sql =["INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户群")+"', 2, '"+(userInfo.uid+"_"+Math.ceil(Math.random()*1000))+"')",
-                "INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户经理群")+"',3, '"+(userInfo.uid+"_"+Math.ceil(Math.random()*1000))+"')",
-                "INSERT INTO TB_GROUP_USERLIST (userid, username, usercname, usertype, groupid, jointime) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3,'"+group[0].id+"', '"+util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')"
+            sql =["INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户群")+"', 2, '"+(userInfo.uid+"_"+Math.floor(Math.random()*(10000000000-1000+1)+1000))+"')",
+                "INSERT INTO TB_GROUPLIST (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户经理群")+"',3, '"+(userInfo.uid+"_"+Math.floor(Math.random()*(10000000000-1000+1)+1000))+"')",
+                "INSERT INTO TB_GROUP_USERLIST (userid, username, usercname, usertype, groupid, jointime) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3,'"+group[0].id+"', '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')"
             ] ;
 
             JDB.oper(sql, function(result){

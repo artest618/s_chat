@@ -1,7 +1,7 @@
 /**
  * Created by tony on 15-7-26.
  */
-var util={};
+var _util={};
     /**
      *
      * 对Date的扩展，将 Date 转化为指定格式的String
@@ -12,7 +12,7 @@ var util={};
      * (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
      * @param fmt
      */
-    util.dateFormat=function(fmt){
+    _util.dateFormat=function(fmt){
         var curr;
 
         Date.prototype.Format = function (fmt) {
@@ -34,9 +34,9 @@ var util={};
         return curr;
     };
 
-    util.isMobile = function(req){
+    _util.isMobile = function(req){
         var ua = req.headers['user-agent'];
         console.log(ua);
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
     }
-module.exports=util;
+module.exports=_util;
