@@ -3,12 +3,13 @@ define("common", ['zepto'], function($){
     return _t = {
         processing: 0,
         post: function(params){
+            var p = params;
             $.ajax({
-                url: params.url || '',
-                type: params.method || 'post',
-                data: params.data,
+                url: p.url || '',
+                type: p.method || 'post',
+                data: p.data,
                 success: function(data){
-                    params.success(data);
+                    p.success(data);
                 },
                 beforeSend: function(xhr){
                     _t.processing++;
@@ -17,24 +18,30 @@ define("common", ['zepto'], function($){
                     }
                 },
                 error: function(xhr, status, err){
-                    params.error(err);
+                    p.error(err);
                 },
                 complete: function(xhr, status){
                     _t.processing--;
                     setTimeout(function(){
-                        if(_t.processing > 0){
+                        if(_t.processing <= 0){
                             _t.hideLoading();
                         }
-                    }, 500);
+                    }, 1);
                 }
             });
         },
         showLoading: function(){
-            $("body").append("<div id='loaddingmask'><div style='width:100%;height:100%;opacity: 0.5;position:fixed;background-color:white;z-index: 998;'></div>" +
-                "<img src='../images/loading.gif' style='position:fixed;top:20%;margin: 0 auto;z-index: 999;' /></div>")
+            $("body").prepend("<div id='loaddingmask' style='width:100%;height:100%;position: fixed;z-index: 999;'><div style='width:100%;height:100%;opacity: 0.5;position:fixed;background-color:white;'></div>" +
+                "<img src='../images/loading.gif' style='top:20%; left: 48%;position:relative;' /></div>")
         },
         hideLoading: function(){
-            $("body").removeChild($("#loaddingmask"));
-        }
+            $('#loaddingmask').remove();
+        },
+        urlparams: (function(){
+            var str = '{"' + window.location.search.replace(/\?/,'').replace(/&/g, '","').replace(/=/g, '":"') + '"}';
+            var up = JSON.parse(str);
+            console.log(up);
+            return up;
+        })()
     }
 });

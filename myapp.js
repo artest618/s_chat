@@ -52,6 +52,11 @@ var routedefines = [
         'method': 'post'
     },
     {
+        'pathname': '/chatList',
+        'handler': actions.getChatList,
+        'method': 'post'
+    },
+    {
         'pathname': '/createCounselor',
         'handler': actions.createCounselor,
         'method': 'get'

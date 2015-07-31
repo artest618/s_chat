@@ -1,13 +1,14 @@
-var userSerivce = require('./services/user.js');
+var userSerivce = require('./services/user');
 var FI = require('./services/finterfaces');
-var CounselorService=require("./services/counselor.js");
-var util = require("./util.js")
+var CounselorService=require("./services/counselor");
+var chatService = require('./services/chats');
+var util = require("./util");
 
 var actions = {
     root: function(req, res){
         if (req.session.user == null) {
             //res.redirect('/signin');
-            var uid = req.query.uid, pid = req.query.pid, ua = util.isMobile(req);
+            var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req);
             if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
@@ -39,14 +40,22 @@ var actions = {
     },
     getUserInfo: function(req,res){
         console.log('get user info....');
+        console.log(req.body);
+        var tid = req.body.tid;
         if(! req.session.user){
             return res.redirect('/signin');
         }
-        res.send( req.session.user );
+        userSerivce.checkuser(tid, function(f, user){
+            res.send( [JSON.parse(req.session.user), user]);
+        });
     },
     getChatList: function(req, res){
-        var user = JSON.parse(req.session.user);
-
+        var user = req.session.user;
+        console.log(user);
+        chatService.getChatList(user.uid, function(data){
+            console.log('.......................');
+            res.send(data);
+        }, function(err){});
     },
     signinpage: function(req, res){
         res.sendfile('client/views/signin.html');

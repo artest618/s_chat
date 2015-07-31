@@ -20,9 +20,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     $dom(function(){
         Common.post({
             url: '/getUserInfo',
-            data: {'name': '1111'},
-            sucess: function(data){
-                app.user = data;
+            data: {tid: Common.urlparams.tid},
+            success: function(data){
+                app.users = data;
             },
             error: function(err){
 
@@ -30,7 +30,14 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         });
 
         Common.post({
+            url: '/chatList',
+            data: {},
+            success: function(data){
+                if(data.length < 0){
 
+                }
+            },
+            error: function(err){}
         })
     });
 });
