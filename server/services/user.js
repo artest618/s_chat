@@ -10,7 +10,7 @@ var UserService = {
                 onerror && onerror(err);
             }
             for(var i in vals){
-                if(vals[i].delflag == 1){
+                if(vals[i].delflag == 0){
                     onsuccess(true, vals[i]);
                     return;
                 }

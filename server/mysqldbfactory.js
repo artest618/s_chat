@@ -4,7 +4,7 @@ var mysql=require("mysql");
 var pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
-    password: '1q2w3e4r',
+    password: '123456',
     database: 'chat',
     port: 3306
 });
@@ -15,6 +15,7 @@ JDB = {
             if(err){
                 callback(err,null,null);
             }else{
+                console.log(sql);
                 conn.query(sql,function(qerr,vals,fields){
                     //释放连接
                     conn.release();
@@ -33,6 +34,7 @@ JDB = {
                   if(terr){throw terr;}
                   console.log("start transaction...");
                   function excutesql(sql, i){
+                      console.log(sql);
                       conn.query(sql, function(qerr, result){
                           if(qerr){
                               conn.rollback(function(){

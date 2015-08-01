@@ -33,7 +33,7 @@ CREATE TABLE `tb_grouplist` (
 -- ----------------------------
 -- Records of tb_grouplist
 -- ----------------------------
-INSERT INTO `tb_grouplist` VALUES ('3', '1', '管理员', '管理员', '顾问群', '1', '1_1000');
+INSERT INTO `tb_grouplist` (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (1, '管理员', '管理员', '顾问群', '1', '1_1000');
 
 -- ----------------------------
 -- Table structure for tb_group_userlist
@@ -68,7 +68,7 @@ CREATE TABLE `tb_userinfo` (
   `headicon` varchar(1024) DEFAULT 'images/headers/default.png' COMMENT '头像',
   `groupcount` int(2) unsigned zerofill DEFAULT '00' COMMENT '拥有群数',
   `createdate` TIMESTAMP COMMENT '创建时间',
-  `delflag` int(1) DEFAULT '0' COMMENT '删除标记 0 代表已删除 1代表未删除',
+  `delflag` int(1) DEFAULT '0' COMMENT '删除标记 0 代表未删除 1代表已删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
@@ -99,6 +99,6 @@ DROP TABLE IF EXISTS `tb_contacthistory_list`;
 CREATE TABLE `tb_contacthistory_list`(
   `user` int(9) NOT NULL COMMENT '用户ID',
   `toid` int(9) NOT NULL COMMENT '聊天对象id',
-  `totype` int(2) NOT NULL COMMENT '聊天对象类型',
-  `lastchattime` datetime  COMMENT '最后一次聊天时间'
+  `totype` int(2) NOT NULL COMMENT '聊天对象类型 1为顾问/客户 2为群',
+  `lastchattime` TIMESTAMP  COMMENT '最后一次聊天时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='聊天列表'

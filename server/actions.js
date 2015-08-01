@@ -2,15 +2,15 @@ var userSerivce = require('./services/user');
 var FI = require('./services/finterfaces');
 var CounselorService=require("./services/counselor");
 var chatService = require('./services/chats');
-var util = require("./util");
+var util = require("./_util");
 
 var actions = {
     root: function(req, res){
         if (req.session.user == null) {
             //res.redirect('/signin');
-            var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req)，
+            var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
                 send_target = ua ? 'client/views/index_m.html' : 'client/views/index.html';
-            if(!uid){
+            if(!uid || !tid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
@@ -20,7 +20,7 @@ var actions = {
             }
             userSerivce.checkuser(uid, function(flag, user){
                 if(flag){
-                    req.session.user = JSON.stringify(user);
+                    req.session.user = user;
                     console.log(JSON.stringify(user));
                     return res.sendfile(send_target);
                 } else{
@@ -40,21 +40,43 @@ var actions = {
         }
     },
     getUserInfo: function(req,res){
-        console.log('get user info....');
-        console.log(req.body);
         var tid = req.body.tid;
         if(! req.session.user){
             return res.redirect('/signin');
         }
+        console.log('get user info....');
         userSerivce.checkuser(tid, function(f, user){
-            res.send( [JSON.parse(req.session.user), user]);
+            req.session.counselor = user;
+            res.send( [req.session.user, user]);
         });
     },
     getChatList: function(req, res){
-        var user = req.session.user;
-        console.log(user);
+        var user = req.session.user, counselor = req.session.counselor;
+        console.log(typeof user);
+        console.log(typeof counselor);
         chatService.getChatList(user.uid, function(data){
             console.log('.......................');
+            var isNew = true;
+            for(var i in data){
+                var u = data[i];
+                if(u.uid == counselor.uid){
+                    isNew = false;
+                }
+            }
+            if(isNew){
+                var chat = {
+                    user: user.uid,
+                    toid: counselor.uid,
+                    totype: 1,
+                    name: counselor.name,
+                    cname: counselor.cname,
+                    headicon: counselor.headicon,
+                    lastchattime: new Date().toDateString()
+                }
+                data.unshift(chat);
+                chatService.addChat(chat);
+            }
+            console.log(data);
             res.send(data);
         }, function(err){});
     },

@@ -38,5 +38,5 @@ var _util={};
         var ua = req.headers['user-agent'];
         console.log(ua);
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
-    }
+    };
 module.exports=_util;
