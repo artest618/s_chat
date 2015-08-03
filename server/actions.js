@@ -6,7 +6,7 @@ var util = require("./_util");
 
 var actions = {
     root: function(req, res){
-        if (req.session.user == null) {
+        if (!req.session.sessiondata || !req.session.sessiondata.user) {
             //res.redirect('/signin');
             var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
                 send_target = ua ? 'client/views/index_m.html' : 'client/views/index.html';
@@ -20,7 +20,7 @@ var actions = {
             }
             userSerivce.checkuser(uid, function(flag, user){
                 if(flag){
-                    req.session.user = user;
+                    req.session.sessiondata = {user: user};
                     console.log(JSON.stringify(user));
                     return res.sendfile(send_target);
                 } else{
@@ -29,7 +29,7 @@ var actions = {
                         return res.redirect('/signin');
                     }
                     userSerivce.addUser(user, function(){
-                        req.session.user = user;
+                        req.session.sessiondata = {user: user};
                         return res.sendfile(send_target);
                     });
                     return;
@@ -41,19 +41,20 @@ var actions = {
     },
     getUserInfo: function(req,res){
         var tid = req.body.tid;
-        if(! req.session.user){
+        if(!req.session.sessiondata || !req.session.sessiondata.user){
             return res.redirect('/signin');
         }
         console.log('get user info....');
         userSerivce.checkuser(tid, function(f, user){
-            req.session.counselor = user;
-            console.log(req.session);
-            res.send( [req.session.user, user]);
+            req.session.sessiondata.counselor = user;
+            req.session.save();
+            console.log(req.session.sessiondata);
+            res.send( [req.session.sessiondata.user, user]);
         });
     },
     getChatList: function(req, res){
-        console.log(req.session);
-        var user = req.session.user, counselor = req.session.counselor;
+        console.log(req.session.sessiondata);
+        var user = req.session.sessiondata.user, counselor = req.session.sessiondata.counselor;
         console.log(typeof user);
         console.log(typeof counselor);
         chatService.getChatList(user.uid, function(data){
@@ -91,16 +92,16 @@ var actions = {
             res.redirect('/signin');
         } else {
             //不存在，把用户名存入 cookie 并跳转到主页
-            req.session.user = req.body.name;
+            req.session.sessiondata.user = req.body.name;
 //            res.session("user", req.body.name, {maxAge: 1000*60*60*24*30});
             res.redirect('/');
         }
     },
     getSignedUser: function(req, res){
-        if(req.session.user == null){
+        if(req.session.sessiondata.user == null){
             res.redirect('/signin');
         } else {
-            res.send({name: req.session.user});
+            res.send({name: req.session.sessiondata.user});
         }
     },
     /**
