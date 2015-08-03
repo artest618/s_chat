@@ -4,6 +4,10 @@ define('zepto', ['../js/zepto'], function(){
     return Zepto;
 });
 
+//define('io.socket', ['/socket.io/socket.io'], function(){
+//
+//});
+
 require.config({
     baseUrl: '../js',
     waitSeconds: 30,
@@ -14,16 +18,24 @@ require.config({
     }
 });
 
-var app = {};
+var app = {
+    from: '',
+    to: ''
+};
 
 require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
+    var socket = io.connect();
+
     $dom(function(){
         Common.post({
-            url: '/getUserInfo',
+            url: 'getUserInfo',
             data: {tid: Common.urlparams.tid},
             success: function(data){
                 app.users = data;
+                app.from = data[0];
+                app.to = data[1];
                 initChatList();
+                socket.emit('online', {user: app.from});
             },
             error: function(err){
 
@@ -33,29 +45,28 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
     function initChatList(){
         Common.post({
-            url: '/chatList',
+            url: 'chatList',
             data: {},
             success: function(data){
-                //var a = {
-                //    "user": 3631549,
-                //    "toid": 7788872,
-                //    "totype": 1,
-                //    "lastchattime": "2015-08-01T06:47:13.000Z",
-                //    "id": 12,
-                //    "uid": "007788872",
-                //    "name": "Zhang San5429276",
-                //    "cname": "����",
-                //    "usertype": 1,
-                //    "headicon": "../images/icon/mail.png",
-                //    "groupcount": "00",
-                //    "createdate": "2015-08-01T03:49:37.000Z",
-                //    "delflag": 0
-                //}
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
                 $(".contactlistview").html(ejs);
             },
             error: function(err){}
         })
     }
+
+    socket.on('online', function (data) {
+        //显示系统消息
+        if (data.user.uid != app.from.uid) {
+            //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 上线了！</div>';
+        } else {
+            //var sys = '<div style="color:#f00">系统(' + now() + '):你进入了聊天室！</div>';
+        }
+        $("#contents").append(sys + "<br/>");
+        //刷新用户在线列表
+        flushUsers(data.users);
+        //显示正在对谁说话
+        showSayTo();
+    });
 });
 

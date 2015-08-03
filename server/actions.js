@@ -47,10 +47,12 @@ var actions = {
         console.log('get user info....');
         userSerivce.checkuser(tid, function(f, user){
             req.session.counselor = user;
+            console.log(req.session);
             res.send( [req.session.user, user]);
         });
     },
     getChatList: function(req, res){
+        console.log(req.session);
         var user = req.session.user, counselor = req.session.counselor;
         console.log(typeof user);
         console.log(typeof counselor);
