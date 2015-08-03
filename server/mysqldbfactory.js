@@ -38,7 +38,7 @@ JDB = {
                       conn.query(sql, function(qerr, result){
                           if(qerr){
                               conn.rollback(function(){
-                                  console.log(sql);
+                                 console.log(sql);
                                   throw qerr;
                               });
                               excutedtracor[i] = {

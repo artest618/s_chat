@@ -103,8 +103,8 @@ var actions = {
     },
     /**
      * 创建顾问
-     * @param req
-     * @param res
+     * @param req.query.uid
+     * @param res.query.uanme
      */
     createCounselor:function(req,res){
         CounselorService.createCounselor({uid: req.query.uid,uname:req.query.uname},function(res_obj){
