@@ -28,7 +28,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
     $dom(function(){
         Common.post({
-            url: '/getUserInfo',
+            url: 'getUserInfo',
             data: {tid: Common.urlparams.tid},
             success: function(data){
                 app.users = data;
@@ -45,7 +45,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
     function initChatList(){
         Common.post({
-            url: '/chatList',
+            url: 'chatList',
             data: {},
             success: function(data){
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
