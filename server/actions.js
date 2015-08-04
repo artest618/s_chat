@@ -87,7 +87,7 @@ var actions = {
                         cname: counselor.cname,
                         headicon: counselor.headicon,
                         lastchattime: new Date().toDateString()
-                    }
+                    };
                     data.unshift(chat);
                     chatService.addChat(chat);
                 }

@@ -33,7 +33,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             success: function(data){
                 app.users = data;
                 app.from = data[0];
-                app.to = data[1];
+                app.to = data[1].uid;
                 initChatList();
                 socket.emit('online', {user: app.from});
             },
@@ -48,6 +48,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             url: 'chatList',
             data: {},
             success: function(data){
+                app.chatUsers = data;
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
                 $(".contactlistview").html(ejs);
             },
@@ -55,8 +56,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         })
     }
 
-    function showChatHistory(){
-
+    function showChatHistory(tid){
+        app.to = tid;
     }
 
     socket.on('online', function (data) {
@@ -76,6 +77,41 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         //flushUsers(data.users);
         ////显示正在对谁说话
         //showSayTo();
+    });
+    socket.on('offline', function (data) {
+        //显示系统消息
+        var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 下线了！</div>';
+        $("#contents").append(sys + "<br/>");
+        //刷新用户在线列表
+        flushUsers(data.users);
+        //如果正对某人聊天，该人却下线了
+        if (data.user == to) {
+            to = "all";
+        }
+        //显示正在对谁说话
+        showSayTo();
+    });
+    //服务器关闭
+    socket.on('disconnect', function() {
+        var sys = '<div style="color:#f00">系统:连接服务器失败！</div>';
+        //$("#contents").append(sys + "<br/>");
+        //$("#list").empty();
+    });
+    //重新启动服务器
+    socket.on('reconnect', function() {
+        var sys = '<div style="color:#f00">系统:重新连接服务器！</div>';
+        //$("#contents").append(sys + "<br/>");
+        //socket.emit('online', {user: from});
+    });
+    socket.on('say', function (data) {
+        //别人对自己发的消息
+        if (data.to == app.users[0].uid) {
+            $("#contents").append('<div>' + data.from + '(' + now() + ')对 所有人 说：<br/>' + data.msg + '</div><br />');
+        }
+        //对你密语
+        if (data.to == from) {
+            $("#contents").append('<div style="color:#00f" >' + data.from + '(' + now() + ')对 你 说：<br/>' + data.msg + '</div><br />');
+        }
     });
 });
 
