@@ -33,7 +33,6 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             success: function(data){
                 app.users = data;
                 app.from = data[0];
-                app.to = data[1].uid;
                 initChatList();
                 socket.emit('online', {user: app.from});
             },
@@ -51,6 +50,12 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 app.chatUsers = data;
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
                 $(".contactlistview").html(ejs);
+                if(app.from.usertype != 3){
+                    showChatHistory(app.users[1].uid);
+                }
+                $('.contactlistview').find('li').on('click', function(e){
+                    showChatHistory($(e.target).find('span').attr('tid'));
+                });
             },
             error: function(err){}
         })
@@ -58,6 +63,35 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
     function showChatHistory(tid){
         app.to = tid;
+        var user = {};
+        for(var i in app.chatUsers){
+            if(app.chatUsers[i].toid == tid){
+                user = app.chatUsers[i];
+            }
+        }
+        $('.box .box-in').hide();
+        if($('#' + tid).length <= 0){
+            var ejs = new EJS({url: "views/tmpls/msgwindow.ejs"}).render({chat: {
+                id: app.to,
+                to_cname: user.cname
+            }});
+            $('.box').append(ejs);
+            $('#' + tid).find('.btnclose').on('click', function(){
+                $('#' + tid).remove();
+            });
+            $('#' + tid).find('.btnsend').on('click', function(){
+                var msg = $('#' + tid).find('.inputmsg').val();
+                var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
+                    cname: app.from.cname,
+                    datetime: Common.formatDate(new Date()),
+                    msg: msg.replace(/\n/g, '<br />')
+                }});
+                $('#' + tid).find('.l-c1-c3').append(ejs);
+                $('#' + tid).find('.inputmsg').val('');
+                socket.emit('say', {from: app.from.uid, to: app.to, fromname:app.from.cname, toname:user.cname, msg: msg});
+            });
+        }
+        $('#' + tid).show();
     }
 
     socket.on('online', function (data) {

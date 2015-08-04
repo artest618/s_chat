@@ -46,6 +46,10 @@ define("common", ['zepto'], function($){
             var up = JSON.parse(str);
             console.log(up);
             return up;
-        })()
+        })(),
+        formatDate: function(date){
+            return date.getYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' +
+                date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        }
     }
 });
