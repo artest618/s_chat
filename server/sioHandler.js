@@ -15,11 +15,11 @@ var handlers = {
     
     disconnect: function(socket, data, io){
         //若 users 对象中保存了该用户名
-        if (users[socket.name]) {
+        if (users[socket.uid]) {
             //从 users 对象中删除该用户名
-            delete users[socket.name];
+            delete users[socket.uid];
             //向其他所有用户广播该用户下线信息
-            socket.broadcast.emit('offline', {users: users, user: socket.name});
+            socket.broadcast.emit('offline', {users: users, user: users[socket.uid]});
         }
     },
     

@@ -9,6 +9,10 @@ define("common", ['zepto'], function($){
                 type: p.method || 'post',
                 data: p.data,
                 success: function(data){
+                    if(data.error){
+                        alert(data.error);
+                        return;
+                    }
                     p.success(data);
                 },
                 beforeSend: function(xhr){

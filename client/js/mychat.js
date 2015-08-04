@@ -55,18 +55,27 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         })
     }
 
+    function showChatHistory(){
+
+    }
+
     socket.on('online', function (data) {
         //显示系统消息
         if (data.user.uid != app.from.uid) {
             //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 上线了！</div>';
+            $('.contactlistview').find('li').each(function(i, item){
+                if($(item).find('span').attr('tid') == parseInt(data.user.uid) ) {
+                    $(item).find('span').css('color', 'blue');
+                }
+            });
         } else {
             //var sys = '<div style="color:#f00">系统(' + now() + '):你进入了聊天室！</div>';
         }
-        $("#contents").append(sys + "<br/>");
-        //刷新用户在线列表
-        flushUsers(data.users);
-        //显示正在对谁说话
-        showSayTo();
+        //$("#contents").append(sys + "<br/>");
+        ////刷新用户在线列表
+        //flushUsers(data.users);
+        ////显示正在对谁说话
+        //showSayTo();
     });
 });
 

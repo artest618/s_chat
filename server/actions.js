@@ -6,11 +6,10 @@ var util = require("./_util");
 
 var actions = {
     root: function(req, res){
+        var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
+            send_target = ua ? 'client/views/index_m.html' : 'client/views/index.html';
         if (!req.session.sessiondata || !req.session.sessiondata.user) {
-            //res.redirect('/signin');
-            var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
-                send_target = ua ? 'client/views/index_m.html' : 'client/views/index.html';
-            if(!uid || !tid){
+            if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
@@ -30,54 +29,68 @@ var actions = {
                     }
                     userSerivce.addUser(user, function(){
                         req.session.sessiondata = {user: user};
+                        console.log(req.session.sessiondata);
                         return res.sendfile(send_target);
                     });
                     return;
                 }
             });
         }else{
-            return res.sendfile('client/views/index.html');
+            return res.sendfile(send_target);
         }
     },
     getUserInfo: function(req,res){
-        var tid = req.body.tid;
         if(!req.session.sessiondata || !req.session.sessiondata.user){
-            return res.redirect('/signin');
+            return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
         }
+        var tid = req.body.tid, user = req.session.sessiondata.user;
         console.log('get user info....');
-        userSerivce.checkuser(tid, function(f, user){
-            req.session.sessiondata.counselor = user;
+        if(user.usertype == 3){
+            res.send( [req.session.sessiondata.user]);
+        }else if(!tid){
+            throw new Error({error: '指定顾问对象不正确'});
+        }
+        userSerivce.checkuser(tid, function(f, csr){
+            if(user.usertype != 3 && csr.usertype != 3){
+                console.log('指定交谈对象非顾问，请联系管理员');
+                res.send({error: '指定交谈对象非顾问，请联系管理员'});
+                return;
+            }
+            req.session.sessiondata.counselor = csr;
             req.session.save();
             console.log(req.session.sessiondata);
-            res.send( [req.session.sessiondata.user, user]);
+            res.send( [req.session.sessiondata.user, csr]);
         });
     },
     getChatList: function(req, res){
         console.log(req.session.sessiondata);
         var user = req.session.sessiondata.user, counselor = req.session.sessiondata.counselor;
-        console.log(typeof user);
-        console.log(typeof counselor);
+        if(user.usertype != 3 && !counselor){
+            throw new Error("顾问不存在!");
+        }
         chatService.getChatList(user.uid, function(data){
             console.log('.......................');
-            var isNew = true;
-            for(var i in data){
-                var u = data[i];
-                if(u.uid == counselor.uid){
-                    isNew = false;
+            if(user.usertype != 3){
+                var isNew = true;
+                for(var i in data){
+                    var u = data[i];
+                    if(u.uid == counselor.uid){
+                        isNew = false;
+                    }
                 }
-            }
-            if(isNew){
-                var chat = {
-                    user: user.uid,
-                    toid: counselor.uid,
-                    totype: 1,
-                    name: counselor.name,
-                    cname: counselor.cname,
-                    headicon: counselor.headicon,
-                    lastchattime: new Date().toDateString()
+                if(isNew){
+                    var chat = {
+                        user: user.uid,
+                        toid: counselor.uid,
+                        totype: 1,
+                        name: counselor.name,
+                        cname: counselor.cname,
+                        headicon: counselor.headicon,
+                        lastchattime: new Date().toDateString()
+                    }
+                    data.unshift(chat);
+                    chatService.addChat(chat);
                 }
-                data.unshift(chat);
-                chatService.addChat(chat);
             }
             console.log(data);
             res.send(data);

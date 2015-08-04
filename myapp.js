@@ -64,7 +64,25 @@ var routedefines = [
 ];
 
 for(var i=0; i<routedefines.length; i++){
-    app[routedefines[i].method].apply(app, [routedefines[i].pathname, routedefines[i].handler], users) ;
+    var handle = (function bb(i){
+        var handler = routedefines[i].handler;
+        var method = routedefines[i].method;
+        return function (req, res){
+            try{
+                console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
+                handler(req, res);
+            }catch(e){
+                console.log(e);
+                if(method == 'post'){
+                    res.send({error: "服务器正忙，请稍后再试..."});
+                }
+                else {
+                    res.redirect('/');
+                }
+            }
+        }
+    })(i);
+    app[routedefines[i].method].apply(app, [routedefines[i].pathname, handle], users) ;
 }
 
 var users = {};
