@@ -82,7 +82,7 @@ var actions = {
                     var chat = {
                         user: user.uid,
                         toid: counselor.uid,
-                        totype: 1,
+                        totype: 3,
                         name: counselor.name,
                         cname: counselor.cname,
                         headicon: counselor.headicon,
@@ -95,6 +95,28 @@ var actions = {
             console.log(data);
             res.send(data);
         }, function(err){});
+    },
+    //顾问在被用户会话时，列表中添加对该用户的会话
+    addChat:function(req, res){
+        var uid = req.body.uid, tid=req.body.tid;
+        console.log(req.query);
+        userSerivce.checkuser(tid, function(flag, user){
+            if(flag){
+                var chat = {
+                    user: uid,
+                    toid: tid,
+                    totype: 1,
+                    name: user.name,
+                    cname: user.cname,
+                    headicon: user.headicon,
+                    lastchattime: new Date().toDateString()
+                };
+                chatService.addChat(chat);
+                res.send([chat]);
+            } else{
+                throw new Error('服务器错误');
+            }
+        });
     },
     signinpage: function(req, res){
         res.sendfile('client/views/signin.html');

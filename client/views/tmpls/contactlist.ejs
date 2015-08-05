@@ -1,5 +1,5 @@
 <%for(var i=0; i<data.length; i++){%>
 <li class="mt20 w160 current">
-    <span class="f14 color3" tid="<%=data[i].toid%>"><%=data[i].cname%></span>
+    <span class="f14 color3" id="contact_<%=parseInt(data[i].toid)%>" tid="<%=parseInt(data[i].toid)%>"><%=data[i].cname%></span>
 </li>
 <%}%>

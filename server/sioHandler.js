@@ -33,7 +33,7 @@ var handlers = {
             var clients = io.sockets.clients();
             //遍历找到该用户
             clients.forEach(function (client) {
-                if (client.name == data.to) {
+                if (client.uid == data.to) {
                     //触发该用户客户端的 say 事件
                     client.emit('say', data);
                 }

@@ -20,7 +20,8 @@ require.config({
 
 var app = {
     from: '',
-    to: ''
+    to: '',
+    addingchat: {}
 };
 
 require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
@@ -62,7 +63,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     }
 
     function showChatHistory(tid){
-        app.to = tid;
+        tid = parseInt(tid), app.to = tid;
         var user = {};
         for(var i in app.chatUsers){
             if(app.chatUsers[i].toid == tid){
@@ -113,17 +114,17 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         //showSayTo();
     });
     socket.on('offline', function (data) {
-        //显示系统消息
-        var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 下线了！</div>';
-        $("#contents").append(sys + "<br/>");
-        //刷新用户在线列表
-        flushUsers(data.users);
-        //如果正对某人聊天，该人却下线了
-        if (data.user == to) {
-            to = "all";
-        }
-        //显示正在对谁说话
-        showSayTo();
+        ////显示系统消息
+        //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 下线了！</div>';
+        //$("#contents").append(sys + "<br/>");
+        ////刷新用户在线列表
+        //flushUsers(data.users);
+        ////如果正对某人聊天，该人却下线了
+        //if (data.user == to) {
+        //    to = "all";
+        //}
+        ////显示正在对谁说话
+        //showSayTo();
     });
     //服务器关闭
     socket.on('disconnect', function() {
@@ -139,12 +140,40 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     });
     socket.on('say', function (data) {
         //别人对自己发的消息
+        data.from = parseInt(data.from), data.to = parseInt(data.to);
         if (data.to == app.users[0].uid) {
-            $("#contents").append('<div>' + data.from + '(' + now() + ')对 所有人 说：<br/>' + data.msg + '</div><br />');
-        }
-        //对你密语
-        if (data.to == from) {
-            $("#contents").append('<div style="color:#00f" >' + data.from + '(' + now() + ')对 你 说：<br/>' + data.msg + '</div><br />');
+            if($('#contact_' + data.from).length <= 0){
+                if(!app.addingchat[data.from]){
+                    app.addingchat[data.from] = true;
+                    Common.post({
+                        url: 'addChat',
+                        data: {uid: data.to, tid: data.from},
+                        success: function(data){
+                            app.chatUsers = app.chatUsers.concat(data);
+                            var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
+                            $(".contactlistview").append(ejs);
+                            app.addingchat[data.from] = false;
+                            $('#contact_' + data.from).css('color', 'red');
+                            $('.contactlistview').find('li').unbind('click').on('click', function(e){
+                                showChatHistory($(e.target).find('span').attr('tid'));
+                            });
+                        },
+                        error: function(err){}
+                    });
+                }
+            }
+            else if($('#' + data.from).length <= 0){
+                $('#contact_' + data.from).css('color', 'red');
+            }else{
+                var msg = $('#' + data.from).find('.inputmsg').val();
+                var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
+                    cname: data.fromname,
+                    datetime: Common.formatDate(new Date()),
+                    msg: data.msg.replace(/\n/g, '<br />')
+                }});
+                $('#' + data.from).find('.l-c1-c3').append(ejs);
+            }
+            //$("#contents").append('<div>' + data.from + '(' + now() + ')对 所有人 说：<br/>' + data.msg + '</div><br />');
         }
     });
 });

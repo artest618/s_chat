@@ -60,6 +60,11 @@ var routedefines = [
         'pathname': '/createCounselor',
         'handler': actions.createCounselor,
         'method': 'get'
+    },
+    {
+        'pathname': '/addChat',
+        'handler': actions.addChat,
+        'method': 'post'
     }
 ];
 
