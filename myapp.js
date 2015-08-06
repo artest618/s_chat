@@ -65,6 +65,11 @@ var routedefines = [
         'pathname': '/addChat',
         'handler': actions.addChat,
         'method': 'post'
+    },
+    {
+        'pathname': '/chatHistory',
+        'handler': actions.chatHistory,
+        'method': 'post'
     }
 ];
 
@@ -72,12 +77,18 @@ for(var i=0; i<routedefines.length; i++){
     var handle = (function bb(i){
         var handler = routedefines[i].handler;
         var method = routedefines[i].method;
+        var path = routedefines[i].pathname;
         return function (req, res){
             try{
                 console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
+                if(path != '/' && !req.session.sessiondata){
+                    res.send({error: "您还未登录，请登录后再试"});
+                    return ;
+                }
                 handler(req, res);
             }catch(e){
                 console.log(e);
+                console.log(e.stack);
                 if(method == 'post'){
                     res.send({error: "服务器正忙，请稍后再试..."});
                 }

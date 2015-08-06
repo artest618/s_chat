@@ -21,6 +21,7 @@ require.config({
 var app = {
     from: '',
     to: '',
+    chattype: 'single',
     addingchat: {}
 };
 
@@ -52,17 +53,18 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
                 $(".contactlistview").html(ejs);
                 if(app.from.usertype != 3){
-                    showChatHistory(app.users[1].uid);
+                    showChatView(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
-                    showChatHistory($(e.target).find('span').attr('tid'));
+                    showChatView($(e.target).find('span').attr('tid'));
+                    app.chattype = 'single';
                 });
             },
             error: function(err){}
-        })
+        });
     }
 
-    function showChatHistory(tid){
+    function showChatView(tid){
         tid = parseInt(tid), app.to = tid;
         var user = {};
         for(var i in app.chatUsers){
@@ -77,6 +79,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 to_cname: user.cname
             }});
             $('.box').append(ejs);
+
+            getHistoryMsg(tid);
+
             $('#' + tid).find('.btnclose').on('click', function(){
                 $('#' + tid).remove();
             });
@@ -89,10 +94,44 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 }});
                 $('#' + tid).find('.l-c1-c3').append(ejs);
                 $('#' + tid).find('.inputmsg').val('');
-                socket.emit('say', {from: app.from.uid, to: app.to, fromname:app.from.cname, toname:user.cname, msg: msg});
+                socket.emit('say', {
+                    from: app.from.uid,
+                    to: app.to,
+                    fromname:app.from.cname,
+                    toname:user.cname,
+                    fromtype: app.from.usertype,
+                    totype: user.totype,
+                    chattype: app.chattype,
+                    msg: msg
+                });
             });
         }
         $('#' + tid).show();
+    }
+
+    function getHistoryMsg(tid){
+        var tid = parseInt(tid);
+        Common.post({
+            url: 'chatHistory',
+            data: {tid: tid, chattype: app.chattype},
+            success: function(data){
+                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data, user: app.from.uid}});
+                $('#' + tid).find('.l-c1-c3').append(ejs);
+                $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                //$('#' + data.from).find('.l-c1-c3').scrollTop($('#' + data.from).find('.l-c1-c3')[0].scrollHeight);
+                //app.chatUsers = data;
+                //var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
+                //$(".contactlistview").html(ejs);
+                //if(app.from.usertype != 3){
+                //    showChatView(app.users[1].uid);
+                //}
+                //$('.contactlistview').find('li').on('click', function(e){
+                //    showChatView($(e.target).find('span').attr('tid'));
+                //    app.chattype = 'single';
+                //});
+            },
+            error: function(err){}
+        });
     }
 
     socket.on('online', function (data) {
@@ -155,7 +194,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                             app.addingchat[data.from] = false;
                             $('#contact_' + data.from).css('color', 'red');
                             $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                showChatHistory($(e.target).find('span').attr('tid'));
+                                showChatView($(e.target).find('span').attr('tid'));
                             });
                         },
                         error: function(err){}

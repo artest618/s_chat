@@ -3,6 +3,7 @@ var FI = require('./services/finterfaces');
 var CounselorService=require("./services/counselor");
 var chatService = require('./services/chats');
 var util = require("./_util");
+var msgService = require('./services/message');
 
 var actions = {
     root: function(req, res){
@@ -116,6 +117,14 @@ var actions = {
             } else{
                 throw new Error('服务器错误');
             }
+        });
+    },
+    chatHistory: function(req, res){
+        var tid = req.body.tid,
+            chattype=req.body.chattype,
+            user = req.session.sessiondata.user;
+        msgService.readMsg(tid, chattype, user, function(data){
+            res.send(data);
         });
     },
     signinpage: function(req, res){

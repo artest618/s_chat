@@ -1,0 +1,39 @@
+<%
+for(var i in data.msgs){
+    if( parseInt(data.msgs[i].id) == parseInt(data.user) ){
+%>
+<div class="mt20 clear">
+    <div class="row p15">
+        <div class="row-l fleft">
+            <img src="../images/pic_r1_c1.jpg" alt="" class="border">
+
+        </div>
+        <div class="row-r fleft p15 mt5">
+            <div>
+                <span class="f14 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datatime%></span>
+            </div>
+            <div class="row-r-in border3 bgcolor7">
+                <span class="f14"><%=data.msgs[i].message%></span>
+                <em class="ls"></em>
+            </div>
+        </div>
+    </div>
+</div>
+<% } else { %>
+<div class="mt20 clear">
+    <div class="row p15 ">
+        <div class="row-l fright mright">
+            <img src="../images/pic_r1_c1.jpg" alt="" class="border">
+        </div>
+        <div class="row-r fright p15">
+            <div class="tright">
+                <span class="f14 p25 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datatime%></span>
+            </div>
+            <div class="row-r-in mt5 border2 bgcolor5">
+                <span class="f14"><%=data.msgs[i].message%></span>
+                <em class="rs"></em>
+            </div>
+        </div>
+    </div>
+</div>
+<%}}%>

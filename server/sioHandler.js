@@ -1,3 +1,4 @@
+var message = require('./services/message');
 var users = {};
 var handlers = {
     online: function(socket, data, io){
@@ -35,6 +36,7 @@ var handlers = {
             clients.forEach(function (client) {
                 if (client.uid == data.to) {
                     //触发该用户客户端的 say 事件
+                    message.addMessage(data);
                     client.emit('say', data);
                 }
             });
