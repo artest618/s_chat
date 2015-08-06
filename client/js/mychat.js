@@ -49,15 +49,17 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             url: 'chatList',
             data: {},
             success: function(data){
-                app.chatUsers = data;
-                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
+                app.chatUsers = data.schat.concat(data.gchat);
+                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data.schat, chattype: 'single'});
                 $(".contactlistview").html(ejs);
+                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data.gchat, chattype: 'gchat'});
+                $(".contactlistview").append(ejs);
                 if(app.from.usertype != 3){
                     showChatView(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
+                    app.chattype = $(e.target).find('span').attr('chattype');
                     showChatView($(e.target).find('span').attr('tid'));
-                    app.chattype = 'single';
                 });
             },
             error: function(err){}
@@ -68,15 +70,18 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         tid = parseInt(tid), app.to = tid;
         var user = {};
         for(var i in app.chatUsers){
-            if(app.chatUsers[i].toid == tid){
+            if(app.chatUsers[i].toid == tid || app.chatUsers[i].groupid == tid){
                 user = app.chatUsers[i];
             }
         }
         $('.box .box-in').hide();
         if($('#' + tid).length <= 0){
-            var ejs = new EJS({url: "views/tmpls/msgwindow.ejs"}).render({chat: {
+            var url = app.chattype == 'single' ? 'views/tmpls/msgwindow.ejs' : 'views/tmpls/g_msgwindow.ejs';
+            var ejs = new EJS({url: url}).render({chat: {
                 id: app.to,
-                to_cname: user.cname
+                to_cname: user.cname || user.groupname,
+                user: app.from.uid,
+                gowner: user.owner
             }});
             $('.box').append(ejs);
 
@@ -98,9 +103,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     from: app.from.uid,
                     to: app.to,
                     fromname:app.from.cname,
-                    toname:user.cname,
+                    toname:user.cname || user.groupname,
                     fromtype: app.from.usertype,
-                    totype: user.totype,
+                    totype: user.totype || user.grouptype,
                     chattype: app.chattype,
                     msg: msg
                 });

@@ -69,6 +69,10 @@ var actions = {
         if(user.usertype != 3 && !counselor){
             throw new Error("顾问不存在!");
         }
+        var list = {
+            schat: [],
+            gchat: []
+        }
         chatService.getChatList(user.uid, function(data){
             console.log('.......................');
             if(user.usertype != 3){
@@ -93,8 +97,12 @@ var actions = {
                     chatService.addChat(chat);
                 }
             }
-            console.log(data);
-            res.send(data);
+            list.schat = data;
+            chatService.getUserGroupList(user.uid, function(data){
+                list.gchat = data;
+                console.log(list);
+                res.send(list);
+            }, function(err){});
         }, function(err){});
     },
     //顾问在被用户会话时，列表中添加对该用户的会话

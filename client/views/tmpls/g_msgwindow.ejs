@@ -27,17 +27,12 @@
             </div>
         </div>
         <div class="box-c-r fleft">
-            <div class="r-c1">
-                <img src="../images/pc.jpg" alt="">
+            <div class="mberlist"></div>
+            <%if(!(chat.gowner == 1 || chat.gowner == chat.user) ){%>
+            <div class="foot">
+                <span class="f14 color3 tright">退群</span>
             </div>
-            <div class="r-c2 mt20">
-                <p class="p15">
-                    <span>欢迎访问蜜蜂金融，我是智能顾问蜜蜂，请问有什么可以帮助您？</span>
-                </p>
-            </div>
-            <div class="r-c3 mt32">
-                <button class="btns cf f16">申请加群</button>
-            </div>
+            <%}%>
         </div>
     </div>
 </div>

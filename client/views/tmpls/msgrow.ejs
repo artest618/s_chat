@@ -13,7 +13,7 @@ for(var i in data.msgs){
                 <span class="f14 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datatime%></span>
             </div>
             <div class="row-r-in border3 bgcolor7">
-                <span class="f14"><%=data.msgs[i].message%></span>
+                <span class="f14"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
                 <em class="ls"></em>
             </div>
         </div>
@@ -30,7 +30,7 @@ for(var i in data.msgs){
                 <span class="f14 p25 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datatime%></span>
             </div>
             <div class="row-r-in mt5 border2 bgcolor5">
-                <span class="f14"><%=data.msgs[i].message%></span>
+                <span class="f14"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
                 <em class="rs"></em>
             </div>
         </div>

@@ -51,6 +51,8 @@ CREATE TABLE `tb_group_userlist` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='群成员列表';
 
+-- insert into tb_group_userlist values (14814529, 'Zhang San1716823', '张三', 3, 14, null);
+
 -- ----------------------------
 -- Records of tb_group_userlist
 -- ----------------------------
