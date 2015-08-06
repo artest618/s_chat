@@ -1,6 +1,6 @@
 <%
 for(var i in data.msgs){
-    if( parseInt(data.msgs[i].id) == parseInt(data.user) ){
+    if( parseInt(data.msgs[i].id) != parseInt(data.user) ){
 %>
 <div class="mt20 clear">
     <div class="row p15">

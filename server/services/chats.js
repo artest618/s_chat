@@ -34,6 +34,26 @@ var chatService = {
             }
             onsuccess(vals);
         });
+    },
+    getAllGroup: function(onsuccess, onerror){
+        var sql = 'SELECT * FROM TB_GROUPLIST';
+        JDB.query(sql,function(err,vals,fields){
+            if(err) {
+                console.log(JSON.stringify(err));
+                onerror && onerror(err);
+            }
+            onsuccess(vals);
+        });
+    },
+    getGroupMebers: function(gid, onsuccess, onerror){
+        var sql = 'SELECT * FROM TB_USERINFO WHERE UID IN (SELECT USERID FROM TB_GROUP_USERLIST WHERE GROUPID=' + gid + ')';
+        JDB.query(sql,function(err,vals,fields){
+            if(err) {
+                console.log(JSON.stringify(err));
+                onerror && onerror(err);
+            }
+            onsuccess(vals);
+        });
     }
 }
 

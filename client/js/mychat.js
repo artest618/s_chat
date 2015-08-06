@@ -109,6 +109,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     chattype: app.chattype,
                     msg: msg
                 });
+                $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
             });
         }
         $('#' + tid).show();
@@ -183,41 +184,62 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         //socket.emit('online', {user: from});
     });
     socket.on('say', function (data) {
-        //别人对自己发的消息
         data.from = parseInt(data.from), data.to = parseInt(data.to);
-        if (data.to == app.users[0].uid) {
-            if($('#contact_' + data.from).length <= 0){
-                if(!app.addingchat[data.from]){
-                    app.addingchat[data.from] = true;
-                    Common.post({
-                        url: 'addChat',
-                        data: {uid: data.to, tid: data.from},
-                        success: function(data){
-                            app.chatUsers = app.chatUsers.concat(data);
-                            var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
-                            $(".contactlistview").append(ejs);
-                            app.addingchat[data.from] = false;
-                            $('#contact_' + data.from).css('color', 'red');
-                            $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                showChatView($(e.target).find('span').attr('tid'));
-                            });
-                        },
-                        error: function(err){}
-                    });
+        data.from = parseInt(data.from), data.to = parseInt(data.to);
+        if(data.chattype == 'gchat'){
+            //群聊消息
+            if(data.from != parseInt(app.from.uid)){ //非自己发的群消息
+                if($('#' + data.to).length <= 0){
+                    $('#contact_' + data.to).css('color', 'red');
+                }
+                else{
+                    var msg = $('#' + data.from).find('.inputmsg').val();
+                    var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
+                        cname: data.fromname,
+                        datetime: Common.formatDate(new Date()),
+                        msg: data.msg.replace(/\n/g, '<br />')
+                    }});
+                    $('#' + data.to).find('.l-c1-c3').append(ejs);
+                    $('#' + data.to).find('.l-c1-c3')[0].scrollTop = $('#' + data.to).find('.l-c1-c3')[0].scrollHeight;
                 }
             }
-            else if($('#' + data.from).length <= 0){
-                $('#contact_' + data.from).css('color', 'red');
-            }else{
-                var msg = $('#' + data.from).find('.inputmsg').val();
-                var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
-                    cname: data.fromname,
-                    datetime: Common.formatDate(new Date()),
-                    msg: data.msg.replace(/\n/g, '<br />')
-                }});
-                $('#' + data.from).find('.l-c1-c3').append(ejs);
+        }else{
+            //别人给自己发的消息
+            if (data.to == app.users[0].uid ){
+                if($('#contact_' + data.from).length <= 0){
+                    if(!app.addingchat[data.from]){
+                        app.addingchat[data.from] = true;
+                        Common.post({
+                            url: 'addChat',
+                            data: {uid: data.to, tid: data.from},
+                            success: function(data){
+                                app.chatUsers = app.chatUsers.concat(data);
+                                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
+                                $(".contactlistview").append(ejs);
+                                app.addingchat[data.from] = false;
+                                $('#contact_' + data.from).css('color', 'red');
+                                $('.contactlistview').find('li').unbind('click').on('click', function(e){
+                                    showChatView($(e.target).find('span').attr('tid'));
+                                });
+                            },
+                            error: function(err){}
+                        });
+                    }
+                }
+                else if($('#' + data.from).length <= 0){
+                    $('#contact_' + data.from).css('color', 'red');
+                }else{
+                    var msg = $('#' + data.from).find('.inputmsg').val();
+                    var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
+                        cname: data.fromname,
+                        datetime: Common.formatDate(new Date()),
+                        msg: data.msg.replace(/\n/g, '<br />')
+                    }});
+                    $('#' + data.from).find('.l-c1-c3').append(ejs);
+                    $('#' + data.from).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
+                }
+                //$("#contents").append('<div>' + data.from + '(' + now() + ')对 所有人 说：<br/>' + data.msg + '</div><br />');
             }
-            //$("#contents").append('<div>' + data.from + '(' + now() + ')对 所有人 说：<br/>' + data.msg + '</div><br />');
         }
     });
 });
