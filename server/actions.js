@@ -8,7 +8,7 @@ var msgService = require('./services/message');
 var actions = {
     root: function(req, res){
         var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
-            send_target = ua ? 'client/views/index_m.html' : 'client/views/index.html';
+            send_target = ua ? 'client/views/biunique_chat.html' : 'client/views/index.html';
         if (!req.session.sessiondata || !req.session.sessiondata.user) {
             if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
@@ -52,7 +52,7 @@ var actions = {
             throw new Error({error: '指定顾问对象不正确'});
         }
         userSerivce.checkuser(tid, function(f, csr){
-            if(user.usertype != 3 && csr.usertype != 3){
+            if(user.usertype != 3 && csr && csr.usertype != 3){
                 console.log('指定交谈对象非顾问，请联系管理员');
                 res.send({error: '指定交谈对象非顾问，请联系管理员'});
                 return;
