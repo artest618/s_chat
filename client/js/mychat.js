@@ -68,11 +68,18 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
     function showChatView(tid){
         tid = parseInt(tid), app.to = tid;
-        var user = {};
+        var user = {}, joinedGroup = false;
         for(var i in app.chatUsers){
             if(app.chatUsers[i].toid == tid || app.chatUsers[i].groupid == tid){
                 user = app.chatUsers[i];
             }
+            //从群列表中查询用户是否已加入当前顾问的对应群
+            if(app.chatUsers[i].groupid && app.chatUsers[i].owner && parseInt(app.chatUsers[i].owner) == tid){
+                joinedGroup = true;
+            }
+        }
+        if(user.usertype != 3 || app.from.usertype == 3){
+            joinedGroup = true;
         }
         $('.box .box-in').hide();
         if($('#' + tid).length <= 0){
@@ -81,11 +88,13 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 id: app.to,
                 to_cname: user.cname || user.groupname,
                 user: app.from.uid,
-                gowner: user.owner
+                gowner: user.owner,
+                joinedGroup: joinedGroup
             }});
             $('.box').append(ejs);
 
             getHistoryMsg(tid);
+            app.chattype == 'gchat' && getGroupUsers(tid);
 
             $('#' + tid).find('.btnclose').on('click', function(){
                 $('#' + tid).remove();
@@ -111,8 +120,91 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 });
                 $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
             });
+            $('#' + tid).find('.applyGroup').on('click', function(){
+                Common.post({
+                    url: 'applyToGroup',
+                    data: {owner: tid},
+                    success: function(data){
+                        var chat = {
+                            id: data.id,
+                            userid: app.from.uid,
+                            username: app.from.name,
+                            usercname: app.from.cname,
+                            usertype: app.from.usertype,
+                            groupid: data.id,
+                            owner: data.owner,
+                            ownername: data.ownername,
+                            ownercname: data.ownercname,
+                            groupname: data.groupname,
+                            grouptype: data.grouptype,
+                            groupnum: data.groupnum
+                        }
+                        app.chatUsers.push(chat);
+                        var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: [chat], chattype: 'gchat'});
+                        $(".contactlistview").append(ejs);
+                        $('.contactlistview').find('li').unbind('click').on('click', function(e){
+                            app.chattype = $(e.target).find('span').attr('chattype');
+                            showChatView($(e.target).find('span').attr('tid'));
+                        });
+                    },
+                    error: function(err){
+
+                    }
+                });
+            });
         }
         $('#' + tid).show();
+    }
+
+    function getGroupUsers(tid){
+        Common.post({
+            url: 'getGroupUsers',
+            data: {tid: tid},
+            success: function(data){
+                var ejs = new EJS({url: "views/tmpls/groupuserlist_r.ejs"}).render({users: data});
+                $("#" + tid).find('.mberlist').append(ejs);
+                if(app.from.usertype == 3){
+                    $('#' + tid).find('.guserlist_r').on('click', function(e){
+                        var uid = $(e.target).attr('uid'), user;
+                        if(uid == app.from.uid){
+                            return;
+                        }
+                        for(var i in data){
+                            if(data[i].uid == uid){
+                                user = data[i];
+                            }
+                        }
+                        if($('#contact_' + parseInt(uid)).length <= 0){
+                            app.chatUsers.push(user);
+                            if(!app.addingchat[uid]){
+                                app.addingchat[uid] = true;
+                                Common.post({
+                                    url: 'addChat',
+                                    data: {uid: app.from.uid, tid: uid},
+                                    success: function(data){
+                                        var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data, chattype:'single'});
+                                        $(".contactlistview").append(ejs);
+                                        app.addingchat[uid] = false;
+                                        $('.contactlistview').find('li').unbind('click').on('click', function(e){
+                                            showChatView($(e.target).find('span').attr('tid'));
+                                        });
+                                        app.chattype = 'single';
+                                        showChatView(uid);
+                                    },
+                                    error: function(err){}
+                                });
+                            }
+                        }else{
+                            app.chattype = 'single';
+                            showChatView(uid);
+                        }
+                    });
+                }
+            },
+            error: function(err){
+
+            }
+        });
     }
 
     function getHistoryMsg(tid){
@@ -214,7 +306,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                             data: {uid: data.to, tid: data.from},
                             success: function(data){
                                 app.chatUsers = app.chatUsers.concat(data);
-                                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
+                                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data, chattype: data.chattype});
                                 $(".contactlistview").append(ejs);
                                 app.addingchat[data.from] = false;
                                 $('#contact_' + data.from).css('color', 'red');

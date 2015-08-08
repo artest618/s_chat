@@ -1,0 +1,10 @@
+<%for(var i in users){%>
+<div class="r-c1 mt20 p15 guserlist_r" uid="<%=users[i].uid%>">
+    <div class="r-c1-l fleft" uid="<%=users[i].uid%>">
+        <img src="../images/pic_r1_c1.jpg" alt="" class="border" uid="<%=users[i].uid%>">
+    </div>
+    <div class="r-c1-r fleft mt5" uid="<%=users[i].uid%>">
+        <span class="f14" uid="<%=users[i].uid%>"><%=users[i].cname%></span>
+    </div>
+</div>
+<%}%>

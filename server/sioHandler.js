@@ -1,21 +1,6 @@
 var message = require('./services/message');
-var chatService = require('./services/chats');
 
 var users = {};
-var group_user_list = {};
-
-function initGroupInfo(){
-    chatService.getAllGroup(function(groups){
-        for(var i in groups){
-            group_user_list[groups[i].id] = groups[i];
-            chatService.getGroupMebers(groups[i].id, function(members){
-                group_user_list[groups[i].id].members = members;
-            });
-        }
-    });
-}
-initGroupInfo();
-setInterval(initGroupInfo, 10*60*1000);
 
 
 var handlers = {
@@ -56,11 +41,9 @@ var handlers = {
             });
         }else{
             clients.forEach(function(client){
-                console.log(group_user_list[data.to]);
-                for(var i in group_user_list[data.to].members){
-                    console.log('find user...................')
-                    if(parseInt(client.uid) == parseInt(group_user_list[data.to].members[i].uid)){
-                        console.log('emit to user.................')
+                console.log(global.group_user_list[data.to].members);
+                for(var i in global.group_user_list[data.to].members){
+                    if(parseInt(client.uid) == parseInt(global.group_user_list[data.to].members[i].uid)){
                         client.emit('say', data);
                     }
                 }

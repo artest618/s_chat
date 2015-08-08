@@ -32,6 +32,18 @@ var UserService = {
         JDB.oper([sql], function(res){
             onsuccess(res);
         })
+    },
+    checkUserCanAddGroup: function(user){
+        if(user.usertype != 3 && user.groupcount >= 3){
+            return false;
+        }
+        return true;
+    },
+    updateUserGroupCounts: function(user, count, onsuccess, onerror){
+        var sql = 'UPDATE TB_USERINFO SET GROUPCOUNT=' + count + ' where uid=' + user.uid;
+        JDB.oper([sql], function(res){
+            onsuccess && onsuccess(res);
+        });
     }
 }
 

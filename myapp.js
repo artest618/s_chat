@@ -4,6 +4,7 @@ var express = require('express'),
       path = require('path'),
       actions = require('./server/actions.js'),
       sioHandler = require('./server/sioHandler.js');
+require('./server/globalcache');
 
 var app = express();
 
@@ -69,6 +70,16 @@ var routedefines = [
     {
         'pathname': '/chatHistory',
         'handler': actions.chatHistory,
+        'method': 'post'
+    },
+    {
+        'pathname': '/applyToGroup',
+        'handler': actions.applyToGroup,
+        'method': 'post'
+    },
+    {
+        'pathname': '/getGroupUsers',
+        'handler': actions.getGroupUsers,
         'method': 'post'
     }
 ];

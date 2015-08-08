@@ -135,6 +135,43 @@ var actions = {
             res.send(data);
         });
     },
+    applyToGroup: function(req, res){
+        var user = req.session.sessiondata.user, owner=req.body.owner, group;//group = global.group_user_list[req.body.gid];
+        for(var i in global.group_user_list){
+            //该判定仅适合客户和客户经理，顾问加群请勿使用本action
+            if(global.group_user_list[i].owner == owner && user.usertype+1 == global.group_user_list[i].grouptype){
+                group = global.group_user_list[i];
+                group.members.push(user);
+            }
+        }
+        for(var i in group.members){
+            if(group.members[i].uid == user.uid){
+                res.send({error: '您已加入了该群，请勿重复申请'});
+                return;
+            }
+        }
+        if(userSerivce.checkUserCanAddGroup(user)){
+            chatService.addGroupMember(group, user, function(rlt){
+                if(rlt){
+                    user.groupcount = parseInt(user.groupcount) + 1;
+                    userSerivce.updateUserGroupCounts(user, user.groupcount, function(){});
+                    var g = JSON.parse(JSON.stringify(group));
+                    delete g.members;
+                    res.send(group);
+                    return;
+                }else{
+                    res.send(false);
+                }
+            });
+        }
+        else{
+            res.send({error: '每位用户最多只能加入3个客户群或客户经理群！'});
+        }
+    },
+    getGroupUsers: function(req, res){
+        var tid = req.body.tid;
+        res.send(global.group_user_list[tid].members);
+    },
     signinpage: function(req, res){
         res.sendfile('client/views/signin.html');
     },
