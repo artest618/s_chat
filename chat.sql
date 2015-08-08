@@ -68,9 +68,9 @@ CREATE TABLE `tb_userinfo` (
   `cname` varchar(16) NOT NULL COMMENT '中文名称',
   `usertype` int(2) NOT NULL COMMENT '用户类型 1.客户2.客户经理3.顾问',
   `headicon` varchar(1024) DEFAULT 'images/headers/default.png' COMMENT '头像',
-  `groupcount` int(2) unsigned zerofill DEFAULT '00' COMMENT '拥有群数',
+  `groupcount` int(2) DEFAULT 0 COMMENT '拥有群数',
   `createdate` TIMESTAMP COMMENT '创建时间',
-  `delflag` int(1) DEFAULT '0' COMMENT '删除标记 0 代表未删除 1代表已删除',
+  `delflag` int(1) DEFAULT 0 COMMENT '删除标记 0 代表未删除 1代表已删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户信息表';

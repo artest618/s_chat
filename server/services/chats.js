@@ -54,6 +54,13 @@ var chatService = {
             }
             onsuccess(vals);
         });
+    },
+    addGroupMember: function(group, user, onsuccess){
+        var sql = "INSERT INTO TB_GROUP_USERLIST (USERID, USERNAME, USERCNAME, USERTYPE, GROUPID, JOINTIME) VALUES (" +
+                user.uid + ",'" + user.name + "','" + user.cname + "'," + user.usertype + "," + group.id + ",null)";
+        JDB.oper([sql], function(res){
+            onsuccess && onsuccess(res);
+        });
     }
 }
 
