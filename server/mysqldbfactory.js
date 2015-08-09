@@ -13,6 +13,7 @@ JDB = {
     query: function(sql,callback){
         pool.getConnection(function(err,conn){
             if(err){
+                console.log(err);
                 callback(err,null,null);
             }else{
                 console.log(sql);
