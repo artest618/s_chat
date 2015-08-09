@@ -144,6 +144,7 @@ var actions = {
                 group.members.push(user);
             }
         }
+        console.log(group);
         for(var i in group.members){
             if(group.members[i].uid == user.uid){
                 res.send({error: '您已加入了该群，请勿重复申请'});
