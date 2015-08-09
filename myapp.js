@@ -9,7 +9,7 @@ require('./server/globalcache');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3030);
+app.set('port', process.env.PORT || 9003);
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -92,7 +92,7 @@ for(var i=0; i<routedefines.length; i++){
         return function (req, res){
             try{
                 console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
-                if(path != '/' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }
@@ -101,7 +101,7 @@ for(var i=0; i<routedefines.length; i++){
                 console.log(e);
                 console.log(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再试..."});
+                    res.send({error: "服务器正忙，请稍后再�?..."});
                 }
                 else {
                     res.redirect('/');
