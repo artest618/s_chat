@@ -36,7 +36,7 @@ var chatService = {
         });
     },
     getAllGroup: function(onsuccess, onerror){
-        var sql = 'SELECT * FROM TB_GROUPLIST';
+        var sql = 'SELECT * FROM tb_grouplist';
         JDB.query(sql,function(err,vals,fields){
             if(err) {
                 console.log(JSON.stringify(err));
