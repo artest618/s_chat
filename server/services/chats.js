@@ -46,7 +46,7 @@ var chatService = {
         });
     },
     getGroupMebers: function(gid, onsuccess, onerror){
-        var sql = 'SELECT * FROM TB_USERINFO WHERE UID IN (SELECT USERID FROM TB_GROUP_USERLIST WHERE GROUPID=' + gid + ')';
+        var sql = 'SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=' + gid + ')';
         JDB.query(sql,function(err,vals,fields){
             if(err) {
                 console.log(JSON.stringify(err));
@@ -56,7 +56,7 @@ var chatService = {
         });
     },
     addGroupMember: function(group, user, onsuccess){
-        var sql = "INSERT INTO TB_GROUP_USERLIST (USERID, USERNAME, USERCNAME, USERTYPE, GROUPID, JOINTIME) VALUES (" +
+        var sql = "INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (" +
                 user.uid + ",'" + user.name + "','" + user.cname + "'," + user.usertype + "," + group.id + ",null)";
         JDB.oper([sql], function(res){
             onsuccess && onsuccess(res);
