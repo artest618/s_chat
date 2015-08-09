@@ -59,7 +59,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 }
                 $('.contactlistview').find('li').on('click', function(e){
                     app.chattype = $(e.target).find('span').attr('chattype');
-                    showChatView($(e.target).find('span').attr('tid'));
+                    showChatView($(e.target).attr('tid'));
                 });
             },
             error: function(err){}
@@ -144,7 +144,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                         $(".contactlistview").append(ejs);
                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
                             app.chattype = $(e.target).find('span').attr('chattype');
-                            showChatView($(e.target).find('span').attr('tid'));
+                            showChatView($(e.target).attr('tid'));
                         });
                     },
                     error: function(err){
@@ -311,7 +311,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                                 app.addingchat[data.from] = false;
                                 $('#contact_' + data.from).css('color', 'red');
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                    showChatView($(e.target).find('span').attr('tid'));
+                                    showChatView($(e.target).attr('tid'));
                                 });
                             },
                             error: function(err){}
