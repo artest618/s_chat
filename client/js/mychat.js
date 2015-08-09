@@ -58,7 +58,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     showChatView(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
-                    app.chattype = $(e.target).find('span').attr('chattype');
+                    app.chattype = $(e.target).attr('chattype');
                     showChatView($(e.target).attr('tid'));
                 });
             },
@@ -143,7 +143,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                         var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: [chat], chattype: 'gchat'});
                         $(".contactlistview").append(ejs);
                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                            app.chattype = $(e.target).find('span').attr('chattype');
+                            app.chattype = $(e.target).attr('chattype');
                             showChatView($(e.target).attr('tid'));
                         });
                     },
@@ -187,6 +187,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                                         app.addingchat[uid] = false;
                                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
                                             showChatView($(e.target).attr('tid'));
+                                            app.chattype = $(e.target).attr('chattype');
                                         });
                                         app.chattype = 'single';
                                         showChatView(uid);
@@ -312,6 +313,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                                 $('#contact_' + data.from).css('color', 'red');
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
                                     showChatView($(e.target).attr('tid'));
+                                    app.chattype = $(e.target).attr('chattype');
                                 });
                             },
                             error: function(err){}
