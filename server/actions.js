@@ -141,16 +141,15 @@ var actions = {
             //该判定仅适合客户和客户经理，顾问加群请勿使用本action
             if(global.group_user_list[i].owner == owner && user.usertype+1 == global.group_user_list[i].grouptype){
                 group = global.group_user_list[i];
-                group.members.push(user);
             }
         }
-        console.log(group);
         for(var i in group.members){
             if(group.members[i].uid == user.uid){
                 res.send({error: '您已加入了该群，请勿重复申请'});
                 return;
             }
         }
+        group.members.push(user);
         if(userSerivce.checkUserCanAddGroup(user)){
             chatService.addGroupMember(group, user, function(rlt){
                 if(rlt){
