@@ -9,6 +9,7 @@ function initGroupInfo(){
             function initUser(i){
                 chatService.getGroupMebers(groups[i].id, function(members){
                     global.group_user_list[groups[i].id].members = members;
+                    console.log(global.group_user_list);
                 });
             }
             initUser(i);
