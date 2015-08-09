@@ -81,7 +81,20 @@ var CounselorService = {
             ] ;
 
             JDB.oper(sql, function(result){
-                callback(result);
+
+                self.queryGroupByOwer(userInfo.uid,function(group){
+
+                    sql =[
+                        "INSERT INTO TB_GROUP_USERLIST (userid, username, usercname, usertype, groupid, jointime) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3,'"+group[0].id+"', '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')",
+                        "INSERT INTO TB_GROUP_USERLIST (userid, username, usercname, usertype, groupid, jointime) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3,'"+group[1].id+"', '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')"
+                    ] ;
+
+                    JDB.oper(sql, function(result){
+                        callback(result);
+                    });
+
+                });
+
             });
 
         });
