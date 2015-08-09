@@ -58,8 +58,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     showChatView(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
-                    app.chattype = $(e.target).find('span').attr('chattype');
-                    showChatView($(e.target).find('span').attr('tid'));
+                    app.chattype = $(e.target).attr('chattype');
+                    showChatView($(e.target).attr('tid'));
                 });
             },
             error: function(err){}
@@ -143,8 +143,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                         var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: [chat], chattype: 'gchat'});
                         $(".contactlistview").append(ejs);
                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                            app.chattype = $(e.target).find('span').attr('chattype');
-                            showChatView($(e.target).find('span').attr('tid'));
+                            app.chattype = $(e.target).attr('chattype');
+                            showChatView($(e.target).attr('tid'));
                         });
                     },
                     error: function(err){
@@ -186,7 +186,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                                         $(".contactlistview").append(ejs);
                                         app.addingchat[uid] = false;
                                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                            showChatView($(e.target).find('span').attr('tid'));
+                                            showChatView($(e.target).attr('tid'));
+                                            app.chattype = $(e.target).attr('chattype');
                                         });
                                         app.chattype = 'single';
                                         showChatView(uid);
@@ -311,7 +312,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                                 app.addingchat[data.from] = false;
                                 $('#contact_' + data.from).css('color', 'red');
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                    showChatView($(e.target).find('span').attr('tid'));
+                                    showChatView($(e.target).attr('tid'));
+                                    app.chattype = $(e.target).attr('chattype');
                                 });
                             },
                             error: function(err){}
