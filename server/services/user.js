@@ -2,7 +2,7 @@ var JDB=require("../mysqldbfactory.js");
 
 var UserService = {
     checkuser: function(uid, onsuccess, onerror){
-        var sql = 'SELECT * FROM TB_USERINFO WHERE UID=' + uid;
+        var sql = 'SELECT * FROM tb_userinfo WHERE uid=' + uid;
         JDB.query(sql,function(err,vals,fields){
             //console.log(JSON.stringify(vals));
             if(err){
@@ -19,14 +19,14 @@ var UserService = {
         });
     },
     checkuserByName: function(name, callback) {
-        var sql = 'SELECT * FROM TB_USERINFO WHERE NAME=\'' + name + '\'';
+        var sql = 'SELECT * FROM tb_userinfo WHERE name=\'' + name + '\'';
         JDB.query(sql, function (err, vals, fields) {
             callback(vals);
         });
     },
 
     addUser: function(user, onsuccess, onerror){
-        var sql = 'INSERT INTO TB_USERINFO (uid, name, cname, usertype, headicon) VALUES ('+
+        var sql = 'INSERT INTO tb_userinfo (uid, name, cname, usertype, headicon) VALUES ('+
             user.uid + ',\'' + user.name + '\',\'' + user.cname + '\',' +
             user.usertype + ',\'' + user.headicon + '\')';
         JDB.oper([sql], function(res){
@@ -40,7 +40,7 @@ var UserService = {
         return true;
     },
     updateUserGroupCounts: function(user, count, onsuccess, onerror){
-        var sql = 'UPDATE TB_USERINFO SET GROUPCOUNT=' + count + ' where uid=' + user.uid;
+        var sql = 'UPDATE tb_userinfo SET groupcount=' + count + ' where uid=' + user.uid;
         JDB.oper([sql], function(res){
             onsuccess && onsuccess(res);
         });
