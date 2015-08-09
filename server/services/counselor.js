@@ -32,7 +32,7 @@ var CounselorService = {
                   "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3, 3, '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
         var msg = "创建成功",msg_error = "顾问已存在，请不要重复创建";
             this.queryCounselor(userInfo,function(vals){
-                if(vals.length==0){
+                if(!vals || vals.length==0){
                     JDB.oper(sql, function(result){
                         if(result){
                             console.log(JSON.stringify(result));
