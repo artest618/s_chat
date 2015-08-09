@@ -186,7 +186,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                                         $(".contactlistview").append(ejs);
                                         app.addingchat[uid] = false;
                                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                            showChatView($(e.target).find('span').attr('tid'));
+                                            showChatView($(e.target).attr('tid'));
                                         });
                                         app.chattype = 'single';
                                         showChatView(uid);
