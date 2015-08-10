@@ -42,6 +42,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
             }
         });
+        window.onbeforeunload = function(){
+            return '您确认要离开聊天页面么？';
+        }
     });
 
     function initChatList(){
@@ -238,8 +241,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         if (data.user.uid != app.from.uid) {
             //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 上线了！</div>';
             $('.contactlistview').find('li').each(function(i, item){
-                if($(item).find('span').attr('tid') == parseInt(data.user.uid) ) {
-                    $(item).find('span').css('color', 'blue');
+                if($(item).attr('tid') == parseInt(data.user.uid) ) {
+                    $(item).addClass('current');
                 }
             });
         } else {
@@ -263,6 +266,11 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         //}
         ////显示正在对谁说话
         //showSayTo();
+        $('.contactlistview').find('li').each(function(i, item){
+            if($(item).attr('tid') == parseInt(data.uid) ) {
+                $(item).removeClass('current');
+            }
+        });
     });
     //服务器关闭
     socket.on('disconnect', function() {

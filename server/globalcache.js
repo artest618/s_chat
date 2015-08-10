@@ -17,3 +17,5 @@ function initGroupInfo(){
 }
 initGroupInfo();
 setInterval(initGroupInfo, 10*60*1000);
+
+global.onlineUsers = {};

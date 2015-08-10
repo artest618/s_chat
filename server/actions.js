@@ -74,7 +74,6 @@ var actions = {
             gchat: []
         }
         chatService.getChatList(user.uid, function(data){
-            console.log('.......................');
             if(user.usertype != 3){
                 var isNew = true;
                 for(var i in data){
@@ -97,6 +96,13 @@ var actions = {
                     chatService.addChat(chat);
                 }
             }
+            data.forEach(function(item){
+                if(global.onlineUsers[item.uid]){
+                    item.isOnline = 1;
+                } else {
+                    item.isOnline = 0;
+                }
+            });
             list.schat = data;
             chatService.getUserGroupList(user.uid, function(data){
                 list.gchat = data;
@@ -170,6 +176,13 @@ var actions = {
     },
     getGroupUsers: function(req, res){
         var tid = req.body.tid;
+        global.group_user_list[tid].members.forEach(function(item){
+            if(global.onlineUsers[item.uid]){
+                item.isOnline = 1;
+            } else {
+                item.isOnline = 0;
+            }
+        });
         res.send(global.group_user_list[tid].members);
     },
     signinpage: function(req, res){
@@ -203,6 +216,10 @@ var actions = {
                 console.log(res_obj);
                 res.send(res_obj);
         });
+    },
+    offline: function(req, res){
+        var uid = req.body.uid;
+        console.log(uid + ' is offline.................');
     }
 
 }
