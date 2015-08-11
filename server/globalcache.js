@@ -1,5 +1,6 @@
 var chatService = require('./services/chats');
 
+//缓存所有群信息和群用户列表
 global.group_user_list = {};
 
 function initGroupInfo(){
@@ -17,3 +18,6 @@ function initGroupInfo(){
 }
 initGroupInfo();
 setInterval(initGroupInfo, 10*60*1000);
+
+//在线用户数组
+global.onlineUsers = {};

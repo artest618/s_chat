@@ -12,8 +12,8 @@ var _util={};
      * (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
      * @param fmt
      */
-    _util.dateFormat=function(fmt){
-        var curr;
+    _util.dateFormat=function(fmt, date){
+        var curr = date && new Date(date) || new Date();
 
         Date.prototype.Format = function (fmt) {
             var o = {
@@ -30,8 +30,9 @@ var _util={};
                 if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
             return fmt;
         };
-        curr = new Date().Format(fmt);
-        return curr;
+        return curr.Format(fmt);
+        //curr = new Date().Format(fmt);
+        //return curr;
     };
 
     _util.isMobile = function(req){
@@ -40,5 +41,44 @@ var _util={};
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
     };
 
+    //用户消息存储根目录
     _util.msgroot = 'msgdata/';
+
+    //存储聊天记录的文件，单个文件的最大大小
+    //如果最后一条消息的大小特别大，文件实际大小可能会超过该值
+    _util.msgfileMaxSize = 102400;
+
+    //外部接口配置
+    _util.fifset = {
+        method: "POST",
+        host: "localhost",
+        port: 8080,
+        path: "",
+        headers: {
+            //"Content-Type": 'application/x-www-form-urlencoded',
+            "Content-Type": 'application/json',
+            "Content-Length": 0
+        }
+    };
+
+    _util.sendRequest = function(path, data, callback){
+        data = JSON.stringify(data);
+        _util.fifset.headers['Content-Length'] = data.length;
+        _util.fifset.path = path;
+        var req = http.request({}, function(serverFeedback){
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    callback(200, body);
+                });
+            }
+            else {
+                callback(500, {'error': '服务器返回错误'});
+            }
+        });
+        req.write(data + "\n");
+        req.end();
+    }
 module.exports=_util;

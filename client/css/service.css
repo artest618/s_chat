@@ -10,6 +10,7 @@
 .color2{color: #B7B1B1}
 .color3{color: #FF9348}
 .color4{color: #4F5A64;}
+.newmeg{color: red;}
 .f26{font-size: 26px;}
 .f20{font-size: 20px;}
 .f16{font-size: 16px;}
@@ -103,7 +104,9 @@
             right: 28px;
             background-image: url(../images/add.jpg);
             width:32px;
-            height: 32px; 
+            height: 32px;
+            display: block;
+            position: absolute;
 }
 
 .col-l{height: 80px;

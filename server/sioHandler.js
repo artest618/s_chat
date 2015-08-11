@@ -1,12 +1,12 @@
 var message = require('./services/message');
 
-var users = {};
+var users = global.onlineUsers;
 
 
 var handlers = {
     online: function(socket, data, io){
         //将上线的用户名存储为 socket 对象的属性，以区分每个 socket 对象，方便后面使用
-        console.log("my debug info:" + JSON.stringify(data));
+        console.log('用户' + data.user.uid + '上线了..........');
         var user = data.user;
         socket.uid = user.uid;
         //users 对象中不存在该用户名则插入该用户名
@@ -22,8 +22,9 @@ var handlers = {
         if (users[socket.uid]) {
             //从 users 对象中删除该用户名
             delete users[socket.uid];
+            console.log('user ' + socket.uid + ' disconnected............');
             //向其他所有用户广播该用户下线信息
-            socket.broadcast.emit('offline', {users: users, user: users[socket.uid]});
+            socket.broadcast.emit('offline', {uid: socket.uid});
         }
     },
     
