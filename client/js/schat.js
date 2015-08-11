@@ -42,9 +42,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
             }
         });
-        window.onbeforeunload = function(){
-            return '您确认要离开聊天页面么？';
-        }
+        //window.onbeforeunload = function(){
+        //    return '您确认要离开聊天页面么？';
+        //}
     });
 
     function initChatList(){
@@ -62,7 +62,10 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 }
                 $('.contactlistview').find('li').on('click', function(e){
                     app.chattype = $(e.target).attr('chattype');
-                    showChatView($(e.target).attr('tid'));
+                    var tid = $(e.target).attr('tid');
+                    showChatView(tid);
+                    $('#contact_' + tid).removeClass('newmeg');
+                    $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
                 });
             },
             error: function(err){}
@@ -84,7 +87,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         if(user.usertype != 3 || app.from.usertype == 3){
             joinedGroup = true;
         }
-        $('.box .box-in').hide();
+        $('.box .box-in').removeClass('currentW').hide();
         if($('#' + tid).length <= 0){
             var url = app.chattype == 'single' ? 'views/tmpls/msgwindow.ejs' : 'views/tmpls/g_msgwindow.ejs';
             var ejs = new EJS({url: url}).render({chat: {
@@ -147,7 +150,10 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                         $(".contactlistview").append(ejs);
                         $('.contactlistview').find('li').unbind('click').on('click', function(e){
                             app.chattype = $(e.target).attr('chattype');
-                            showChatView($(e.target).attr('tid'));
+                            var tid = $(e.target).attr('tid');
+                            showChatView(tid);
+                            $('#contact_' + tid).removeClass('newmeg');
+                            $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
                         });
                     },
                     error: function(err){
@@ -156,7 +162,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 });
             });
         }
-        $('#' + tid).show();
+        $('#' + tid).addClass('currentW').show();
+        $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
     }
 
     function getGroupUsers(tid){
@@ -287,13 +294,13 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     socket.on('say', function (data) {
         data.from = parseInt(data.from), data.to = parseInt(data.to);
         data.from = parseInt(data.from), data.to = parseInt(data.to);
+        //群聊消息
         if(data.chattype == 'gchat'){
-            //群聊消息
-            if(data.from != parseInt(app.from.uid)){ //非自己发的群消息
-                if($('#' + data.to).length <= 0){
-                    $('#contact_' + data.to).css('color', 'red');
-                }
-                else{
+            //别人发的群消息则显示，自己发的不重复显示
+            if(data.from != parseInt(app.from.uid)){
+                //如果消息窗口已经存在（已经点击过聊天列表中对应联系人，聊天窗口已被初始化过或已聊过天）
+                //将消息直接添加到聊天窗口
+                if($('#' + data.to).length > 0){
                     var msg = $('#' + data.from).find('.inputmsg').val();
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
@@ -303,34 +310,50 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     $('#' + data.to).find('.l-c1-c3').append(ejs);
                     $('#' + data.to).find('.l-c1-c3')[0].scrollTop = $('#' + data.to).find('.l-c1-c3')[0].scrollHeight;
                 }
+                //当前聊天窗口并非消息要显示的窗口，提示消息
+                if($('.box .currentW').attr('id') != data.to){
+                    $('#contact_' + data.to).addClass('newmeg');
+                }
             }
-        }else{
+        }
+        //单聊消息
+        else{
             //别人给自己发的消息
             if (data.to == app.users[0].uid ){
+                //联系人列表中，没有消息发送者(客户首次给顾问发消息时，顾问联系人列表中没有顾客)
                 if($('#contact_' + data.from).length <= 0){
+                    //当前是否正在往联系人列表添加该联系人
                     if(!app.addingchat[data.from]){
                         app.addingchat[data.from] = true;
+                        //向服务器添加该联系人
                         Common.post({
                             url: 'addChat',
                             data: {uid: data.to, tid: data.from},
                             success: function(data){
+                                //往聊天列表中添加该联系人
                                 app.chatUsers = app.chatUsers.concat(data);
                                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data, chattype: data.chattype});
                                 $(".contactlistview").append(ejs);
                                 app.addingchat[data.from] = false;
-                                $('#contact_' + data.from).css('color', 'red');
+                                $('#contact_' + data.from).addClass('newmeg');
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                    showChatView($(e.target).attr('tid'));
+                                    var tid = $(e.target).attr('tid');
+                                    showChatView(tid);
                                     app.chattype = $(e.target).attr('chattype');
+                                    $('#contact_' + tid).removeClass('newmeg');
+                                    $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
                                 });
                             },
                             error: function(err){}
                         });
                     }
                 }
+                //联系人列表中有消息发送者，但是用户当前还未打开过与该联系人的聊天窗口，直接提示消息
                 else if($('#' + data.from).length <= 0){
-                    $('#contact_' + data.from).css('color', 'red');
-                }else{
+                    $('#contact_' + data.from).addClass('newmeg');
+                }
+                //消息发送者的聊天窗口已经被打开过，直接往窗口中添加聊天消息
+                else{
                     var msg = $('#' + data.from).find('.inputmsg').val();
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
@@ -338,9 +361,11 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                         msg: data.msg.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.from).find('.l-c1-c3').append(ejs);
-                    $('#' + data.from).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
+                    //当前聊天窗口并非消息要显示的窗口，提示消息
+                    if($('.box .currentW').attr('id') != data.from){
+                        $('#contact_' + data.from).addClass('newmeg');
+                    }
                 }
-                //$("#contents").append('<div>' + data.from + '(' + now() + ')对 所有人 说：<br/>' + data.msg + '</div><br />');
             }
         }
     });
