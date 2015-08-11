@@ -48,4 +48,37 @@ var _util={};
     //如果最后一条消息的大小特别大，文件实际大小可能会超过该值
     _util.msgfileMaxSize = 102400;
 
+    //外部接口配置
+    _util.fifset = {
+        method: "POST",
+        host: "localhost",
+        port: 8080,
+        path: "",
+        headers: {
+            //"Content-Type": 'application/x-www-form-urlencoded',
+            "Content-Type": 'application/json',
+            "Content-Length": 0
+        }
+    };
+
+    _util.sendRequest = function(path, data, callback){
+        data = JSON.stringify(data);
+        _util.fifset.headers['Content-Length'] = data.length;
+        _util.fifset.path = path;
+        var req = http.request({}, function(serverFeedback){
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    callback(200, body);
+                });
+            }
+            else {
+                callback(500, {'error': '服务器返回错误'});
+            }
+        });
+        req.write(data + "\n");
+        req.end();
+    }
 module.exports=_util;
