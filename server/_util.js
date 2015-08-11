@@ -41,5 +41,11 @@ var _util={};
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
     };
 
+    //用户消息存储根目录
     _util.msgroot = 'msgdata/';
+
+    //存储聊天记录的文件，单个文件的最大大小
+    //如果最后一条消息的大小特别大，文件实际大小可能会超过该值
+    _util.msgfileMaxSize = 102400;
+
 module.exports=_util;

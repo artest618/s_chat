@@ -357,6 +357,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     //当前聊天窗口并非消息要显示的窗口，提示消息
                     if($('.box .currentW').attr('id') != data.from){
                         $('#contact_' + data.from).addClass('newmeg');
+                    }else{
+                        $('#' + data.from).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
                     }
                 }
             }

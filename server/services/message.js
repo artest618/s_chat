@@ -41,7 +41,7 @@ var msgService= {
         if(fs.existsSync(file)){
             var stats = fs.statSync(file);
             //每个文件大小大于设置值后，将重新启用新文件
-            if(stats.size > global.msgfileMaxSize){
+            if(stats.size > util.msgfileMaxSize){
                 file = dir + '/' + (len + 1) + '.json';
             }
         }
