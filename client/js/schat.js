@@ -99,7 +99,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             }});
             $('.box').append(ejs);
 
-            getHistoryMsg(tid);
+            getHistoryMsg(tid, '', 999999999);
             app.chattype == 'gchat' && getGroupUsers(tid);
 
             $('#' + tid).find('.btnclose').on('click', function(){
@@ -161,6 +161,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     }
                 });
             });
+            $('#' + tid).find('.moremsgbtn').on('click', function(){
+                getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) - 1);
+            });
         }
         $('#' + tid).addClass('currentW').show();
         $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
@@ -218,26 +221,16 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         });
     }
 
-    function getHistoryMsg(tid){
+    function getHistoryMsg(tid, date, page){
         var tid = parseInt(tid);
         Common.post({
             url: 'chatHistory',
-            data: {tid: tid, chattype: app.chattype},
+            data: {tid: tid, chattype: app.chattype, date: date, page: page},
             success: function(data){
-                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data, user: app.from.uid}});
-                $('#' + tid).find('.l-c1-c3').append(ejs);
-                $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
-                //$('#' + data.from).find('.l-c1-c3').scrollTop($('#' + data.from).find('.l-c1-c3')[0].scrollHeight);
-                //app.chatUsers = data;
-                //var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
-                //$(".contactlistview").html(ejs);
-                //if(app.from.usertype != 3){
-                //    showChatView(app.users[1].uid);
-                //}
-                //$('.contactlistview').find('li').on('click', function(e){
-                //    showChatView($(e.target).find('span').attr('tid'));
-                //    app.chattype = 'single';
-                //});
+                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
+                $('#' + tid).find('.l-c1-c3').prepend(ejs); //.append(ejs);
+                //$('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
             },
             error: function(err){}
         });

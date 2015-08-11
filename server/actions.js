@@ -136,8 +136,10 @@ var actions = {
     chatHistory: function(req, res){
         var tid = req.body.tid,
             chattype=req.body.chattype,
+            page = req.body.page,
+            date = req.body.date || null,
             user = req.session.sessiondata.user;
-        msgService.readMsg(tid, chattype, user, function(data){
+        msgService.readMsg(tid, chattype, user, date, page, function(data){
             res.send(data);
         });
     },

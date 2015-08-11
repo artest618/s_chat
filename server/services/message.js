@@ -17,8 +17,6 @@ var msgService= {
         //客户给顾问发的消息，取data.to即顾问的id作为第二个目录
         //群聊无第二层目录，是为空
         var dir2 = dir1 + '/' + (data.chattype == 'single' ? (data.fromtype == 3 ? data.from : data.to) : "");
-        console.log(dir1);
-        console.log(dir2);
 
         if(!fs.existsSync(dir1)){
             fs.mkdirSync(dir1);
@@ -27,40 +25,90 @@ var msgService= {
             fs.mkdirSync(dir2);
         }
         var dir = data.chattype == 'single' ? dir2 : dir1;
-        var date = new Date(), file = util.dateFormat('yyyy-MM-dd') + '.json';
+        //无论群聊或单聊，最终按日期保存聊天记录
+        dir += '/' +  util.dateFormat('yyyy-MM-dd');
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+        //当天聊天记录分多文件保存
+        var files = fs.readdirSync(dir) || [], len=0;
+        files.forEach(function(f){
+            if(/^.*\.json$/.test(f)){
+                len++
+            }
+        });
+        var file = dir + '/' + (len || 1) + '.json';
+        if(fs.existsSync(file)){
+            var stats = fs.statSync(file);
+            //每个文件大小大于设置值后，将重新启用新文件
+            if(stats.size > global.msgfileMaxSize){
+                file = dir + '/' + (len + 1) + '.json';
+            }
+        }
+        console.log(file);
         var record = {
             id: data.from,
             cname: data.fromname,
             //datetime: (new Date()).Format("yyyy-MM-dd hh:mm:ss"),
-            datetime: util.dateFormat('yyyy-MM-dd HH:mm:ss'),
+            datetime: util.dateFormat('yyyy-MM-dd hh:mm:ss'),
             message: data.msg
         };
-        fs.appendFile(dir + '/' + file, JSON.stringify(record) + ',', function(){
+        fs.appendFile(file, JSON.stringify(record) + ',', function(){
             console.log('record a message from ' + data.from + ': ' + JSON.stringify(record));
         });
     },
-    readMsg: function(tid, chattype, user, callback){
+    readMsg: function(tid, chattype, user, date, page, callback){
         var path = util.msgroot,
-            filename = util.dateFormat('yyyy-MM-dd') + '.json';
+            date = util.dateFormat('yyyy-MM-dd', date);
+        if(page <= 0){
+            page = 999999999;
+            date = new Date(date);
+            date = new Date(date.setDate(date.getDate()-1));
+            date = util.dateFormat('yyyy-MM-dd', date);
+        }
         if(chattype == 'single'){
             if(user.usertype == 3){
-                path += parseInt(tid) + '/' + parseInt(user.uid) + '/' + filename;
+                path += parseInt(tid) + '/' + parseInt(user.uid);
             }
             else{
-                path += parseInt(user.uid) + '/' + parseInt(tid) + '/' + filename;
+                path += parseInt(user.uid) + '/' + parseInt(tid);
             }
         }
         else{
-            path += parseInt(tid) + '/' + filename;
+            path += parseInt(tid);
         }
+        path += '/' + date + '/';
+        var rs = {
+            date: date,
+            page: page,
+            msg: []
+        }
+        if(!fs.existsSync(path)){
+            callback(rs);
+            return;
+        }
+
+        if(page == 999999999){
+            var files = fs.readdirSync(path) || [], len=0;
+            files.forEach(function(f){
+                if(/^.*\.json$/.test(f)){
+                    len++
+                }
+            });
+            page = len || 1;
+        }
+        rs.page = page;
+        path += page + '.json';
+
         console.log(path);
         fs.readFile(path, {encoding:'utf8',flag:'r'}, function(err, data){
             if(err || !data){
-                callback([]);
+                callback(rs);
                 return;
             }
             console.log(data);
-            callback(JSON.parse('[' + data.substring(0, data.length-1) + ']'));
+            rs.msg = JSON.parse('[' + data.substring(0, data.length-1) + ']');
+            callback(rs);
         });
     }
 }

@@ -12,8 +12,8 @@ var _util={};
      * (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
      * @param fmt
      */
-    _util.dateFormat=function(fmt){
-        var curr;
+    _util.dateFormat=function(fmt, date){
+        var curr = date && new Date(date) || new Date();
 
         Date.prototype.Format = function (fmt) {
             var o = {
@@ -30,8 +30,9 @@ var _util={};
                 if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
             return fmt;
         };
-        curr = new Date().Format(fmt);
-        return curr;
+        return curr.Format(fmt);
+        //curr = new Date().Format(fmt);
+        //return curr;
     };
 
     _util.isMobile = function(req){
