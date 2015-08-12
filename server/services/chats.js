@@ -61,6 +61,12 @@ var chatService = {
         JDB.oper([sql], function(res){
             onsuccess && onsuccess(res);
         });
+    },
+    delGroupMember: function(group, user, onsuccess){
+        var sql = 'DELETE FROM tb_group_userlist where userid=' + user.uid + ' and groupid=' + group.id;
+        JDB.oper(sql, function(res){
+           onsuccess && onsuccess(res);
+        });
     }
 }
 

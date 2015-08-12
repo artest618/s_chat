@@ -164,6 +164,26 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             $('#' + tid).find('.moremsgbtn').on('click', function(){
                 getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) - 1);
             });
+            $('#' + tid).find('.exitgbtn').on('click', function(){
+                getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) - 1);
+                Common.post({
+                    url: 'exitGroup',
+                    data: {groupid: tid},
+                    success: function(data){
+                        if(data){
+                            $('#' + tid).remove();
+                            $('.contactlistview').find('li').each(function(i,item){
+                                if($(item).attr('tid') == tid){
+                                    $(item).remove();
+                                }
+                            });
+                        }
+                    },
+                    error: function(err){
+
+                    }
+                });
+            });
         }
         $('#' + tid).addClass('currentW').show();
         $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;

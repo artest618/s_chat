@@ -165,7 +165,7 @@ var actions = {
                     userSerivce.updateUserGroupCounts(user, user.groupcount, function(){});
                     var g = JSON.parse(JSON.stringify(group));
                     delete g.members;
-                    res.send(group);
+                    res.send(g);
                     return;
                 }else{
                     res.send(false);
@@ -175,6 +175,23 @@ var actions = {
         else{
             res.send({error: '每位用户最多只能加入3个客户群或客户经理群！'});
         }
+    },
+    exitGroup: function(req, res){
+        var user = req.session.sessiondata.user, groupid=req.body.groupid, group = group_user_list[groupid];
+        for(var i in group.members){
+            if(group.members[i].uid == user.uid){
+                group.members.splice(i, 1);
+            }
+        }
+        chatService.delGroupMember(group, user, function(rlt){
+           if(rlt){
+               user.groupcount = parseInt(user.groupcount) - 1;
+               userSerivce.updateUserGroupCounts(user, user.groupcount, function(){});
+               res.send(true);
+           }else{
+               res.send(false);
+           }
+        });
     },
     getGroupUsers: function(req, res){
         var tid = req.body.tid;

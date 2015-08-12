@@ -41,6 +41,9 @@ var _util={};
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
     };
 
+    //每用户最多可加群数量
+    _util.maxGrpPerUser = 5;
+
     //用户消息存储根目录
     _util.msgroot = 'msgdata/';
 

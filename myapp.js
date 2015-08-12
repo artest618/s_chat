@@ -87,6 +87,11 @@ var routedefines = [
         'pathname': '/offline',
         'handler': actions.offline,
         'method': 'post'
+    },
+    {
+        'pathname': '/exitGroup',
+        'handler': actions.exitGroup,
+        'method': 'post'
     }
 ];
 

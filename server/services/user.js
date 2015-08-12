@@ -1,4 +1,5 @@
 var JDB=require("../mysqldbfactory.js");
+var util = require('../_util');
 
 var UserService = {
     checkuser: function(uid, onsuccess, onerror){
@@ -34,7 +35,7 @@ var UserService = {
         })
     },
     checkUserCanAddGroup: function(user){
-        if(user.usertype != 3 && user.groupcount >= 3){
+        if(user.usertype != 3 && user.groupcount >= util.maxGrpPerUser){
             return false;
         }
         return true;
