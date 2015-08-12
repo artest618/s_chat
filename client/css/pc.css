@@ -109,3 +109,13 @@
       right: 10px;
       bottom: 10px;
 }
+.emojipanel{
+    position: absolute;
+    top:26px;
+    left: 0;
+    display: none;
+}
+.emoji1{
+    width: 26px;
+    height: 26px;
+}

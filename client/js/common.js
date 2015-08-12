@@ -69,6 +69,79 @@ define("common", ['zepto'], function($){
             return curr.Format(fmt);
             //curr = new Date().Format(fmt);
             //return curr;
+        },
+        emojis: [
+            {
+                code: '/88',
+                path: '../images/emoji/88.jpg'
+            },
+            {
+                code: '/bomb',
+                path: '../images/emoji/bomb.jpg'
+            }, {
+                code: '/bsmile',
+                path: '../images/emoji/bsmile.jpg'
+            },
+            {
+                code: '/cry',
+                path: '../images/emoji/cry.jpg'
+            },
+            {
+                code: '/fuck',
+                path: '../images/emoji/fuck.jpg'
+            },
+            {
+                code: '/hellokitty',
+                path: '../images/emoji/hellokitty.jpg'
+            },
+            {
+                code: '/hsmile',
+                path: '../images/emoji/hsmile.jpg'
+            },
+            {
+                code: '/idwts',
+                path: '../images/emoji/idwts.jpg'
+            },
+            {
+                code: '/idwtsy',
+                path: '../images/emoji/idwtsy.jpg'
+            },
+            {
+                code: '/kiss',
+                path: '../images/emoji/kiss.jpg'
+            },
+            {
+                code: '/qq88',
+                path: '../images/emoji/qq88.jpg'
+            },
+            {
+                code: '/sad',
+                path: '../images/emoji/sad.jpg'
+            },
+            {
+                code: '/sexy',
+                path: '../images/emoji/sexy.jpg'
+            },
+            {
+                code: '/smile',
+                path: '../images/emoji/smile.jpg'
+            },
+            {
+                code: '/ssmile',
+                path: '../images/emoji/ssmile.jpg'
+            },
+            {
+                code: '/wcis',
+                path: '../images/emoji/wcis.jpg'
+            }
+        ],
+        formatMsgDisp: function(msg){
+            msg = msg.replace(/\n/g, '<br />');
+            for(var i in this.emojis){
+                var reg = new RegExp('\\' + this.emojis[i].code, 'g');
+                msg = msg.replace(reg, '<img src="' + this.emojis[i].path + '" style="width:26px;height:26px;">');
+            }
+            return msg;
         }
     }
 });

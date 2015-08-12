@@ -42,6 +42,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
 
             }
         });
+        $(document).on('click', function(e){
+            $(".emojipanel").hide();
+        });
         //window.onbeforeunload = function(){
         //    return '您确认要离开聊天页面么？';
         //}
@@ -110,7 +113,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
-                    msg: msg.replace(/\n/g, '<br />')
+                    msg: Common.formatMsgDisp(msg) //.replace(/\n/g, '<br />')
                 }});
                 $('#' + tid).find('.l-c1-c3').append(ejs);
                 $('#' + tid).find('.inputmsg').val('');
@@ -184,6 +187,14 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     }
                 });
             });
+            $('#' + tid).find('.chemoji').on('click', function(e){
+                e.stopPropagation();
+                var ejs = new EJS({url: "views/tmpls/emojipanel.ejs"}).render({emojis: Common.emojis});
+                $('#' + tid).find(".emojipanel").html(ejs).show().find('.emoji1').on('click', function(e){
+                    var inputmsg = $('#' + tid).find('.inputmsg');
+                    inputmsg.val(inputmsg.val()  + $(e.target).attr('code')).focus();
+                });
+            });
         }
         $('#' + tid).addClass('currentW').show();
         $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
@@ -247,6 +258,10 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             url: 'chatHistory',
             data: {tid: tid, chattype: app.chattype, date: date, page: page},
             success: function(data){
+                data.msg.forEach(function(item){
+                    item.message = Common.formatMsgDisp(item.message);
+                    return item;
+                });
                 var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
                 $('#' + tid).find('.l-c1-c3').prepend(ejs); //.append(ejs);
                 //$('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
@@ -318,7 +333,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
-                        msg: data.msg.replace(/\n/g, '<br />')
+                        msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.to).find('.l-c1-c3').append(ejs);
                     $('#' + data.to).find('.l-c1-c3')[0].scrollTop = $('#' + data.to).find('.l-c1-c3')[0].scrollHeight;
@@ -371,7 +386,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
-                        msg: data.msg.replace(/\n/g, '<br />')
+                        msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.from).find('.l-c1-c3').append(ejs);
                     //当前聊天窗口并非消息要显示的窗口，提示消息
