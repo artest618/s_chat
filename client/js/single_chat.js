@@ -101,13 +101,17 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         $('#' + tid).show();
     }
 
-    function getHistoryMsg(tid){
+    function getHistoryMsg(tid, date, page){
         var tid = parseInt(tid);
         Common.post({
             url: 'chatHistory',
-            data: {tid: tid, chattype: app.chattype},
+            data: {tid: tid, chattype: app.chattype, date: date, page: page},
             success: function(data){
-                var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data, user: app.from.uid}});
+                data.msg.forEach(function(item){
+                    item.message = Common.formatMsgDisp(item.message);
+                    return item;
+                });
+                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
                 $('#' + tid).find('.c_msg_list').append(ejs);
                 $('#' + tid).find('.c_msg_list')[0].scrollTop = $('#' + tid).find('.c_msg_list')[0].scrollHeight;
             },
