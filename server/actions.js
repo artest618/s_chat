@@ -226,6 +226,36 @@ var actions = {
         }
     },
     /**
+     * 获取TID or TO
+     * @param req
+     * @param res
+     */
+    getUserInfoM:function(req,res){
+        if(!req.session.sessiondata || !req.session.sessiondata.user){
+            return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
+        }
+        var tid = req.body.tid, to = req.body.to , user = req.session.sessiondata.user,targetId;
+        if(tid&&!to){//U -> T
+            targetId=tid;
+        }else if(to&&!tid){ // T -> U
+            targetId=to;
+        }else{
+            res.send({error: '指定交谈对象不正确，请联系管理员'});
+        }
+
+        userSerivce.checkuser(targetId, function(f, csr){
+            if(csr){
+                req.session.sessiondata.counselor = csr;
+                req.session.save();
+                console.log(req.session.sessiondata);
+                res.send( [req.session.sessiondata.user, csr]);
+            }else{
+                res.send( {error: '您访问的聊天对象不存在，请联系管理员'});
+            }
+
+        });
+    },
+    /**
      * 创建顾问
      * @param req.query.uid
      * @param res.query.uanme

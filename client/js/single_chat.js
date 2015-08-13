@@ -26,13 +26,15 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     var socket = io.connect();
 
     $dom(function(){
+        var sendData={tid:Common.urlparams.tid,to:Common.urlparams.to};
+        if(!sendData.tid&&!sendData.to){alert("error");return;}
         Common.post({
-            url: 'getUserInfo',
-            data: {tid: Common.urlparams.tid},
+            url: 'm_getUserInfo',
+            data: sendData,
             success: function(data){
                 app.users = data;
                 app.from = data[0];
-                initChatList();
+                showChatView(sendData.tid?true:false);
                 socket.emit('online', {user: app.from});
             },
             error: function(err){
@@ -41,34 +43,22 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
         });
     });
 
-    function initChatList(){
-        Common.post({
-            url: 'chatList',
-            data: {},
-            success: function(data){
-                app.chatUsers = data.schat.concat(data.gchat);
-                if(app.from.usertype != 3){
-                    showChatView(app.users[1].uid);
-                }
-            },
-            error: function(err){}
-        });
-    }
+    function showChatView(isTid){
+        var user = {},tid=;
+        if(isTid){//是否是U -> T
+            tid = parseInt(tid), app.to = tid;
+        }else{//T -> U
 
-    function showChatView(tid){
-        tid = parseInt(tid), app.to = tid;
-        var user = {};
-        for(var i in app.chatUsers){
-            if(app.chatUsers[i].toid == tid || app.chatUsers[i].groupid == tid){
-                user = app.chatUsers[i];
-            }
         }
+
+
+
         $('.chat_view .chat_view_sub').hide();
         if($('#' + tid).length <= 0){
             var url = app.chattype == 'single' ? 'views/tmpls/m_msgwindow.ejs' : 'views/tmpls/g_msgwindow.ejs';
             var ejs = new EJS({url: url}).render({chat: {
                 id: app.to,
-                to_cname: user.cname || user.groupname,
+                to_cname: user.cname,
                 user: app.from.uid,
                 gowner: user.owner
             }});
@@ -147,59 +137,81 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     });
     socket.on('say', function (data) {
         data.from = parseInt(data.from), data.to = parseInt(data.to);
-        data.from = parseInt(data.from), data.to = parseInt(data.to);
+
+        //群聊消息
         if(data.chattype == 'gchat'){
-            //群聊消息
-            if(data.from != parseInt(app.from.uid)){ //非自己发的群消息
-                if($('#' + data.to).length <= 0){
-                    $('#contact_' + data.to).css('color', 'red');
-                }
-                else{
+            //别人发的群消息则显示，自己发的不重复显示
+            if(data.from != parseInt(app.from.uid)){
+                //如果消息窗口已经存在（已经点击过聊天列表中对应联系人，聊天窗口已被初始化过或已聊过天）
+                //将消息直接添加到聊天窗口
+                if($('#' + data.to).length > 0){
                     var msg = $('#' + data.from).find('.inputmsg').val();
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
-                        msg: data.msg.replace(/\n/g, '<br />')
+                        msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.to).find('.c_msg_list').append(ejs);
                     $('#' + data.to).find('.c_msg_list')[0].scrollTop = $('#' + data.to).find('.c_msg_list')[0].scrollHeight;
                 }
+                //当前聊天窗口并非消息要显示的窗口，提示消息
+                if($('.box .currentW').attr('id') != data.to){
+                    $('#contact_' + data.to).addClass('newmeg');
+                }
             }
-        }else{
+        }
+        //单聊消息
+        else{
             //别人给自己发的消息
             if (data.to == app.users[0].uid ){
-                if($('#contact_' + data.from).length <= 0){
+                //联系人列表中，没有消息发送者(客户首次给顾问发消息时，顾问联系人列表中没有顾客)
+               /* if($('#contact_' + data.from).length <= 0){
+                    //当前是否正在往联系人列表添加该联系人
                     if(!app.addingchat[data.from]){
                         app.addingchat[data.from] = true;
+                        //向服务器添加该联系人
                         Common.post({
                             url: 'addChat',
                             data: {uid: data.to, tid: data.from},
                             success: function(data){
+                                //往聊天列表中添加该联系人
                                 app.chatUsers = app.chatUsers.concat(data);
-                                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data});
+                                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data, chattype: data.chattype});
                                 $(".contactlistview").append(ejs);
                                 app.addingchat[data.from] = false;
-                                $('#contact_' + data.from).css('color', 'red');
+                                $('#contact_' + data.from).addClass('newmeg');
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                    showChatView($(e.target).find('span').attr('tid'));
+                                    var tid = $(e.target).attr('tid');
+                                    showChatView(tid);
+                                    app.chattype = $(e.target).attr('chattype');
+                                    $('#contact_' + tid).removeClass('newmeg');
+                                    $('#' + tid).find('.c_msg_list')[0].scrollTop = $('#' + tid).find('.c_msg_list')[0].scrollHeight;
                                 });
                             },
                             error: function(err){}
                         });
                     }
                 }
+                //联系人列表中有消息发送者，但是用户当前还未打开过与该联系人的聊天窗口，直接提示消息
                 else if($('#' + data.from).length <= 0){
-                    $('#contact_' + data.from).css('color', 'red');
-                }else{
+                    $('#contact_' + data.from).addClass('newmeg');
+                }
+                //消息发送者的聊天窗口已经被打开过，直接往窗口中添加聊天消息
+                else{*/
                     var msg = $('#' + data.from).find('.inputmsg').val();
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
-                        msg: data.msg.replace(/\n/g, '<br />')
+                        msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.from).find('.c_msg_list').append(ejs);
-                    $('#' + data.from).find('.c_msg_list')[0].scrollTop = $('#' + data.from).find('.c_msg_list')[0].scrollHeight;
-                }
+                    //当前聊天窗口并非消息要显示的窗口，提示消息
+                    if($('.box .currentW').attr('id') != data.from){
+                        $('#contact_' + data.from).addClass('newmeg');
+                    }else{
+                        $('#' + data.from).find('.c_msg_list')[0].scrollTop = $('#' + data.from).find('.c_msg_list')[0].scrollHeight;
+                    }
+              /*  }*/
             }
         }
     });
