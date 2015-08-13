@@ -34,6 +34,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
             success: function(data){
                 app.users = data;
                 app.from = data[0];
+                //TODO 过滤
                 showChatView(sendData.tid?true:false);
                 socket.emit('online', {user: app.from});
             },
