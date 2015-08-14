@@ -18,7 +18,7 @@ for(var i in data.msgs){
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-12">
-        <span class="align-center disblock f16"><%=data.msgs[i].datatime%></span>
+        <span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
     </div>
 </div>
 
@@ -39,7 +39,7 @@ for(var i in data.msgs){
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-12">
-        <span class="align-center disblock f16"><%=data.msgs[i].datatime%></span>
+        <span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
     </div>
 </div>
 <%}}%>

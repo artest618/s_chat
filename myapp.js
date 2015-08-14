@@ -92,7 +92,18 @@ var routedefines = [
         'pathname': '/exitGroup',
         'handler': actions.exitGroup,
         'method': 'post'
+    },
+    {
+        'pathname': '/getUserInfoM',
+        'handler': actions.getUserInfoM,
+        'method': 'post'
+    },
+    {
+        'pathname': '/getHistoryList',
+        'handler': actions.getHistoryList,
+        'method': 'get'
     }
+
 ];
 
 for(var i=0; i<routedefines.length; i++){

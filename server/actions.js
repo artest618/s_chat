@@ -255,6 +255,9 @@ var actions = {
 
         });
     },
+    getHistoryList:function(req,res){
+
+    },
     /**
      * 创建顾问
      * @param req.query.uid
