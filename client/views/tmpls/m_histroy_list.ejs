@@ -1,16 +1,16 @@
 <%for(var i=0; i<data.length; i++){%>
     <div class="row">
         <div class="col-xs-3 helght140 col-sm-2">
-            <div class="col-l"></div>
+            <div class="col-l" style="background-image: url('<%=data[i].headicon%>')"></div>
         </div>
-        <div class="col-xs-7 border-bots helght140 paddingtop40 col-sm-8">
-            <h4 class="f34">信贷顾问群1</h4>
+        <div class="col-xs-6 border-bots helght140 paddingtop40 col-sm-8">
+           <a href="/?uid=<%=data[i].user%>&to=<%=data[i].toid%>"><h4  class="f34"><%=data[i].cname%></h4></a>
             <p class="sr-only f20">
-                <span class="color1">想好了就在一起</span>
+                <span class="color1"></span>
             </p>
         </div>
-        <div class="col-xs-2 border-bots helght140 paddingtop40 col-sm-2">
-            <span class="color1 f20 disblock align-center">12:22</span>
+        <div class="col-xs-3 border-bots helght140 paddingtop40 col-sm-2">
+            <span class="color1 f20 disblock align-center"><%=data[i].lastchattime%></span>
             <span class="badge disblock badges f16 marauto">252</span>
         </div>
     </div>

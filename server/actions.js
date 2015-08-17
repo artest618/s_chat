@@ -264,6 +264,9 @@ var actions = {
         var uid = req.query.uid?parseInt(req.query.uid):"",  user = req.session.sessiondata.user;
         if(user.uid==uid){
             chatService.getChatList(uid, function(data){
+                for(i in data){
+                    data[i].lastchattime=util.dateFormat("yyyy-MM-dd hh:mm:ss", data[i].lastchattime);
+                }
                 res.render("tmpls/m_histroy_page",{data:data});
             });
         }
