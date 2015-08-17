@@ -12,7 +12,7 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 9003);
 app.set('views', __dirname + '/client/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -102,6 +102,11 @@ var routedefines = [
         'pathname': '/getHistoryList',
         'handler': actions.getHistoryList,
         'method': 'get'
+    },
+    {
+        'pathname': '/addChatList',
+        'handler': actions.addChatList,
+        'method': 'post'
     }
 
 ];
