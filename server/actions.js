@@ -256,6 +256,7 @@ var actions = {
         });
     },
     getHistoryList:function(req,res){
+        var uid=req.query.uid;
 
     },
     /**
