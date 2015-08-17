@@ -1,4 +1,5 @@
 var JDB=require("../mysqldbfactory.js");
+var _util=require("../_util.js");
 
 var chatService = {
     getChatList: function(uid, onsuccess, onerror){
@@ -22,6 +23,28 @@ var chatService = {
         var sql = 'INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('+
             chat.user + ',\'' + chat.toid + '\',\'' + chat.totype + '\', null)';
         JDB.oper([sql], function(res){
+            onsuccess && onsuccess(res);
+        });
+    },
+    addChatForList:function(chat,onsuccess){
+        var self=this;
+        //查询
+        var sql = 'SELECT * FROM tb_contacthistory_list WHERE user=' + chat.user + ' AND toid ='+chat.toid;
+        JDB.query(sql,function(err,vals,fields){
+            if(err){
+                console.log(JSON.stringify(err));
+                onerror && onerror(err);
+            }
+            if(!vals || vals.length==0){//如果没有数据则插入，如果有则更新
+                self.addChat(chat,onsuccess);
+            }else{
+                self.updateChat(chat,onsuccess);
+            }
+        });
+    },
+    updateChat:function(chat,onsuccess){
+        var sql = 'UPDATE tb_contacthistory_list SET lastchattime=\'' +_util.dateFormat("yyyy-MM-dd hh:mm:ss")+ '\' WHERE  user=\'' + chat.user + '\' AND toid =\''+chat.toid +'\'  ORDER BY lastchattime DESC limit 1 ';
+        JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
         });
     },

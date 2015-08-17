@@ -255,8 +255,44 @@ var actions = {
 
         });
     },
+    /**
+     * 历史列表
+     * @param req
+     * @param res
+     */
     getHistoryList:function(req,res){
+        var uid = req.query.uid?parseInt(req.query.uid):"",  user = req.session.sessiondata.user;
+        if(user.uid==uid){
+            chatService.getChatList(uid, function(data){
+                res.render("tmpls/m_histroy_page",{data:data});
+            });
+        }
 
+    },
+    /**
+     * 添加历史联系人
+     * @param req
+     * @param res
+     */
+    addChatList:function(req,res){
+        var uid = req.body.uid, tid=req.body.tid;
+        userSerivce.checkuser(tid, function(flag, user){
+            if(flag){
+                var chat = {
+                    user: uid,
+                    toid: tid,
+                    totype: 1,
+                    name: user.name,
+                    cname: user.cname,
+                    headicon: user.headicon,
+                    lastchattime: new Date().toDateString()
+                };
+                chatService.addChatForList(chat);
+                res.send([chat]);
+            } else{
+                throw new Error('服务器错误');
+            }
+        });
     },
     /**
      * 创建顾问
@@ -275,4 +311,4 @@ var actions = {
     }
 
 }
-module.exports=actions; 
+module.exports=actions;

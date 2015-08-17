@@ -85,6 +85,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     msg: msg
                 });
                 $('#' + toId).find('.c_msg_list')[0].scrollTop = $('#' + toId).find('.c_msg_list')[0].scrollHeight;
+                $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
             });
 
 
@@ -107,7 +108,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 });
                 var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
                 $('#' + tid).find('.c_msg_list').append(ejs);
-                $('#' + tid).find('.c_msg_list')[0].scrollTop = $('#' + tid).find('.c_msg_list')[0].scrollHeight;
+                $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
             },
             error: function (err) {
             }
@@ -176,8 +177,15 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 }});
                 $('#' + data.from).find('.c_msg_list').append(ejs);
 
-                $('#' + data.from).find('.c_msg_list')[0].scrollTop = $('#' + data.from).find('.c_msg_list')[0].scrollHeight;
-                /*  }*/
+                $(window.document.body).scrollTop($('#' + data.from).find('.c_msg_list')[0].scrollHeight);
+                //向服务器添加联系人
+                Common.post({
+                    url: 'addChatList',
+                    data: {uid: data.to, tid: data.from},
+                    success: function(data){
+
+                    }
+                });
             }
         }
     });
