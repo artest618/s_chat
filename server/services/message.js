@@ -72,12 +72,27 @@ var msgService= {
             //拼接群聊目录，群id命名
             path += parseInt(tid);
         }
+        var rs = {
+            date: date,
+            page: page,
+            msg: []
+        }
+        //该两人或该群从未聊过天，
+        if(!fs.existsSync(path)){
+            callback(rs);
+            return;
+        }
         //该聊天目录下所有日期的聊天
         var datedirs = fs.readdirSync(path);
         //删除隐藏等非日期目录，即删除非聊天记录目录
         for(var i=datedirs.length-1; i>=0; i--){
             if(!/^\d{4}-\d{1,2}-\d{1,2}$/.test(datedirs[i]))
                 datedirs.splice(i, 1);
+        }
+        //该两人或该群下没有发现任何日期的聊天记录（聊过天，但被删除了时）
+        if(datedirs.length<=0){
+            callback(rs);
+            return;
         }
         date = util.dateFormat('yyyy-MM-dd', date);
         //首次查询page为999999999，日期为今日日期
@@ -90,16 +105,18 @@ var msgService= {
                     break;
                 }
             }
+            //取到最早的记录文件了
+            if(i<0 && date == datedirs[0]){
+                callback(rs);
+                return;
+            }
             //在该日期的聊天记录中，从最近的记录文件开始查询
             page = 999999999;
+            rs.page=page;
+            rs.date=date;
         }
 
         path += '/' + date + '/';
-        var rs = {
-            date: date,
-            page: page,
-            msg: []
-        }
         if(!fs.existsSync(path)){
             callback(rs);
             return;
@@ -113,8 +130,8 @@ var msgService= {
                 }
             });
             page = len || 1;
+            rs.page = page;
         }
-        rs.page = page;
         path += page + '.json';
 
         console.log(path);
