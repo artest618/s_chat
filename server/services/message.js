@@ -58,15 +58,9 @@ var msgService= {
         });
     },
     readMsg: function(tid, chattype, user, date, page, callback){
-        var path = util.msgroot,
-            date = util.dateFormat('yyyy-MM-dd', date);
-        if(page <= 0){
-            page = 999999999;
-            date = new Date(date);
-            date = new Date(date.setDate(date.getDate()-1));
-            date = util.dateFormat('yyyy-MM-dd', date);
-        }
+        var path = util.msgroot;
         if(chattype == 'single'){
+            //拼接单聊目录（格式：客户id/顾问id）
             if(user.usertype == 3){
                 path += parseInt(tid) + '/' + parseInt(user.uid);
             }
@@ -75,8 +69,31 @@ var msgService= {
             }
         }
         else{
+            //拼接群聊目录，群id命名
             path += parseInt(tid);
         }
+        //该聊天目录下所有日期的聊天
+        var datedirs = fs.readdirSync(path);
+        //删除隐藏等非日期目录，即删除非聊天记录目录
+        for(var i=datedirs.length-1; i>=0; i--){
+            if(!/^\d{4}-\d{1,2}-\d{1,2}$/.test(datedirs[i]))
+                datedirs.splice(i, 1);
+        }
+        date = util.dateFormat('yyyy-MM-dd', date);
+        //首次查询page为999999999，日期为今日日期
+        //当page小于等于0时，说明是翻页且传入日期记录已取完，需要取传入日期的最近一天的聊天记录了
+        if(page <= 0){
+            //取传入日期的最近一天存在聊天记录的日期
+            for(var i=datedirs.length; i>=0; i--){
+                if(datedirs[i]<date){
+                    date = datedirs[i];
+                    break;
+                }
+            }
+            //在该日期的聊天记录中，从最近的记录文件开始查询
+            page = 999999999;
+        }
+
         path += '/' + date + '/';
         var rs = {
             date: date,
@@ -87,7 +104,7 @@ var msgService= {
             callback(rs);
             return;
         }
-
+        //page=999999999表示该日期聊天记录中最后一页即最新消息开始查询
         if(page == 999999999){
             var files = fs.readdirSync(path) || [], len=0;
             files.forEach(function(f){
