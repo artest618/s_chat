@@ -261,16 +261,59 @@ var actions = {
      * @param res
      */
     getHistoryList:function(req,res){
-        var uid = req.query.uid?parseInt(req.query.uid):"",  user = req.session.sessiondata.user;
-        if(user.uid==uid){
-            chatService.getChatList(uid, function(data){
-                for(i in data){
-                    data[i].lastchattime=util.dateFormat("yyyy-MM-dd hh:mm:ss", data[i].lastchattime);
-                }
-                res.render("tmpls/m_histroy_page",{data:data});
-            });
-        }
+        var uid = req.query.uid?parseInt(req.query.uid):"",  user;
+        actions.syncUser(req,res,function(obj){
+            if(obj.error){
+                res.send(obj);
+            }else{
 
+                if( uid && obj.uid && (uid==obj.uid) ){
+                    chatService.getChatList(uid, function(data){
+                        for(i in data){
+                            data[i].lastchattime=util.dateFormat("yyyy-MM-dd hh:mm:ss", data[i].lastchattime);
+                        }
+                        chatService.getUserGroupList(uid, function(gdata){
+                            for(i in gdata){
+                                gdata[i].jointime=util.dateFormat("yyyy-MM-dd hh:mm:ss", gdata[i].jointime);
+                            }
+                            res.render("tmpls/m_histroy_page",{data:data,gdata:gdata});
+                        }, function(err){});
+
+                    });
+                }else{
+                    res.send({error:"用户标识不一致"});
+                }
+            }
+        });
+
+    },
+    syncUser:function(req,res,callback){
+        var q=req.query,uid = q.uid,  ua = util.isMobile(req);
+        if (!req.session.sessiondata || !req.session.sessiondata.user) {
+            if(!uid){
+                callback({error:"用户标识错误"});
+            }
+            if(!FI.checkSigned(uid)){
+                callback({error:"您还未登录系统，请在登录页面进行登录！"});
+            }
+            userSerivce.checkuser(uid, function(flag, user){
+                if(flag){
+                    req.session.sessiondata = {user: user};
+                    callback(req.session.sessiondata.user);
+                } else{
+                    var user = FI.syncUser(uid);
+                    if(!user){
+                        callback({error:"同步用户出错"});
+                    }
+                    userSerivce.addUser(user, function(){
+                        req.session.sessiondata = {user: user};
+                        callback(req.session.sessiondata.user);
+                    });
+                }
+            });
+        }else{
+            callback(req.session.sessiondata.user);
+        }
     },
     /**
      * 添加历史联系人

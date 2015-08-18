@@ -13,7 +13,7 @@ var FI = {
             uid: parseInt(Math.random()*0xffffff),
             cname: name_r,
             usertype: '1',
-            headicon: '../images/icon/mail.png'
+            headicon: 'images/headers/default.png'
         };
         var data = {uid: uid};
         util.sendRequest('/syncUser', data, function(stat, result){

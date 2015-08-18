@@ -119,7 +119,7 @@ for(var i=0; i<routedefines.length; i++){
         return function (req, res){
             try{
                 console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
-                if(path != '/' && path != '/createCounselor' && path!='/offline' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && path != '/getHistoryList' && path!='/offline' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }
