@@ -44,7 +44,6 @@ define("common", ['zepto'], function($){
         urlparams: (function(){
             var str = '{"' + window.location.search.replace(/\?/,'').replace(/&/g, '","').replace(/=/g, '":"') + '"}';
             var up = JSON.parse(str);
-            console.log(up);
             return up;
         })(),
         formatDate: function(date, fmt){
