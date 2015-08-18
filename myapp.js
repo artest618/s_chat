@@ -107,6 +107,12 @@ var routedefines = [
         'pathname': '/addChatList',
         'handler': actions.addChatList,
         'method': 'post'
+    },
+    {
+
+        'pathname': '/getGroupInfo',
+        'handler': actions.getGroupInfo,
+        'method': 'post'
     }
 
 ];

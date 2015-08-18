@@ -341,6 +341,28 @@ var actions = {
         });
     },
     /**
+     * 获取组信息
+     * @param req
+     * @param res
+     */
+    getGroupInfo:function(req,res){
+        var gid=req.body.to;
+            if(gid){
+                chatService.getGroupInfo(gid,function(obj){
+                    if(obj&&obj.length>0){
+                        res.send( [req.session.sessiondata.user, obj[0]]);
+                    }else{
+                        res.send({error:"查无结果"});
+                    }
+                },function(err){
+                    res.send({error:err});
+                });
+            }else{
+                res.send({error:"参数错误"});
+            }
+
+    },
+    /**
      * 创建顾问
      * @param req.query.uid
      * @param res.query.uanme

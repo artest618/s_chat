@@ -26,25 +26,45 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
     var socket = io.connect();
 
     $dom(function () {
-        var sendData = {tid: Common.urlparams.tid, to: Common.urlparams.to};
+        var sendData = {tid: Common.urlparams.tid, to: Common.urlparams.to,totype: Common.urlparams.totype};
         if (!sendData.tid && !sendData.to) {
             alert("error");
             return;
         }
-        Common.post({
-            url: 'getUserInfoM',
-            data: sendData,
-            success: function (data) {
-                app.users = data;
-                app.from = data[0];
-                //TODO 过滤
-                showChatView(sendData.tid ? true : false);
-                socket.emit('online', {user: app.from});
-            },
-            error: function (err) {
+        if(sendData.totype&&sendData.totype==2){
 
-            }
-        });
+            Common.post({
+                url: 'getGroupInfo',
+                data: sendData,
+                success: function (data) {
+                    if(data){
+                        app.chattype='gchat';
+                        app.users = data;
+                        app.from = data[0];
+                        showChatView(sendData.tid ? true : false);
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+        }else{
+            Common.post({
+                url: 'getUserInfoM',
+                data: sendData,
+                success: function (data) {
+                    app.users = data;
+                    app.from = data[0];
+                    //TODO 过滤
+                    showChatView(sendData.tid ? true : false);
+                    socket.emit('online', {user: app.from});
+                },
+                error: function (err) {
+
+                }
+            });
+        }
+
     });
 
     function showChatView(isTid) {
@@ -54,17 +74,49 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
 
         $('.chat_view .chat_view_sub').hide();
         if ($('#' + toId).length <= 0) {
-            var url = app.chattype == 'single' ? 'views/tmpls/m_msgwindow.ejs' : 'views/tmpls/g_msgwindow.ejs';
+            var url = app.chattype == 'single' ? 'views/tmpls/m_msgwindow.ejs' : 'views/tmpls/m_g_msgwindow.ejs';
             var ejs = new EJS({url: url}).render({chat: {
                 id: app.to,
-                to_cname: app.users[1].cname,
+                to_cname:user.cname||user.groupname,
                 user: fromId,
+                to_type:user.usertype,
                 isTid: isTid
             }});
             $('.chat_view').append(ejs);
+            $('#' + toId).find(".add").on("click",function(){
+                //加群
+                Common.post({
+                    url: 'applyToGroup',
+                    data: {owner: toId},
+                    success: function(data){
+                        var chat = {
+                            id: data.id,
+                            userid: app.from.uid,
+                            username: app.from.name,
+                            usercname: app.from.cname,
+                            usertype: app.from.usertype,
+                            groupid: data.id,
+                            owner: data.owner,
+                            ownername: data.ownername,
+                            ownercname: data.ownercname,
+                            groupname: data.groupname,
+                            grouptype: data.grouptype,
+                            groupnum: data.groupnum
+                        }
+                        if(data&&data.groupname){
+                            alert("恭喜您成功加入"+data.groupname);
+                        }
 
+                    },
+                    error: function(err){
+
+                    }
+                });
+            });
+
+            //历史
             getHistoryMsg(toId, '', 999999999);
-
+            //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg = $('#' + toId).find('.inputmsg').val();
                 var ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
@@ -78,9 +130,9 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     from: app.from.uid,
                     to: app.to,
                     fromname: app.from.cname,
-                    toname: user.cname,
+                    toname:user.cname || user.groupname,
                     fromtype: app.from.usertype,
-                    totype: user.usertype,
+                    totype: user.totype || user.grouptype,
                     chattype: app.chattype,
                     msg: msg
                 });

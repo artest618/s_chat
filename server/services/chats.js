@@ -90,6 +90,16 @@ var chatService = {
         JDB.oper(sql, function(res){
            onsuccess && onsuccess(res);
         });
+    },
+    getGroupInfo:function(gid, onsuccess, onerror){
+        var sql = 'SELECT * FROM tb_grouplist WHERE id = ' + gid;
+        JDB.query(sql,function(err,vals,fields){
+            if(err) {
+                console.log(JSON.stringify(err));
+                onerror && onerror(err);
+            }
+            onsuccess(vals);
+        });
     }
 }
 
