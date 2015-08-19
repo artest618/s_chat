@@ -35,7 +35,22 @@
 //console.log(files);
 
 var util = require('./server/_util');
-
-util.sendRequest('', '', function(status, data){
+var data = {
+    "header":
+    {
+        "local":"zh_CN",
+        "agent":"WEB15",
+        "bfw-ctrl":"json",
+        "version":"",
+        "device":"",
+        "platform":"",
+        "plugins":"",
+        "page":"",
+        "ext":"",
+        "username":""
+    },
+    "request": [{"id": 3, "method": "PSNCreatConversationLoginPre", "conversationId": null, "params": null}]
+}
+util.sendRequest('/testrequest', {uid:1}, function (status, data) {
     debugger;
 });

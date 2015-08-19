@@ -236,9 +236,11 @@ var actions = {
                 res.send(res_obj);
         });
     },
-    offline: function(req, res){
+    testrequest: function(req, res){
         var uid = req.body.uid;
+        debugger;
         console.log(uid + ' is offline.................');
+        res.send({data: 'ok'})
     },
     upfile: function(req, res){
         var files = req.files.file,user = req.session.sessiondata.user;

@@ -88,7 +88,7 @@ var _util={};
                 callback(500, {'error': '服务器返回错误'});
             }
         });
-        req.write(data + "\n");
+        req.write(data);
         req.end();
     }
 module.exports=_util;
