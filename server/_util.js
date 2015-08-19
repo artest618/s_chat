@@ -1,6 +1,7 @@
 /**
  * Created by tony on 15-7-26.
  */
+var http = require('http');
 var _util={};
     /**
      *
@@ -61,7 +62,7 @@ var _util={};
     _util.fifset = {
         method: "POST",
         host: "localhost",
-        port: 8080,
+        port: 9003,
         path: "",
         headers: {
             //"Content-Type": 'application/x-www-form-urlencoded',
@@ -74,7 +75,7 @@ var _util={};
         data = JSON.stringify(data);
         _util.fifset.headers['Content-Length'] = data.length;
         _util.fifset.path = path;
-        var req = http.request({}, function(serverFeedback){
+        var req = http.request(_util.fifset, function(serverFeedback){
             if (serverFeedback.statusCode == 200) {
                 var body = "";
                 serverFeedback.on('data', function (data) {
