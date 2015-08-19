@@ -238,7 +238,6 @@ var actions = {
     },
     testrequest: function(req, res){
         var uid = req.body.uid;
-        debugger;
         console.log(uid + ' is offline.................');
         res.send({data: 'ok'})
     },
