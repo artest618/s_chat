@@ -42,6 +42,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                         app.users = data;
                         app.from = data[0];
                         showChatView(sendData.tid ? true : false);
+                        socket.emit('online', {user: app.from});
                     }
                 },
                 error: function (err) {
@@ -68,7 +69,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
     });
 
     function showChatView(isTid) {
-        var user = app.users[1], fromId = app.from.uid, toId = user.uid;
+        var user = app.users[1], fromId = app.from.uid, toId = user.uid||user.id;
 
         toId = parseInt(toId), app.to = toId;
 
@@ -136,7 +137,14 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     chattype: app.chattype,
                     msg: msg
                 });
-                $('#' + toId).find('.c_msg_list')[0].scrollTop = $('#' + toId).find('.c_msg_list')[0].scrollHeight;
+
+                //向服务器添加联系人
+                Common.post({
+                    url: 'addChatList',
+                    data: {uid: app.from.uid, tid: app.to},
+                    success: function(data){
+                    }
+                });
                 $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
             });
 
@@ -204,18 +212,15 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 //将消息直接添加到聊天窗口
                 if ($('#' + data.to).length > 0) {
                     var msg = $('#' + data.from).find('.inputmsg').val();
-                    var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
+                    var ejs = new EJS({url: "views/tmpls/m_msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
                         msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.to).find('.c_msg_list').append(ejs);
-                    $('#' + data.to).find('.c_msg_list')[0].scrollTop = $('#' + data.to).find('.c_msg_list')[0].scrollHeight;
+                    $(window.document.body).scrollTop($('#' + data.to).find('.c_msg_list')[0].scrollHeight);
                 }
-                //当前聊天窗口并非消息要显示的窗口，提示消息
-                if ($('.box .currentW').attr('id') != data.to) {
-                    $('#contact_' + data.to).addClass('newmeg');
-                }
+
             }
         }
         //单聊消息
@@ -235,7 +240,6 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     url: 'addChatList',
                     data: {uid: data.to, tid: data.from},
                     success: function(data){
-
                     }
                 });
             }
