@@ -239,6 +239,40 @@ var actions = {
     offline: function(req, res){
         var uid = req.body.uid;
         console.log(uid + ' is offline.................');
+    },
+    upfile: function(req, res){
+        var files = req.files.file,user = req.session.sessiondata.user;
+        for(var i=0; i < files.length; i++){
+            var file = files[i], path = file.path, name = file.name, targetpath =util.upfile_root, url = util.upfile_url_bas;
+            if(util.upfile_exts.indexOf(name.split('.')[1]) == -1){
+                res.send({error: '您上传的文件不在允许范围内'});
+                return;
+            }
+            if(!fs.existsSync(targetpath)){
+                fs.mkdirSync(targetpath);
+            }
+            targetpath+= user.uid + '/';
+            url += user.id + '/';
+            if(!fs.existsSync(targetpath)){
+                fs.mkdirSync(targetpath);
+            }
+            var filepath = targetpath + name, i=0;
+            while(fs.existsSync(filepath)){
+                name = name.split('.')[0] + (++i) + '.' + name.split('.')[1];
+                filepath = targetpath + name;
+            }
+            url += name;
+            fs.rename(path, filepath, function(err){
+                if(err){
+                    throw err;
+                }else{
+                    res.send({
+                        url: url,
+                        filename: name
+                    });
+                }
+            });
+        }
     }
 
 }

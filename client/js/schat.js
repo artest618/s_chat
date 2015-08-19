@@ -14,7 +14,9 @@ require.config({
     paths: {
         domReady: "domReady",
         ejs: "ejs",
-        common: "common"
+        common: "common",
+        jquery: 'jquery.min'
+
     }
 });
 
@@ -25,7 +27,7 @@ var app = {
     addingchat: {}
 };
 
-require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
+require(['jquery', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
     var socket = io.connect();
 
     $dom(function(){

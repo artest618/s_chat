@@ -47,6 +47,12 @@ var _util={};
     //用户消息存储根目录
     _util.msgroot = 'msgdata/';
 
+    //文件上传根目录
+    _util.upfile_root = 'client/upfiles/';
+    //文件上传后根目录对应的url
+    _util.upfile_url_bas = 'upfiles/';
+    _util.upfile_exts = ['png', 'gif', 'jpg', 'bmp', 'tif', 'svg', 'doc', 'docs', 'xls', 'xlsx', 'ppt', 'pptx', 'rar', 'zip', 'tar', '7z'];
+
     //存储聊天记录的文件，单个文件的最大大小
     //如果最后一条消息的大小特别大，文件实际大小可能会超过该值
     _util.msgfileMaxSize = 102400;
