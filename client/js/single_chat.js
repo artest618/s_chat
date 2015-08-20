@@ -157,7 +157,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             //群列表
             $(".showGroupList","#"+toId).on("click",function(){
                 window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
-                    (app.chattype=='single'?2:1)+"&usertype="+ app.from.usertype;
+                    (app.chattype=='single'?1:2)+"&usertype="+ app.from.usertype;
             })
 
         }

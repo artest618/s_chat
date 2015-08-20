@@ -22,14 +22,14 @@
 	<div class="container-fluid border-bot header">
 		<div class="row">
 			<div class="col-xs-2 col-sm-1">
-				<em class="arrow"></em>
+				<em class="arrow go_gchat" uid="<%=linkObj.uid%>" to="<%=linkObj.gid%>" totype="<%=linkObj.totype%>"></em>
 			</div>
 			<div class="col-xs-8 col-sm-10 mt15">
 				<h3 class="f30 align-center">群成员</h3>
 			</div>
 			<div class="col-xs-2 col-sm-1">
                 <% if(linkObj.usertype!=3){ %>
-				<span class="f20 exitGroup">退群</span>
+				<span class="f20 exitGroup" uid="<%=linkObj.uid%>"  to="<%=linkObj.gid%>">退群</span>
                 <% } %>
 			</div>
 		</div>
