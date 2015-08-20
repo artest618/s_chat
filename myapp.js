@@ -117,7 +117,7 @@ for(var i=0; i<routedefines.length; i++){
                 console.log(e);
                 console.log(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再�?..."});
+                    res.send({error: "服务器正忙，请稍后再试..."});
                 }
                 else {
                     res.redirect('/');
