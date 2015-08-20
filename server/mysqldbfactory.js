@@ -3,7 +3,7 @@ var mysql=require("mysql");
 
 var pool = mysql.createPool({
     host: '127.0.0.1',
-    user: 'root',
+    user: 'chat',
     password: '1q2w3e4r',
     database: 'chat',
     port: 3306
