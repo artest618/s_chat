@@ -138,19 +138,27 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     msg: msg
                 });
 
-                //向服务器添加联系人
-                Common.post({
-                    url: 'addChatList',
-                    data: {uid: app.from.uid, tid: app.to},
-                    success: function(data){
-                    }
-                });
+                if(app.chattype == 'single'){
+                    //向服务器添加联系人
+                    Common.post({
+                        url: 'addChatList',
+                        data: {uid: app.from.uid, tid: app.to},
+                        success: function(data){
+                        }
+                    });
+                }
+
                 $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
             });
 
-
+            //返回列表
             $(".get_list", "#" + toId).on('click', function () {
                 window.location.href = "/getHistoryList?uid=" + fromId;
+            });
+
+            //群列表
+            $("#"+toId).find(".showGroupList").on("click",function(){
+                //TODO
             });
         }
         $('#' + toId).show();
