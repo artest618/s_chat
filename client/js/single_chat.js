@@ -137,21 +137,28 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     chattype: app.chattype,
                     msg: msg
                 });
+                if(app.chattype == 'single'){
+                    //向服务器添加联系人
+                    Common.post({
+                        url: 'addChatList',
+                        data: {uid: app.from.uid, tid: app.to},
+                        success: function(data){
+                        }
+                    });
+                }
 
-                //向服务器添加联系人
-                Common.post({
-                    url: 'addChatList',
-                    data: {uid: app.from.uid, tid: app.to},
-                    success: function(data){
-                    }
-                });
                 $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
             });
 
-
+            //列表
             $(".get_list", "#" + toId).on('click', function () {
                 window.location.href = "/getHistoryList?uid=" + fromId;
             });
+            //
+            $(".showGroupList","#"+toId).on("click",function(){
+                window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
+                    (app.chattype=='single'?2:1)+"&usertype="+ app.from.usertype;
+            })
         }
         $('#' + toId).show();
     }

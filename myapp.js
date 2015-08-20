@@ -109,12 +109,15 @@ var routedefines = [
         'method': 'post'
     },
     {
-
         'pathname': '/getGroupInfo',
         'handler': actions.getGroupInfo,
         'method': 'post'
+    },
+    {
+        'pathname': '/getGroupMembers',
+        'handler': actions.getGroupMembers,
+        'method': 'get'
     }
-
 ];
 
 for(var i=0; i<routedefines.length; i++){
