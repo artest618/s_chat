@@ -15,8 +15,8 @@ require.config({
         domReady: "domReady",
         ejs: "ejs",
         common: "common",
-        jquery: 'jquery.min'
-
+        jquery: 'jquery.min',
+        AjaxUpload: 'ajaxupload'
     }
 });
 
@@ -27,7 +27,7 @@ var app = {
     addingchat: {}
 };
 
-require(['jquery', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
+require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Common, $dom, EJS, AjaxUpload){
     var socket = io.connect();
 
     $dom(function(){
@@ -196,6 +196,40 @@ require(['jquery', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     var inputmsg = $('#' + tid).find('.inputmsg');
                     inputmsg.val(inputmsg.val()  + $(e.target).attr('code')).focus();
                 });
+            });
+            new AjaxUpload($('#' + tid).find('.upfilebtn'), {
+                action: '/upfile',
+                name: 'file',
+                autoSubmit: true,
+                onChange: function(file, ext){
+
+                },
+                onSubmit: function(file, ext){
+
+                },
+                onComplete: function(file, ext){
+
+                },
+                onprogress: function(loaded, total, per){
+
+                }
+            });
+            new AjaxUpload($('#' + tid).find('.upimgbtn'), {
+                action: '/upfile',
+                name: 'file',
+                autoSubmit: true,
+                onChange: function(file, ext){
+
+                },
+                onSubmit: function(file, ext){
+
+                },
+                onComplete: function(file, ext){
+
+                },
+                onprogress: function(loaded, total, per){
+
+                }
             });
         }
         $('#' + tid).addClass('currentW').show();

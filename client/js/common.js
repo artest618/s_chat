@@ -143,7 +143,7 @@ define("common", ['jquery'], function($){
             return msg;
         },
         upfiletypes: {
-            'image': ['png', 'jpg', 'bmp', 'gif', 'tif', 'svg'],
+            'image': ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
             'office': ['doc', 'docs', 'xls', 'xlsx', 'ppt', 'pptx'],
             'zipfile': ['rar', 'zip', 'tar', '7z']
         },

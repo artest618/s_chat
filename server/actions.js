@@ -4,6 +4,7 @@ var CounselorService=require("./services/counselor");
 var chatService = require('./services/chats');
 var util = require("./_util");
 var msgService = require('./services/message');
+var fs = require('fs');
 
 var actions = {
     root: function(req, res){
@@ -243,6 +244,10 @@ var actions = {
     },
     upfile: function(req, res){
         var files = req.files.file,user = req.session.sessiondata.user;
+        //非html5上传文件时，files就是文件本身，为了统一处理，也转换成数组
+        if('undefined' == typeof files.length){
+            files = [files];
+        }
         for(var i=0; i < files.length; i++){
             var file = files[i], path = file.path, name = file.name, targetpath =util.upfile_root, url = util.upfile_url_bas;
             if(util.upfile_exts.indexOf(name.split('.')[1]) == -1){
