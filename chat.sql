@@ -15,6 +15,13 @@ Date: 2015-07-28 23:39:23
 
 SET FOREIGN_KEY_CHECKS=0;
 
+CREATE USER 'chat'@'localhost' IDENTIFIED BY '1q2w3e4r';
+GRANT SELECT, INSERT, UPDATE ON chat.tb_grouplist TO 'chat'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON chat.tb_group_userlist TO 'chat'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON chat.tb_userinfo TO 'chat'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON chat.tb_usertype TO 'chat'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON chat.tb_contacthistory_list TO 'chat'@'localhost';
+
 -- ----------------------------
 -- Table structure for tb_grouplist
 -- ----------------------------
