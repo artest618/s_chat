@@ -137,7 +137,6 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     chattype: app.chattype,
                     msg: msg
                 });
-
                 if(app.chattype == 'single'){
                     //向服务器添加联系人
                     Common.post({
@@ -151,15 +150,16 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
             });
 
-            //返回列表
+            //列表
             $(".get_list", "#" + toId).on('click', function () {
                 window.location.href = "/getHistoryList?uid=" + fromId;
             });
-
             //群列表
-            $("#"+toId).find(".showGroupList").on("click",function(){
-                //TODO
-            });
+            $(".showGroupList","#"+toId).on("click",function(){
+                window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
+                    (app.chattype=='single'?2:1)+"&usertype="+ app.from.usertype;
+            })
+
         }
         $('#' + toId).show();
     }

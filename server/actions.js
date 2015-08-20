@@ -346,7 +346,7 @@ var actions = {
      * @param res
      */
     getGroupInfo:function(req,res){
-        var gid=req.body.to;
+        var gid = req.body.to;
             if(gid){
                 chatService.getGroupInfo(gid,function(obj){
                     if(obj&&obj.length>0){
@@ -361,6 +361,19 @@ var actions = {
                 res.send({error:"参数错误"});
             }
 
+    },
+    getGroupMembers:function(req,res){
+        var gid = req.query.gid,uid=req.query.uid,totype=req.query.totype,
+            usertype=req.query.usertype;
+        global.group_user_list[gid].members.forEach(function(item){
+            if(global.onlineUsers[item.uid]){
+                item.isOnline = 1;
+            } else {
+                item.isOnline = 0;
+            }
+        });
+        res.render("tmpls/m_members",{members:global.group_user_list[gid].members,
+            linkObj:{uid:uid,gid:gid,totype:totype,usertype:usertype}});
     },
     /**
      * 创建顾问
