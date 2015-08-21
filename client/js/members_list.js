@@ -26,13 +26,41 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
     var socket = io.connect();
 
     $dom(function () {
-            var uid,to;
+            var uid,to,totype;
                 $(".row .member_n",".all_members").on("click",function(){
                         uid=$(this).attr("uid");
                         to =$(this).attr("to");
                         Common.showLoading();
                         window.location.href="/?uid="+uid+"&to="+to;
                 });
+                //回群聊
+                $(".go_gchat",".header").on("click",function(){
+                       uid = $(this).attr("uid");
+                        to = $(this).attr("to");
+                    totype = $(this).attr("totype");
+                        Common.showLoading();
+                        window.location.href="/?uid="+uid+"&to="+to+"&totype="+totype;
+                });
+                //退群
+                $(".exitGroup",".header").on("click",function(){
+                       uid = $(this).attr("uid");
+                        to = $(this).attr("to");
+                       Common.post({
+                            url: 'exitGroup',
+                            data: {groupid: to},
+                            success: function(data){
+                                if(data){
+                                    alert("您已退出该群！");
+                                    Common.showLoading();
+                                    window.location.href="/getHistoryList?uid="+uid
+                                }
+                            },
+                            error: function(err){
+
+                            }
+                       });
+                });
+
     });
 
 

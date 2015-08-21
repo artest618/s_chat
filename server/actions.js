@@ -336,7 +336,7 @@ var actions = {
                 chatService.addChatForList(chat);
                 res.send([chat]);
             } else{
-                throw new Error('error,addChatList');
+                throw new Error('addChatList error');
             }
         });
     },

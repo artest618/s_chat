@@ -154,10 +154,10 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             $(".get_list", "#" + toId).on('click', function () {
                 window.location.href = "/getHistoryList?uid=" + fromId;
             });
-            //
+            //群列表
             $(".showGroupList","#"+toId).on("click",function(){
                 window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
-                    (app.chattype=='single'?2:1)+"&usertype="+ app.from.usertype;
+                    (app.chattype=='single'?1:2)+"&usertype="+ app.from.usertype;
             })
 
             $('#' + toId).find('.chemoji').on('click', function(e){
