@@ -15,25 +15,25 @@ var actions = {
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
-            if(!FI.checkSigned(uid)){
-                res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
-                return;
-            }
-            userSerivce.checkuser(uid, function(flag, user){
-                if(flag){
-                    req.session.sessiondata = {user: user};
-                    console.log(JSON.stringify(user));
-                    return res.sendfile(send_target);
-                } else{
-                    var user = FI.syncUser(uid);
-                    if(!user){
-                        return res.redirect('/signin');
-                    }
-                    userSerivce.addUser(user, function(){
-                        req.session.sessiondata = {user: user};
-                        console.log(req.session.sessiondata);
-                        return res.sendfile(send_target);
+            FI.checkSigned(uid, function(suser){
+                if(suser){
+                    userSerivce.checkuser(uid, function(flag, user){
+                        if(flag){
+                            req.session.sessiondata = {user: user};
+                            console.log(JSON.stringify(user));
+                            return res.sendfile(send_target);
+                        } else{
+                            //var user = FI.syncUser(uid);
+                            userSerivce.addUser(suser, function(){
+                                req.session.sessiondata = {user: suser};
+                                console.log(req.session.sessiondata);
+                                return res.sendfile(send_target);
+                            });
+                            return;
+                        }
                     });
+                }else{
+                    res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
                     return;
                 }
             });
@@ -49,6 +49,7 @@ var actions = {
         console.log('get user info....');
         if(!tid){
             res.send( [req.session.sessiondata.user]);
+            return;
         }
         //if(user.usertype == 3){
         //    res.send( [req.session.sessiondata.user]);
