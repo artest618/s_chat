@@ -28,7 +28,10 @@ var FI = {
                 if(typeof result == 'string'){
                     result = JSON.parse(result);
                 }
-                debugger;
+                if(result.code != 'SINO000000'){
+                    callback(false);
+                    return;
+                }
                 var usertype = result.userEdit.userType == 1 ? 1 : result.userEdit.userType == 2 ? 2 : 3;
                 var user = {
                     name: result.userEdit.userName,
@@ -40,7 +43,6 @@ var FI = {
 
                 callback(user);
             }else{
-                debbuger;
                 callback(false);
             }
         });
