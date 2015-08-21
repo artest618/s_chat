@@ -381,7 +381,8 @@ var actions = {
      * @param res.query.uanme
      */
     createCounselor:function(req,res){
-        CounselorService.createCounselor({uid: req.query.uid,uname:req.query.uname},function(res_obj){
+        var uid = req.query.uid,uname = decodeURI(req.query.uname);
+        CounselorService.createCounselor({uid:uid ,uname:uname},function(res_obj){
                 console.log(res_obj);
                 res.send(res_obj);
         });
