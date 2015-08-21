@@ -62,7 +62,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 $(".contactlistview").html(ejs);
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data.gchat, chattype: 'gchat'});
                 $(".contactlistview").append(ejs);
-                if(app.from.usertype != 3){
+                if(app.from.usertype != 3 && app.users[1]){
                     showChatView(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){

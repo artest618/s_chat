@@ -15,25 +15,25 @@ var actions = {
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
-            if(!FI.checkSigned(uid)){
-                res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
-                return;
-            }
-            userSerivce.checkuser(uid, function(flag, user){
-                if(flag){
-                    req.session.sessiondata = {user: user};
-                    console.log(JSON.stringify(user));
-                    return res.sendfile(send_target);
-                } else{
-                    var user = FI.syncUser(uid);
-                    if(!user){
-                        return res.redirect('/signin');
-                    }
-                    userSerivce.addUser(user, function(){
-                        req.session.sessiondata = {user: user};
-                        console.log(req.session.sessiondata);
-                        return res.sendfile(send_target);
+            FI.checkSigned(uid, function(suser){
+                if(suser){
+                    userSerivce.checkuser(uid, function(flag, user){
+                        if(flag){
+                            req.session.sessiondata = {user: user};
+                            console.log(JSON.stringify(user));
+                            return res.sendfile(send_target);
+                        } else{
+                            //var user = FI.syncUser(uid);
+                            userSerivce.addUser(suser, function(){
+                                req.session.sessiondata = {user: suser};
+                                console.log(req.session.sessiondata);
+                                return res.sendfile(send_target);
+                            });
+                            return;
+                        }
                     });
+                }else{
+                    res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
                     return;
                 }
             });
@@ -47,11 +47,15 @@ var actions = {
         }
         var tid = req.body.tid, user = req.session.sessiondata.user;
         console.log('get user info....');
-        if(user.usertype == 3){
+        if(!tid){
             res.send( [req.session.sessiondata.user]);
-        }else if(!tid){
-            throw new Error({error: '指定顾问对象不正确'});
+            return;
         }
+        //if(user.usertype == 3){
+        //    res.send( [req.session.sessiondata.user]);
+        //}else if(!tid){
+        //    throw new Error({error: '指定顾问对象不正确'});
+        //}
         userSerivce.checkuser(tid, function(f, csr){
             if(user.usertype != 3 && csr && csr.usertype != 3){
                 console.log('指定交谈对象非顾问，请联系管理员');
@@ -67,15 +71,17 @@ var actions = {
     getChatList: function(req, res){
         console.log(req.session.sessiondata);
         var user = req.session.sessiondata.user, counselor = req.session.sessiondata.counselor;
-        if(user.usertype != 3 && !counselor){
-            throw new Error("顾问不存在!");
-        }
+        //if(user.usertype != 3 && !counselor){
+        //    throw new Error("顾问不存在!");
+        //}
         var list = {
             schat: [],
             gchat: []
         }
         chatService.getChatList(user.uid, function(data){
-            if(user.usertype != 3){
+            //客户身份进入的聊天系统，并且指定了顾问时
+            //判断是否已经存在与该顾问的聊天，若不存在，则自动增加
+            if(user.usertype != 3 && counselor){
                 var isNew = true;
                 for(var i in data){
                     var u = data[i];
