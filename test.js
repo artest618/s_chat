@@ -51,6 +51,6 @@ var data = {
     },
     "request": [{"id": 3, "method": "PSNCreatConversationLoginPre", "conversationId": null, "params": null}]
 }
-util.sendRequest('/testrequest', {uid:1}, function (status, data) {
+util.sendRequest('/webservice/users/queryuser.htm', {userId:374}, function (status, data) {
     debugger;
 });

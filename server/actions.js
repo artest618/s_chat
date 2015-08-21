@@ -47,11 +47,14 @@ var actions = {
         }
         var tid = req.body.tid, user = req.session.sessiondata.user;
         console.log('get user info....');
-        if(user.usertype == 3){
+        if(!tid){
             res.send( [req.session.sessiondata.user]);
-        }else if(!tid){
-            throw new Error({error: '指定顾问对象不正确'});
         }
+        //if(user.usertype == 3){
+        //    res.send( [req.session.sessiondata.user]);
+        //}else if(!tid){
+        //    throw new Error({error: '指定顾问对象不正确'});
+        //}
         userSerivce.checkuser(tid, function(f, csr){
             if(user.usertype != 3 && csr && csr.usertype != 3){
                 console.log('指定交谈对象非顾问，请联系管理员');
@@ -67,15 +70,17 @@ var actions = {
     getChatList: function(req, res){
         console.log(req.session.sessiondata);
         var user = req.session.sessiondata.user, counselor = req.session.sessiondata.counselor;
-        if(user.usertype != 3 && !counselor){
-            throw new Error("顾问不存在!");
-        }
+        //if(user.usertype != 3 && !counselor){
+        //    throw new Error("顾问不存在!");
+        //}
         var list = {
             schat: [],
             gchat: []
         }
         chatService.getChatList(user.uid, function(data){
-            if(user.usertype != 3){
+            //客户身份进入的聊天系统，并且指定了顾问时
+            //判断是否已经存在与该顾问的聊天，若不存在，则自动增加
+            if(user.usertype != 3 && counselor){
                 var isNew = true;
                 for(var i in data){
                     var u = data[i];

@@ -59,10 +59,11 @@ var _util={};
     _util.msgfileMaxSize = 102400;
 
     //外部接口配置
+    //http://120.131.68.151:8071/webservice/users/queryuser.htm?userId=374
     _util.fifset = {
         method: "POST",
-        host: "localhost",
-        port: 9003,
+        host: "120.131.68.151",
+        port: 8071,
         path: "",
         headers: {
             //"Content-Type": 'application/x-www-form-urlencoded',
