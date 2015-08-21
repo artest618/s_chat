@@ -123,7 +123,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 var ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
-                    msg: msg.replace(/\n/g, '<br />')
+                    msg: Common.formatMsgDisp(msg)
                 }});
                 $('#' + toId).find('.c_msg_list').append(ejs);
                 $('#' + toId).find('.inputmsg').val('');
@@ -159,6 +159,28 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
                     (app.chattype=='single'?2:1)+"&usertype="+ app.from.usertype;
             })
+
+            $('#' + toId).find('.chemoji').on('click', function(e){
+                e.stopPropagation();
+
+                if($(this).attr("flag")){
+                    $('#' + toId).find(".footer").removeClass("h_new");
+                    $('#' + toId).find(".emojipanel").hide().removeClass("show");
+                    $(this).removeAttr("flag");
+                }else{
+                    var ejs = new EJS({url: "views/tmpls/emojipanel.ejs"}).render({emojis: Common.emojis,ua:"mobile"});
+                    $('#' + toId).find(".footer").addClass("h_new");
+                    $('#' + toId).find(".emojipanel").html(ejs).show().addClass("show").find('.emoji1').on('click', function(e){
+                        var inputmsg = $('#' + toId).find('.inputmsg');
+                        inputmsg.val(inputmsg.val()  + $(e.target).attr('code')).focus();
+                        $('#' + toId).find('.chemoji').removeAttr("flag");
+                        $('#' + toId).find(".footer").removeClass("h_new");
+                        $('#' + toId).find(".emojipanel").hide().removeClass("show");
+                    });
+                    $(this).attr("flag","flag");
+                }
+
+            });
         }
         $('#' + toId).show();
     }
