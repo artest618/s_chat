@@ -1,4 +1,4 @@
-define("common", ['zepto'], function($){
+define("common", ['jquery'], function($){
     var _t;
     return _t = {
         processing: 0,
@@ -44,7 +44,6 @@ define("common", ['zepto'], function($){
         urlparams: (function(){
             var str = '{"' + window.location.search.replace(/\?/,'').replace(/&/g, '","').replace(/=/g, '":"') + '"}';
             var up = JSON.parse(str);
-            console.log(up);
             return up;
         })(),
         formatDate: function(date, fmt){
@@ -142,6 +141,17 @@ define("common", ['zepto'], function($){
                 msg = msg.replace(reg, '<img src="' + this.emojis[i].path + '" style="width:26px;height:26px;">');
             }
             return msg;
+        },
+        upfiletypes: {
+            'image': ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
+            'office': ['doc', 'docs', 'xls', 'xlsx', 'ppt', 'pptx'],
+            'zipfile': ['rar', 'zip', 'tar', '7z']
+        },
+        upfile: function(){
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+
+            }
         }
     }
 });

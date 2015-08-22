@@ -15,7 +15,7 @@ app.set('views', __dirname + '/client/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
 app.use(express.session({ secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800000}, path: '/'}));
 app.use(express.methodOverride());
@@ -84,13 +84,18 @@ var routedefines = [
         'method': 'post'
     },
     {
-        'pathname': '/offline',
-        'handler': actions.offline,
+        'pathname': '/testrequest',
+        'handler': actions.testrequest,
         'method': 'post'
     },
     {
         'pathname': '/exitGroup',
         'handler': actions.exitGroup,
+        'method': 'post'
+    },
+    {
+        'pathname': '/upfile',
+        'handler': actions.upfile,
         'method': 'post'
     }
 ];
@@ -103,7 +108,7 @@ for(var i=0; i<routedefines.length; i++){
         return function (req, res){
             try{
                 console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
-                if(path != '/' && path != '/createCounselor' && path!='/offline' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && path!='/testrequest' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }
@@ -112,7 +117,7 @@ for(var i=0; i<routedefines.length; i++){
                 console.log(e);
                 console.log(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再�?..."});
+                    res.send({error: "服务器正忙，请稍后再试..."});
                 }
                 else {
                     res.redirect('/');

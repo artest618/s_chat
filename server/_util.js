@@ -1,6 +1,7 @@
 /**
  * Created by tony on 15-7-26.
  */
+var http = require('http');
 var _util={};
     /**
      *
@@ -47,15 +48,22 @@ var _util={};
     //用户消息存储根目录
     _util.msgroot = 'msgdata/';
 
+    //文件上传根目录
+    _util.upfile_root = 'client/upfiles/';
+    //文件上传后根目录对应的url
+    _util.upfile_url_bas = 'upfiles/';
+    _util.upfile_exts = ['png', 'gif', 'jpg', 'jpeg', 'bmp', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'rar', 'zip', 'tar', '7z'];
+
     //存储聊天记录的文件，单个文件的最大大小
     //如果最后一条消息的大小特别大，文件实际大小可能会超过该值
     _util.msgfileMaxSize = 102400;
 
     //外部接口配置
+    //http://120.131.68.151:8071/webservice/users/queryuser.htm?userId=374
     _util.fifset = {
         method: "POST",
-        host: "localhost",
-        port: 8080,
+        host: "120.131.68.151",
+        port: 8071,
         path: "",
         headers: {
             //"Content-Type": 'application/x-www-form-urlencoded',
@@ -68,7 +76,7 @@ var _util={};
         data = JSON.stringify(data);
         _util.fifset.headers['Content-Length'] = data.length;
         _util.fifset.path = path;
-        var req = http.request({}, function(serverFeedback){
+        var req = http.request(_util.fifset, function(serverFeedback){
             if (serverFeedback.statusCode == 200) {
                 var body = "";
                 serverFeedback.on('data', function (data) {
@@ -81,7 +89,7 @@ var _util={};
                 callback(500, {'error': '服务器返回错误'});
             }
         });
-        req.write(data + "\n");
+        req.write(data);
         req.end();
     }
 module.exports=_util;

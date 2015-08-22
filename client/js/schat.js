@@ -14,7 +14,9 @@ require.config({
     paths: {
         domReady: "domReady",
         ejs: "ejs",
-        common: "common"
+        common: "common",
+        jquery: 'jquery.min',
+        AjaxUpload: 'ajaxupload'
     }
 });
 
@@ -25,7 +27,7 @@ var app = {
     addingchat: {}
 };
 
-require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
+require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Common, $dom, EJS, AjaxUpload){
     var socket = io.connect();
 
     $dom(function(){
@@ -60,7 +62,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                 $(".contactlistview").html(ejs);
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data.gchat, chattype: 'gchat'});
                 $(".contactlistview").append(ejs);
-                if(app.from.usertype != 3){
+                if(app.from.usertype != 3 && app.users[1]){
                     showChatView(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
@@ -194,6 +196,40 @@ require(['zepto', 'common', 'domReady', 'ejs'], function($, Common, $dom, EJS){
                     var inputmsg = $('#' + tid).find('.inputmsg');
                     inputmsg.val(inputmsg.val()  + $(e.target).attr('code')).focus();
                 });
+            });
+            new AjaxUpload($('#' + tid).find('.upfilebtn'), {
+                action: '/upfile',
+                name: 'file',
+                autoSubmit: true,
+                onChange: function(file, ext){
+
+                },
+                onSubmit: function(file, ext){
+
+                },
+                onComplete: function(file, ext){
+
+                },
+                onprogress: function(loaded, total, per){
+
+                }
+            });
+            new AjaxUpload($('#' + tid).find('.upimgbtn'), {
+                action: '/upfile',
+                name: 'file',
+                autoSubmit: true,
+                onChange: function(file, ext){
+
+                },
+                onSubmit: function(file, ext){
+
+                },
+                onComplete: function(file, ext){
+
+                },
+                onprogress: function(loaded, total, per){
+
+                }
             });
         }
         $('#' + tid).addClass('currentW').show();

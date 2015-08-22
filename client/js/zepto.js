@@ -1856,7 +1856,9 @@ window.$ === undefined && (window.$ = Zepto)
       ajaxError(null, 'abort', xhr, settings, deferred)
       return xhr
     }
-
+    if(settings['upload.onprogress']){
+      xhr.upload.onprogress = settings['upload.onprogress'];
+    }
     if (settings.xhrFields) for (name in settings.xhrFields) xhr[name] = settings.xhrFields[name]
 
     var async = 'async' in settings ? settings.async : true
