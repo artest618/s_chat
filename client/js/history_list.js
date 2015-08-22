@@ -39,12 +39,14 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 }
             });
         } else {
-            //var sys = '<div style="color:#f00">系统(' + now() + '):你进入了聊天室！</div>';
+
         }
 
     });
     socket.on('offline', function (data) {
+        if(data.user.uid != app.from.uid){
 
+        }
     });
     //服务器关闭
     socket.on('disconnect', function () {

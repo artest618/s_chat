@@ -276,7 +276,14 @@ var actions = {
                             for(i in gdata){
                                 gdata[i].jointime=util.dateFormat("yyyy-MM-dd hh:mm:ss", gdata[i].jointime);
                             }
-                            res.render("tmpls/m_histroy_page",{data:data,gdata:gdata});
+                            data.forEach(function(item){
+                                if(global.onlineUsers[item.uid]){
+                                    item.isOnline = 1;
+                                } else {
+                                    item.isOnline = 0;
+                                }
+                            });
+                            res.render("tmpls/m_histroy_page",{uid:uid,data:data,gdata:gdata});
                         }, function(err){});
 
                     });
