@@ -263,6 +263,148 @@ var actions = {
         });
     },
     /**
+     * 历史列表
+     * @param req
+     * @param res
+     */
+    getHistoryList:function(req,res){
+        var uid = req.query.uid?parseInt(req.query.uid):"",  user;
+        actions.syncUser(req,res,function(obj){
+            if(obj.error){
+                res.send(obj);
+            }else{
+
+                if( uid && obj.uid && (uid==parseInt(obj.uid)) ){
+                    chatService.getChatList(uid, function(data){
+                        for(i in data){
+                            data[i].lastchattime=util.dateFormat("yyyy-MM-dd hh:mm:ss", data[i].lastchattime);
+                        }
+                        chatService.getUserGroupList(uid, function(gdata){
+                            for(i in gdata){
+                                gdata[i].jointime=util.dateFormat("yyyy-MM-dd hh:mm:ss", gdata[i].jointime);
+                            }
+                            data.forEach(function(item){
+                                if(global.onlineUsers[item.uid]){
+                                    item.isOnline = 1;
+                                } else {
+                                    item.isOnline = 0;
+                                }
+                            });
+                            res.render("tmpls/m_histroy_page",{uid:uid,data:data,gdata:gdata});
+                        }, function(err){});
+
+                    });
+                }else{
+                    res.send({error:"用户标识不一致"});
+                }
+            }
+        });
+
+    },
+    syncUser:function(req,res,callback){
+        var q=req.query,uid = q.uid,  ua = util.isMobile(req);
+        if (!req.session.sessiondata || !req.session.sessiondata.user) {
+            if(!uid){
+              return  callback({error:"用户标识错误"});
+            }
+
+            FI.checkSigned(uid, function(suser){
+                    if(suser){
+                        userSerivce.checkuser(uid, function(flag, user){
+                            if(flag){
+                                req.session.sessiondata = {user: user};
+                                return   callback(req.session.sessiondata.user);
+                            } else{
+
+                                userSerivce.addUser(suser, function(){
+                                    req.session.sessiondata = {user: suser};
+                                    return  callback(req.session.sessiondata.user);
+                                });
+                            }
+                        });
+                    }else{
+                        return  callback({error:"您还未登录系统，请在登录页面进行登录！"});
+                    }
+            });
+
+        }else{
+            return   callback(req.session.sessiondata.user);
+        }
+    },
+    /**
+     * 添加历史联系人
+     * @param req
+     * @param res
+     */
+    addChatList:function(req,res){
+        var uid = req.body.uid, tid=req.body.tid;
+        userSerivce.checkuser(tid, function(flag, user){
+            if(flag){
+                var chat = {
+                    user: uid,
+                    toid: tid,
+                    totype: 1,
+                    name: user.name,
+                    cname: user.cname,
+                    headicon: user.headicon,
+                    lastchattime: new Date().toDateString()
+                };
+                chatService.addChatForList(chat);
+                res.send([chat]);
+            } else{
+                throw new Error('addChatList error');
+            }
+        });
+    },
+    /**
+     * 获取组信息
+     * @param req
+     * @param res
+     */
+    getGroupInfo:function(req,res){
+        var gid = req.body.to;
+            if(gid){
+                chatService.getGroupInfo(gid,function(obj){
+                    if(obj&&obj.length>0){
+                        res.send( [req.session.sessiondata.user, obj[0]]);
+                    }else{
+                        res.send({error:"查无结果"});
+                    }
+                },function(err){
+                    res.send({error:err});
+                });
+            }else{
+                res.send({error:"参数错误"});
+            }
+
+    },
+    getGroupMembers:function(req,res){
+        var gid = req.query.gid,uid=req.query.uid,totype=req.query.totype,
+            usertype=req.query.usertype;
+        global.group_user_list[gid].members.forEach(function(item){
+            if(global.onlineUsers[item.uid]){
+                item.isOnline = 1;
+            } else {
+                item.isOnline = 0;
+            }
+        });
+        res.render("tmpls/m_members",{members:global.group_user_list[gid].members,
+            linkObj:{uid:uid,gid:gid,totype:totype,usertype:usertype}});
+    },
+    getCurrentUser:function(req,res){
+        var uid=req.body.uid, user;
+        if(!req.session.sessiondata || !req.session.sessiondata.user){
+            return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
+        }
+        user = req.session.sessiondata.user;
+        if(user.uid&&parseInt(user.uid)==uid){
+            return res.send({user:user});
+        }else{
+            return res.send({error:"用户标识不一致"});
+        }
+
+    },
+    /**
      * 创建顾问
      * @param req.query.uid
      * @param res.query.uanme
@@ -319,4 +461,4 @@ var actions = {
     }
 
 }
-module.exports=actions; 
+module.exports=actions;

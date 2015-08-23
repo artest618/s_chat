@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta name="viewport" content="target-densitydpi=device-dpi" /> 
+	<meta name="viewport" content="target-densitydpi=high-dpi" /> 
+	<meta name="viewport" content="target-densitydpi=medium-dpi" /> 
+	<meta name="viewport" content="target-densitydpi=low-dpi" /> 
+    <meta name="viewport" content="target-densitydpi=1" />
+	<meta name="viewport" content="width=device-width,height=device-height, user-scalable=no,initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5,target-densitydpi=device-dpi">
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>群成员</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/service.css">
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid border-bot header">
+		<div class="row">
+			<div class="col-xs-2 col-sm-1">
+				<em class="arrow go_gchat" uid="<%=linkObj.uid%>" to="<%=linkObj.gid%>" totype="<%=linkObj.totype%>"></em>
+			</div>
+			<div class="col-xs-8 col-sm-10 mt15">
+				<h3 class="f30 align-center">群成员</h3>
+			</div>
+			<div class="col-xs-2 col-sm-1">
+                <% if(linkObj.usertype!=3){ %>
+				<span class="f20 exitGroup" uid="<%=linkObj.uid%>"  to="<%=linkObj.gid%>">退群</span>
+                <% } %>
+			</div>
+		</div>
+	</div>
+	<div class="container all_members">
+       <!-- <div class="row">
+            <div class="col-xs-3 align-center mt30">
+                <img src="../images/photos.jpg" alt="">
+                <span class=" f26 disblock mt20">用户名</span>
+            </div>
+            <div class="col-xs-3 align-center mt30">
+                <img src="../images/photos.jpg" alt="">
+                <span class="f26 disblock mt20">用户名</span>
+            </div>
+            <div class="col-xs-3 align-center mt30">
+                <img src="../images/photos.jpg" alt="">
+                <span class="f26 disblock mt20">用户名</span>
+            </div>
+            <div class="col-xs-3 align-center mt30">
+                <img src="../images/photos.jpg" alt="">
+                <span class="f26 disblock mt20">用户名</span>
+            </div>
+        </div>-->
+        <div class="row">
+        <%for(var i in members){%>
+            <div class="col-xs-3 align-center mt30">
+                <% if(linkObj.usertype==3){ %>
+                        <% if(members[i].usertype==3){ %>
+                            <img src="../../<%=members[i].headicon%>" alt="" <% if(members[i].isOnline!=1){%> class="gray" <%}%>>
+                            <span class=" f26 disblock mt20"><%=members[i].cname%></span>
+                        <%}else{%>
+                            <img class="member_n <% if(members[i].isOnline!=1){%> gray <%}%>" src="../../<%=members[i].headicon%>" alt="" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>" >
+                            <span class="member_n f26 disblock mt20" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>"><%=members[i].cname%></span>
+                        <%}%>
+                <%}else{%>
+                    <% if(members[i].usertype==3){ %>
+                        <img class="member_n <% if(members[i].isOnline!=1){%> gray <%}%>" src="../../<%=members[i].headicon%>" alt="" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>" >
+                        <span class="member_n f26 disblock mt20" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>"><%=members[i].cname%></span>
+                    <%}else{%>
+                        <img src="../../<%=members[i].headicon%>" alt="" <% if(members[i].isOnline!=1){%> class="gray" <%}%>>
+                        <span class=" f26 disblock mt20"><%=members[i].cname%></span>
+                    <%}%>
+                <%}%>
+
+
+            </div>
+            <% if(i%4==0&&i!=0){ %>
+                </div>
+                <div class="row">
+            <%}%>
+
+        <%}%>
+        </div>
+	</div>
+</body>
+<script data-main="../js/members_list" src="../js/require.js" async></script>
+</html>

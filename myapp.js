@@ -12,7 +12,7 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 9003);
 app.set('views', __dirname + '/client/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
@@ -94,6 +94,36 @@ var routedefines = [
         'method': 'post'
     },
     {
+        'pathname': '/getUserInfoM',
+        'handler': actions.getUserInfoM,
+        'method': 'post'
+    },
+    {
+        'pathname': '/getHistoryList',
+        'handler': actions.getHistoryList,
+        'method': 'get'
+    },
+    {
+        'pathname': '/addChatList',
+        'handler': actions.addChatList,
+        'method': 'post'
+    },
+    {
+        'pathname': '/getGroupInfo',
+        'handler': actions.getGroupInfo,
+        'method': 'post'
+    },
+    {
+        'pathname': '/getGroupMembers',
+        'handler': actions.getGroupMembers,
+        'method': 'get'
+    },
+    {
+        'pathname': '/getCurrentUser',
+        'handler': actions.getCurrentUser,
+        'method': 'post'
+    },
+    {
         'pathname': '/upfile',
         'handler': actions.upfile,
         'method': 'post'
@@ -108,7 +138,7 @@ for(var i=0; i<routedefines.length; i++){
         return function (req, res){
             try{
                 console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
-                if(path != '/' && path != '/createCounselor' && path!='/testrequest' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && path != '/getHistoryList' && path!='/offline' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }
