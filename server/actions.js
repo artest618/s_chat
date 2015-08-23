@@ -305,28 +305,30 @@ var actions = {
         var q=req.query,uid = q.uid,  ua = util.isMobile(req);
         if (!req.session.sessiondata || !req.session.sessiondata.user) {
             if(!uid){
-                callback({error:"用户标识错误"});
+              return  callback({error:"用户标识错误"});
             }
-            if(!FI.checkSigned(uid)){
-                callback({error:"您还未登录系统，请在登录页面进行登录！"});
-            }
-            userSerivce.checkuser(uid, function(flag, user){
-                if(flag){
-                    req.session.sessiondata = {user: user};
-                    callback(req.session.sessiondata.user);
-                } else{
-                    var user = FI.syncUser(uid);
-                    if(!user){
-                        callback({error:"同步用户出错"});
+
+            FI.checkSigned(uid, function(suser){
+                    if(suser){
+                        userSerivce.checkuser(uid, function(flag, user){
+                            if(flag){
+                                req.session.sessiondata = {user: user};
+                                return   callback(req.session.sessiondata.user);
+                            } else{
+
+                                userSerivce.addUser(suser, function(){
+                                    req.session.sessiondata = {user: suser};
+                                    return  callback(req.session.sessiondata.user);
+                                });
+                            }
+                        });
+                    }else{
+                        return  callback({error:"您还未登录系统，请在登录页面进行登录！"});
                     }
-                    userSerivce.addUser(user, function(){
-                        req.session.sessiondata = {user: user};
-                        callback(req.session.sessiondata.user);
-                    });
-                }
             });
+
         }else{
-            callback(req.session.sessiondata.user);
+            return   callback(req.session.sessiondata.user);
         }
     },
     /**
