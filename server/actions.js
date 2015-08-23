@@ -23,7 +23,7 @@ var actions = {
                             console.log(JSON.stringify(user));
                             return res.sendfile(send_target);
                         } else{
-                            //var user = FI.syncUser(uid);
+                            //var suser = FI.syncUser(uid);
                             userSerivce.addUser(suser, function(){
                                 req.session.sessiondata = {user: suser};
                                 console.log(req.session.sessiondata);
@@ -154,7 +154,7 @@ var actions = {
         var user = req.session.sessiondata.user, owner=req.body.owner, group;//group = global.group_user_list[req.body.gid];
         for(var i in global.group_user_list){
             //该判定仅适合客户和客户经理，顾问加群请勿使用本action
-            if(global.group_user_list[i].owner == owner && user.usertype+1 == global.group_user_list[i].grouptype){
+            if(global.group_user_list[i].owner == owner && (parseInt(user.usertype)+1) == global.group_user_list[i].grouptype){
                 group = global.group_user_list[i];
             }
         }
@@ -315,7 +315,7 @@ var actions = {
                                 req.session.sessiondata = {user: user};
                                 return   callback(req.session.sessiondata.user);
                             } else{
-
+                                //var suser = FI.syncUser(uid); TODO
                                 userSerivce.addUser(suser, function(){
                                     req.session.sessiondata = {user: suser};
                                     return  callback(req.session.sessiondata.user);

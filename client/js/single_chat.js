@@ -59,6 +59,14 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     //TODO 过滤
                     showChatView(sendData.tid ? true : false);
                     socket.emit('online', {user: app.from});
+
+                    //向服务器添加联系人
+                    Common.post({
+                        url: 'addChatList',
+                        data: {uid: app.from.uid, tid:data[1].uid},
+                        success: function(data){
+                        }
+                    });
                 },
                 error: function (err) {
 
@@ -137,15 +145,6 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     chattype: app.chattype,
                     msg: msg
                 });
-                if(app.chattype == 'single'){
-                    //向服务器添加联系人
-                    Common.post({
-                        url: 'addChatList',
-                        data: {uid: app.from.uid, tid: app.to},
-                        success: function(data){
-                        }
-                    });
-                }
 
                 $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
             });
@@ -211,15 +210,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
 
     socket.on('online', function (data) {
         //显示系统消息
-        if (data.user.uid != app.from.uid) {
-            $('.contactlistview').find('li').each(function (i, item) {
-                if ($(item).find('span').attr('tid') == parseInt(data.user.uid)) {
-                    $(item).find('span').css('color', 'blue');
-                }
-            });
-        } else {
-            //var sys = '<div style="color:#f00">系统(' + now() + '):你进入了聊天室！</div>';
-        }
+
 
     });
     socket.on('offline', function (data) {
