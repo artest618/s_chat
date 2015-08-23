@@ -4,6 +4,7 @@ var CounselorService=require("./services/counselor");
 var chatService = require('./services/chats');
 var util = require("./_util");
 var msgService = require('./services/message');
+var fs = require('fs');
 
 var actions = {
     root: function(req, res){
@@ -14,25 +15,25 @@ var actions = {
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
-            if(!FI.checkSigned(uid)){
-                res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
-                return;
-            }
-            userSerivce.checkuser(uid, function(flag, user){
-                if(flag){
-                    req.session.sessiondata = {user: user};
-                    console.log(JSON.stringify(user));
-                    return res.sendfile(send_target);
-                } else{
-                    var user = FI.syncUser(uid);
-                    if(!user){
-                        return res.redirect('/signin');
-                    }
-                    userSerivce.addUser(user, function(){
-                        req.session.sessiondata = {user: user};
-                        console.log(req.session.sessiondata);
-                        return res.sendfile(send_target);
+            FI.checkSigned(uid, function(suser){
+                if(suser){
+                    userSerivce.checkuser(uid, function(flag, user){
+                        if(flag){
+                            req.session.sessiondata = {user: user};
+                            console.log(JSON.stringify(user));
+                            return res.sendfile(send_target);
+                        } else{
+                            //var user = FI.syncUser(uid);
+                            userSerivce.addUser(suser, function(){
+                                req.session.sessiondata = {user: suser};
+                                console.log(req.session.sessiondata);
+                                return res.sendfile(send_target);
+                            });
+                            return;
+                        }
                     });
+                }else{
+                    res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
                     return;
                 }
             });
@@ -46,11 +47,15 @@ var actions = {
         }
         var tid = req.body.tid, user = req.session.sessiondata.user;
         console.log('get user info....');
-        if(user.usertype == 3){
+        if(!tid){
             res.send( [req.session.sessiondata.user]);
-        }else if(!tid){
-            throw new Error({error: '指定顾问对象不正确'});
+            return;
         }
+        //if(user.usertype == 3){
+        //    res.send( [req.session.sessiondata.user]);
+        //}else if(!tid){
+        //    throw new Error({error: '指定顾问对象不正确'});
+        //}
         userSerivce.checkuser(tid, function(f, csr){
             if(user.usertype != 3 && csr && csr.usertype != 3){
                 console.log('指定交谈对象非顾问，请联系管理员');
@@ -66,15 +71,17 @@ var actions = {
     getChatList: function(req, res){
         console.log(req.session.sessiondata);
         var user = req.session.sessiondata.user, counselor = req.session.sessiondata.counselor;
-        if(user.usertype != 3 && !counselor){
-            throw new Error("顾问不存在!");
-        }
+        //if(user.usertype != 3 && !counselor){
+        //    throw new Error("顾问不存在!");
+        //}
         var list = {
             schat: [],
             gchat: []
         }
         chatService.getChatList(user.uid, function(data){
-            if(user.usertype != 3){
+            //客户身份进入的聊天系统，并且指定了顾问时
+            //判断是否已经存在与该顾问的聊天，若不存在，则自动增加
+            if(user.usertype != 3 && counselor){
                 var isNew = true;
                 for(var i in data){
                     var u = data[i];
@@ -401,14 +408,54 @@ var actions = {
      * @param res.query.uanme
      */
     createCounselor:function(req,res){
-        CounselorService.createCounselor({uid: req.query.uid,uname:req.query.uname},function(res_obj){
-                console.log(res_obj);
-                res.send(res_obj);
+        var uid = req.query.uid,uname = decodeURI(req.query.uname);
+        CounselorService.createCounselor({uid:uid ,uname:uname},function(res_obj){
+            console.log(res_obj);
+            res.send(res_obj);
         });
     },
-    offline: function(req, res){
+    testrequest: function(req, res){
         var uid = req.body.uid;
         console.log(uid + ' is offline.................');
+        res.send({data: 'ok'})
+    },
+    upfile: function(req, res){
+        var files = req.files.file,user = req.session.sessiondata.user;
+        //非html5上传文件时，files就是文件本身，为了统一处理，也转换成数组
+        if('undefined' == typeof files.length){
+            files = [files];
+        }
+        for(var i=0; i < files.length; i++){
+            var file = files[i], path = file.path, name = file.name, targetpath =util.upfile_root, url = util.upfile_url_bas;
+            if(util.upfile_exts.indexOf(name.split('.')[1]) == -1){
+                res.send({error: '您上传的文件不在允许范围内'});
+                return;
+            }
+            if(!fs.existsSync(targetpath)){
+                fs.mkdirSync(targetpath);
+            }
+            targetpath+= user.uid + '/';
+            url += user.id + '/';
+            if(!fs.existsSync(targetpath)){
+                fs.mkdirSync(targetpath);
+            }
+            var filepath = targetpath + name, i=0;
+            while(fs.existsSync(filepath)){
+                name = name.split('.')[0] + (++i) + '.' + name.split('.')[1];
+                filepath = targetpath + name;
+            }
+            url += name;
+            fs.rename(path, filepath, function(err){
+                if(err){
+                    throw err;
+                }else{
+                    res.send({
+                        url: url,
+                        filename: name
+                    });
+                }
+            });
+        }
     }
 
 }
