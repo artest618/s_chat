@@ -26,16 +26,31 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
     var socket = io.connect();
 
     $dom(function () {
-
+        var uid=$("#current_user").val();
+            Common.post({
+                url: 'getCurrentUser',
+                data: {uid:uid},
+                success: function (data) {
+                    if(data&&data.user){
+                        app.from=data.user;
+                        socket.emit('online', {user: app.from});
+                    }else{
+                        alert(data&&data.error);
+                    }
+                },
+                error: function (err) {
+                }
+            });
+            socket.emit('online', {user: app.from});
     });
 
 
     socket.on('online', function (data) {
         //显示系统消息
         if (data.user.uid != app.from.uid) {
-            $('.contactlistview').find('li').each(function (i, item) {
-                if ($(item).find('span').attr('tid') == parseInt(data.user.uid)) {
-                    $(item).find('span').css('color', 'blue');
+            $('.single_r','.history_list').each(function (i, item) {
+                if ($(item).attr('to') == parseInt(data.user.uid)) {
+                    $(item).find('.head_icon').removeClass('gray');
                 }
             });
         } else {
@@ -44,8 +59,12 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
 
     });
     socket.on('offline', function (data) {
-        if(data.user.uid != app.from.uid){
-
+        if(data.from!= app.from.uid){
+            $('.single_r','.history_list').each(function (i, item) {
+                if ($(item).attr('to') == parseInt(data.from)) {
+                    $(item).find('.head_icon').addClass('gray');
+                }
+            });
         }
     });
     //服务器关闭
@@ -59,44 +78,12 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
 
     });
     socket.on('say', function (data) {
-        data.from = parseInt(data.from), data.to = parseInt(data.to);
-
-        //群聊消息
-        if (data.chattype == 'gchat') {
-            //别人发的群消息则显示，自己发的不重复显示
-            if (data.from != parseInt(app.from.uid)) {
-                //如果消息窗口已经存在（已经点击过聊天列表中对应联系人，聊天窗口已被初始化过或已聊过天）
-                //将消息直接添加到聊天窗口
-                if ($('#' + data.to).length > 0) {
-                    var msg = $('#' + data.from).find('.inputmsg').val();
-                    var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
-                        cname: data.fromname,
-                        datetime: Common.formatDate(new Date()),
-                        msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
-                    }});
-                    $('#' + data.to).find('.c_msg_list').append(ejs);
-                    $('#' + data.to).find('.c_msg_list')[0].scrollTop = $('#' + data.to).find('.c_msg_list')[0].scrollHeight;
+        if(data.from != app.from.uid){
+            $('.single_r','.history_list').each(function (i, item) {
+                if ($(item).attr('to') == parseInt(data.from)) {
+                    $(item).find('.head_name').css("color",'red');
                 }
-                //当前聊天窗口并非消息要显示的窗口，提示消息
-                if ($('.box .currentW').attr('id') != data.to) {
-                    $('#contact_' + data.to).addClass('newmeg');
-                }
-            }
-        }
-        //单聊消息
-        else {
-            //别人给自己发的消息
-            if (data.to == app.users[0].uid) {
-                var ejs = new EJS({url: "views/tmpls/m_msgrow_l.ejs"}).render({msg: {
-                    cname: data.fromname,
-                    datetime: Common.formatDate(new Date()),
-                    msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
-                }});
-                $('#' + data.from).find('.c_msg_list').append(ejs);
-
-                $('#' + data.from).find('.c_msg_list')[0].scrollTop = $('#' + data.from).find('.c_msg_list')[0].scrollHeight;
-                /*  }*/
-            }
+            });
         }
     });
 });

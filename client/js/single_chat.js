@@ -42,6 +42,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                         app.users = data;
                         app.from = data[0];
                         showChatView(sendData.tid ? true : false);
+                        socket.emit('online', {user: app.from});
                     }
                 },
                 error: function (err) {

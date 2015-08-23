@@ -267,7 +267,7 @@ var actions = {
                 res.send(obj);
             }else{
 
-                if( uid && obj.uid && (uid==obj.uid) ){
+                if( uid && obj.uid && (uid==parseInt(obj.uid)) ){
                     chatService.getChatList(uid, function(data){
                         for(i in data){
                             data[i].lastchattime=util.dateFormat("yyyy-MM-dd hh:mm:ss", data[i].lastchattime);
@@ -381,6 +381,19 @@ var actions = {
         });
         res.render("tmpls/m_members",{members:global.group_user_list[gid].members,
             linkObj:{uid:uid,gid:gid,totype:totype,usertype:usertype}});
+    },
+    getCurrentUser:function(req,res){
+        var uid=req.body.uid, user;
+        if(!req.session.sessiondata || !req.session.sessiondata.user){
+            return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
+        }
+        user = req.session.sessiondata.user;
+        if(user.uid&&parseInt(user.uid)==uid){
+            return res.send({user:user});
+        }else{
+            return res.send({error:"用户标识不一致"});
+        }
+
     },
     /**
      * 创建顾问

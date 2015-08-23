@@ -117,6 +117,11 @@ var routedefines = [
         'pathname': '/getGroupMembers',
         'handler': actions.getGroupMembers,
         'method': 'get'
+    },
+    {
+        'pathname': '/getCurrentUser',
+        'handler': actions.getCurrentUser,
+        'method': 'post'
     }
 ];
 
