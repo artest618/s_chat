@@ -1,11 +1,11 @@
 <%for(var i=0; i<data.length; i++){%>
-    <div class="row">
+    <div class="row single_r" uid="<%=data[i].user%>" to="<%=data[i].toid%>">
         <div class="col-xs-3 helght140 col-sm-2">
-            <div class="col-l" style="background-image: url('../../<%=data[i].headicon%>')"></div>
+            <div class="head_icon col-l <% if(data[i].isOnline!=1){%> gray <%}%>" style="background-image: url('../../<%=data[i].headicon%>')"></div>
         </div>
         <div class="col-xs-6 border-bots helght140 paddingtop40 col-sm-8">
             <!--totype 根据不同的连接到群或单聊-->
-           <a href="/?uid=<%=data[i].user%>&to=<%=data[i].toid%>"><h4  class="f34"><%=data[i].cname%></h4></a>
+           <a href="/?uid=<%=data[i].user%>&to=<%=data[i].toid%>"><h4  class="f34 head_name"><%=data[i].cname%></h4></a>
             <p class="sr-only f20">
                 <span class="color1"></span>
             </p>
@@ -18,7 +18,7 @@
 <%}%>
 
 <%for(var i=0; i<gdata.length; i++){%>
-<div class="row">
+<div class="row more_r">
     <div class="col-xs-3 helght140 col-sm-2">
         <div class="col-l"></div>
     </div>
@@ -35,3 +35,4 @@
     </div>
 </div>
 <%}%>
+<input type="hidden" id="current_user" value="<%=uid%>">

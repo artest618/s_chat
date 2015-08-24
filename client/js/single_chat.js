@@ -116,7 +116,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             });
 
             //历史
-            getHistoryMsg(toId, '', 999999999);
+            getHistoryMsg(toId, '', 1);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg = $('#' + toId).find('.inputmsg').val();
@@ -158,8 +158,8 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             $(".showGroupList","#"+toId).on("click",function(){
                 window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
                     (app.chattype=='single'?1:2)+"&usertype="+ app.from.usertype;
-            })
-
+            });
+            //表情
             $('#' + toId).find('.chemoji').on('click', function(e){
                 e.stopPropagation();
 
@@ -180,6 +180,11 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     $(this).attr("flag","flag");
                 }
 
+            });
+
+            //更多
+            $('#' + toId).find('.moremsgbtn').on('click', function(){
+                getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
             });
         }
         $('#' + toId).show();

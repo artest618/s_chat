@@ -15,19 +15,37 @@ var FI = {
             usertype: '1',
             headicon: 'images/headers/default.png'
         };
-        var data = {uid: uid};
-        util.sendRequest('/syncUser', data, function(stat, result){
+
+        //data = q.stringify(data);
+
+    },
+    checkSigned: function(uid, callback){
+        var path = '/webservice/users/queryuser.htm?userId=' + uid;
+        console.log('check user if signed with uid:' + uid);
+        util.sendRequest(path, '', function(stat, result){
             if(stat == 200){
-                callback(result);
+                console.log('checked userinfo from foreign system:' + result);
+                if(typeof result == 'string'){
+                    result = JSON.parse(result);
+                }
+                if(result.code != 'SINO000000'){
+                    callback(false);
+                    return;
+                }
+                var usertype = result.userEdit.userType == 1 ? 1 : result.userEdit.userType == 2 ? 2 : 3;
+                var user = {
+                    name: result.userEdit.userName,
+                    uid: result.userEdit.userId,
+                    cname: result.userEdit.userName,
+                    usertype: usertype,
+                    headicon: result.userEdit.userImg
+                }
+
+                callback(user);
             }else{
                 callback(false);
             }
         });
-        //data = q.stringify(data);
-
-    },
-    checkSigned: function(uid){
-        return true;
     }
 }
 

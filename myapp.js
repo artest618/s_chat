@@ -15,7 +15,7 @@ app.set('views', __dirname + '/client/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
 app.use(express.session({ secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800000}, path: '/'}));
 app.use(express.methodOverride());
@@ -84,8 +84,8 @@ var routedefines = [
         'method': 'post'
     },
     {
-        'pathname': '/offline',
-        'handler': actions.offline,
+        'pathname': '/testrequest',
+        'handler': actions.testrequest,
         'method': 'post'
     },
     {
@@ -117,6 +117,16 @@ var routedefines = [
         'pathname': '/getGroupMembers',
         'handler': actions.getGroupMembers,
         'method': 'get'
+    },
+    {
+        'pathname': '/getCurrentUser',
+        'handler': actions.getCurrentUser,
+        'method': 'post'
+    },
+    {
+        'pathname': '/upfile',
+        'handler': actions.upfile,
+        'method': 'post'
     }
 ];
 
@@ -137,7 +147,7 @@ for(var i=0; i<routedefines.length; i++){
                 console.log(e);
                 console.log(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再�?..."});
+                    res.send({error: "服务器正忙，请稍后再试..."});
                 }
                 else {
                     res.redirect('/');

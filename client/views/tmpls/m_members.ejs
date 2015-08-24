@@ -58,18 +58,18 @@
             <div class="col-xs-3 align-center mt30">
                 <% if(linkObj.usertype==3){ %>
                         <% if(members[i].usertype==3){ %>
-                            <img src="../../<%=members[i].headicon%>" alt="">
+                            <img src="../../<%=members[i].headicon%>" alt="" <% if(members[i].isOnline!=1){%> class="gray" <%}%>>
                             <span class=" f26 disblock mt20"><%=members[i].cname%></span>
                         <%}else{%>
-                            <img class="member_n" src="../../<%=members[i].headicon%>" alt="" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>" >
+                            <img class="member_n <% if(members[i].isOnline!=1){%> gray <%}%>" src="../../<%=members[i].headicon%>" alt="" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>" >
                             <span class="member_n f26 disblock mt20" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>"><%=members[i].cname%></span>
                         <%}%>
                 <%}else{%>
                     <% if(members[i].usertype==3){ %>
-                        <img class="member_n" src="../../<%=members[i].headicon%>" alt="" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>" >
+                        <img class="member_n <% if(members[i].isOnline!=1){%> gray <%}%>" src="../../<%=members[i].headicon%>" alt="" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>" >
                         <span class="member_n f26 disblock mt20" uid="<%=linkObj.uid%>" to="<%=members[i].uid%>"><%=members[i].cname%></span>
                     <%}else{%>
-                        <img src="../../<%=members[i].headicon%>" alt="">
+                        <img src="../../<%=members[i].headicon%>" alt="" <% if(members[i].isOnline!=1){%> class="gray" <%}%>>
                         <span class=" f26 disblock mt20"><%=members[i].cname%></span>
                     <%}%>
                 <%}%>
