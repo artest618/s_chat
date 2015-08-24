@@ -23,7 +23,7 @@ var actions = {
                             console.log(JSON.stringify(user));
                             return res.sendfile(send_target);
                         } else{
-                            //var user = FI.syncUser(uid);
+                            //var suser = FI.syncUser(uid);
                             userSerivce.addUser(suser, function(){
                                 req.session.sessiondata = {user: suser};
                                 console.log(req.session.sessiondata);
@@ -154,7 +154,7 @@ var actions = {
         var user = req.session.sessiondata.user, owner=req.body.owner, group;//group = global.group_user_list[req.body.gid];
         for(var i in global.group_user_list){
             //该判定仅适合客户和客户经理，顾问加群请勿使用本action
-            if(global.group_user_list[i].owner == owner && user.usertype+1 == global.group_user_list[i].grouptype){
+            if(global.group_user_list[i].owner == owner && (parseInt(user.usertype)+1) == global.group_user_list[i].grouptype){
                 group = global.group_user_list[i];
             }
         }
@@ -168,7 +168,7 @@ var actions = {
         if(userSerivce.checkUserCanAddGroup(user)){
             chatService.addGroupMember(group, user, function(rlt){
                 if(rlt){
-                    user.groupcount = parseInt(user.groupcount) + 1;
+                    user.groupcount =(user.groupcount==NaN||!user.groupcount)?1:parseInt(user.groupcount) + 1;
                     userSerivce.updateUserGroupCounts(user, user.groupcount, function(){});
                     var g = JSON.parse(JSON.stringify(group));
                     delete g.members;
@@ -233,14 +233,187 @@ var actions = {
         }
     },
     /**
+     * 获取TID or TO
+     * @param req
+     * @param res
+     */
+    getUserInfoM:function(req,res){
+        if(!req.session.sessiondata || !req.session.sessiondata.user){
+            return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
+        }
+        var tid = req.body.tid, to = req.body.to , user = req.session.sessiondata.user,targetId;
+        if(tid&&!to){//U -> T
+            targetId=tid;
+        }else if(to&&!tid){ // T -> U
+            targetId=to;
+        }else{
+            res.send({error: '指定交谈对象不正确，请联系管理员'});
+        }
+
+        userSerivce.checkuser(targetId, function(f, csr){
+            if(csr){
+                req.session.sessiondata.counselor = csr;
+                req.session.save();
+                console.log(req.session.sessiondata);
+                res.send( [req.session.sessiondata.user, csr]);
+            }else{
+                res.send( {error: '您访问的聊天对象不存在，请联系管理员'});
+            }
+
+        });
+    },
+    /**
+     * 历史列表
+     * @param req
+     * @param res
+     */
+    getHistoryList:function(req,res){
+        var uid = req.query.uid?parseInt(req.query.uid):"",  user;
+        actions.syncUser(req,res,function(obj){
+            if(obj.error){
+                res.send(obj);
+            }else{
+
+                if( uid && obj.uid && (uid==parseInt(obj.uid)) ){
+                    chatService.getChatList(uid, function(data){
+                        for(i in data){
+                            data[i].lastchattime=util.dateFormat("yyyy-MM-dd hh:mm:ss", data[i].lastchattime);
+                        }
+                        chatService.getUserGroupList(uid, function(gdata){
+                            for(i in gdata){
+                                gdata[i].jointime=util.dateFormat("yyyy-MM-dd hh:mm:ss", gdata[i].jointime);
+                            }
+                            data.forEach(function(item){
+                                if(global.onlineUsers[item.uid]){
+                                    item.isOnline = 1;
+                                } else {
+                                    item.isOnline = 0;
+                                }
+                            });
+                            res.render("tmpls/m_histroy_page",{uid:uid,data:data,gdata:gdata});
+                        }, function(err){});
+
+                    });
+                }else{
+                    res.send({error:"用户标识不一致"});
+                }
+            }
+        });
+
+    },
+    syncUser:function(req,res,callback){
+        var q=req.query,uid = q.uid&&parseInt(q.uid),  ua = util.isMobile(req);
+        if (!req.session.sessiondata || !req.session.sessiondata.user) {
+            if(!uid){
+              return  callback({error:"用户标识错误"});
+            }
+
+            FI.checkSigned(uid, function(suser){
+                    if(suser){
+                        userSerivce.checkuser(uid, function(flag, user){
+                            if(flag){
+                                req.session.sessiondata = {user: user};
+                                return   callback(req.session.sessiondata.user);
+                            } else{
+                                //var suser = FI.syncUser(uid); TODO
+                                userSerivce.addUser(suser, function(){
+                                    req.session.sessiondata = {user: suser};
+                                    return  callback(req.session.sessiondata.user);
+                                });
+                            }
+                        });
+                    }else{
+                        return  callback({error:"您还未登录系统，请在登录页面进行登录！"});
+                    }
+            });
+
+        }else{
+            return   callback(req.session.sessiondata.user);
+        }
+    },
+    /**
+     * 添加历史联系人
+     * @param req
+     * @param res
+     */
+    addChatList:function(req,res){
+        var uid = req.body.uid, tid=req.body.tid;
+        userSerivce.checkuser(tid, function(flag, user){
+            if(flag){
+                var chat = {
+                    user: uid,
+                    toid: tid,
+                    totype: 1,
+                    name: user.name,
+                    cname: user.cname,
+                    headicon: user.headicon,
+                    lastchattime: new Date().toDateString()
+                };
+                chatService.addChatForList(chat);
+                res.send([chat]);
+            } else{
+                throw new Error('addChatList error');
+            }
+        });
+    },
+    /**
+     * 获取组信息
+     * @param req
+     * @param res
+     */
+    getGroupInfo:function(req,res){
+        var gid = req.body.to;
+            if(gid){
+                chatService.getGroupInfo(gid,function(obj){
+                    if(obj&&obj.length>0){
+                        res.send( [req.session.sessiondata.user, obj[0]]);
+                    }else{
+                        res.send({error:"查无结果"});
+                    }
+                },function(err){
+                    res.send({error:err});
+                });
+            }else{
+                res.send({error:"参数错误"});
+            }
+
+    },
+    getGroupMembers:function(req,res){
+        var gid = req.query.gid,uid=req.query.uid,totype=req.query.totype,
+            usertype=req.query.usertype;
+        global.group_user_list[gid].members.forEach(function(item){
+            if(global.onlineUsers[item.uid]){
+                item.isOnline = 1;
+            } else {
+                item.isOnline = 0;
+            }
+        });
+        res.render("tmpls/m_members",{members:global.group_user_list[gid].members,
+            linkObj:{uid:uid,gid:gid,totype:totype,usertype:usertype}});
+    },
+    getCurrentUser:function(req,res){
+        var uid=req.body.uid, user;
+        if(!req.session.sessiondata || !req.session.sessiondata.user){
+            return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
+        }
+        user = req.session.sessiondata.user;
+        if(user.uid&&parseInt(user.uid)==uid){
+            return res.send({user:user});
+        }else{
+            return res.send({error:"用户标识不一致"});
+        }
+
+    },
+    /**
      * 创建顾问
      * @param req.query.uid
      * @param res.query.uanme
      */
     createCounselor:function(req,res){
-        CounselorService.createCounselor({uid: req.query.uid,uname:req.query.uname},function(res_obj){
-                console.log(res_obj);
-                res.send(res_obj);
+        var uid = req.query.uid,uname = decodeURI(req.query.uname);
+        CounselorService.createCounselor({uid:uid ,uname:uname},function(res_obj){
+            console.log(res_obj);
+            res.send(res_obj);
         });
     },
     testrequest: function(req, res){
@@ -288,4 +461,4 @@ var actions = {
     }
 
 }
-module.exports=actions; 
+module.exports=actions;

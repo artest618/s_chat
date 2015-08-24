@@ -72,66 +72,66 @@ define("common", ['jquery'], function($){
         emojis: [
             {
                 code: '/88',
-                path: '../images/emoji/88.jpg'
+                path: '../images/emoji/88.png'
             },
             {
                 code: '/bomb',
-                path: '../images/emoji/bomb.jpg'
+                path: '../images/emoji/bomb.png'
             }, {
                 code: '/bsmile',
-                path: '../images/emoji/bsmile.jpg'
+                path: '../images/emoji/bsmile.png'
             },
             {
                 code: '/cry',
-                path: '../images/emoji/cry.jpg'
+                path: '../images/emoji/cry.png'
             },
             {
                 code: '/fuck',
-                path: '../images/emoji/fuck.jpg'
+                path: '../images/emoji/fuck.png'
             },
             {
                 code: '/hellokitty',
-                path: '../images/emoji/hellokitty.jpg'
+                path: '../images/emoji/hellokitty.png'
             },
             {
                 code: '/hsmile',
-                path: '../images/emoji/hsmile.jpg'
+                path: '../images/emoji/hsmile.png'
             },
             {
                 code: '/idwts',
-                path: '../images/emoji/idwts.jpg'
+                path: '../images/emoji/idwts.png'
             },
             {
                 code: '/idwtsy',
-                path: '../images/emoji/idwtsy.jpg'
+                path: '../images/emoji/idwtsy.png'
             },
             {
                 code: '/kiss',
-                path: '../images/emoji/kiss.jpg'
+                path: '../images/emoji/kiss.png'
             },
             {
                 code: '/qq88',
-                path: '../images/emoji/qq88.jpg'
+                path: '../images/emoji/qq88.png'
             },
             {
                 code: '/sad',
-                path: '../images/emoji/sad.jpg'
+                path: '../images/emoji/sad.png'
             },
             {
                 code: '/sexy',
-                path: '../images/emoji/sexy.jpg'
+                path: '../images/emoji/sexy.png'
             },
             {
                 code: '/smile',
-                path: '../images/emoji/smile.jpg'
+                path: '../images/emoji/smile.png'
             },
             {
                 code: '/ssmile',
-                path: '../images/emoji/ssmile.jpg'
+                path: '../images/emoji/ssmile.png'
             },
             {
                 code: '/wcis',
-                path: '../images/emoji/wcis.jpg'
+                path: '../images/emoji/wcis.png'
             }
         ],
         formatMsgDisp: function(msg){

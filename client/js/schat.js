@@ -15,7 +15,7 @@ require.config({
         domReady: "domReady",
         ejs: "ejs",
         common: "common",
-        jquery: 'jquery.min',
+        jquery: 'jquery',
         AjaxUpload: 'ajaxupload'
     }
 });
