@@ -255,7 +255,7 @@ var actions = {
             files = [files];
         }
         for(var i=0; i < files.length; i++){
-            var file = files[i], path = file.path, name = file.name, targetpath =util.upfile_root, url = util.upfile_url_bas;
+            var file = files[i], path = file.path, oname = name = file.name, targetpath =util.upfile_root, url = util.upfile_url_bas;
             if(util.upfile_exts.indexOf(name.split('.')[1]) == -1){
                 res.send({error: '您上传的文件不在允许范围内'});
                 return;
@@ -264,13 +264,13 @@ var actions = {
                 fs.mkdirSync(targetpath);
             }
             targetpath+= user.uid + '/';
-            url += user.id + '/';
+            url += user.uid + '/';
             if(!fs.existsSync(targetpath)){
                 fs.mkdirSync(targetpath);
             }
             var filepath = targetpath + name, i=0;
             while(fs.existsSync(filepath)){
-                name = name.split('.')[0] + (++i) + '.' + name.split('.')[1];
+                name = oname.split('.')[0] + (++i) + '.' + name.split('.')[1];
                 filepath = targetpath + name;
             }
             url += name;

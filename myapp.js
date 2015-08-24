@@ -12,6 +12,7 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 9003);
 app.set('views', __dirname + '/client/views');
+app.set('upfiles', __dirname + '/client/upfiles');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));

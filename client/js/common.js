@@ -142,10 +142,32 @@ define("common", ['jquery'], function($){
             }
             return msg;
         },
+        formatFileMsg: function(msg){
+            var ext = msg.file.split('.'), ext = ext[ext.length - 1];
+            return msg = new EJS({url: 'views/tmpls/filemessage.ejs'}).render({
+                url: msg.url,
+                ficon: _t.filetypeicon[_t.getFileTypeByExt(ext)],
+                file: msg.file
+            });
+        },
         upfiletypes: {
             'image': ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
             'office': ['doc', 'docs', 'xls', 'xlsx', 'ppt', 'pptx'],
             'zipfile': ['rar', 'zip', 'tar', '7z']
+        },
+        getFileTypeByExt: function(ext){
+            for(var k in _t.upfiletypes){
+                if(_t.upfiletypes[k].indexOf(ext) != -1){
+                    return k;
+                }
+            }
+            return 'unkown';
+        },
+        filetypeicon: {
+            'image': '../images/image.png',
+            'office': '../images/office.jpeg',
+            'zipfile': '../images/zip.png',
+            'unkown': '../images/file.png'
         },
         upfile: function(){
             var xhr = new XMLHttpRequest();

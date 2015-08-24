@@ -51,6 +51,7 @@ var msgService= {
             cname: data.fromname,
             //datetime: (new Date()).Format("yyyy-MM-dd hh:mm:ss"),
             datetime: util.dateFormat('yyyy-MM-dd hh:mm:ss'),
+            msgtype: data.msgtype,
             message: data.msg
         };
         fs.appendFile(file, JSON.stringify(record) + ',', function(){

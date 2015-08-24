@@ -268,6 +268,8 @@ define('AjaxUpload', [], function(){
                 action: 'upload.php',
                 // File upload name
                 name: 'userfile',
+                //赋予每次上传文件唯一id
+                fileid: '',
                 // Additional data to send
                 data: {},
                 // Submit file as soon as it's selected
