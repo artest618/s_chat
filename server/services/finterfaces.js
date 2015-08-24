@@ -32,7 +32,7 @@ var FI = {
                     callback(false);
                     return;
                 }
-                var usertype = result.userEdit.userType == 1 ? 1 : result.userEdit.userType == 2 ? 2 : 3;
+                var usertype = result.userEdit.userRole == 1 ? 1 : result.userEdit.userRole == 2 ? 2 : 3;
                 var user = {
                     name: result.userEdit.userName,
                     uid: result.userEdit.userId,

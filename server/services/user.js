@@ -29,7 +29,7 @@ var UserService = {
     addUser: function(user, onsuccess, onerror){
         var sql = 'INSERT INTO tb_userinfo (uid, name, cname, usertype, headicon) VALUES ('+
             user.uid + ',\'' + user.name + '\',\'' + user.cname + '\',' +
-            user.usertype + ',\'' + user.headicon + '\')';
+            user.usertype + ',\'' + user.headicon+ '\')';
         JDB.oper([sql], function(res){
             onsuccess(res);
         })

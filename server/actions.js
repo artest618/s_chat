@@ -168,7 +168,7 @@ var actions = {
         if(userSerivce.checkUserCanAddGroup(user)){
             chatService.addGroupMember(group, user, function(rlt){
                 if(rlt){
-                    user.groupcount = parseInt(user.groupcount) + 1;
+                    user.groupcount =(user.groupcount==NaN||!user.groupcount)?1:parseInt(user.groupcount) + 1;
                     userSerivce.updateUserGroupCounts(user, user.groupcount, function(){});
                     var g = JSON.parse(JSON.stringify(group));
                     delete g.members;
@@ -302,7 +302,7 @@ var actions = {
 
     },
     syncUser:function(req,res,callback){
-        var q=req.query,uid = q.uid,  ua = util.isMobile(req);
+        var q=req.query,uid = q.uid&&parseInt(q.uid),  ua = util.isMobile(req);
         if (!req.session.sessiondata || !req.session.sessiondata.user) {
             if(!uid){
               return  callback({error:"用户标识错误"});
