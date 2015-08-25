@@ -62,8 +62,8 @@ var _util={};
     //http://120.131.68.151:8071/webservice/users/queryuser.htm?userId=374
     _util.fifset = {
         method: "POST",
-        host: "120.131.68.151",
-        port: 8071,
+        host: "120.131.68.151",//'localhost',
+        port: 8071, //9003,
         path: "",
         headers: {
             //"Content-Type": 'application/x-www-form-urlencoded',
@@ -77,6 +77,7 @@ var _util={};
         _util.fifset.headers['Content-Length'] = data.length;
         _util.fifset.path = path;
         var req = http.request(_util.fifset, function(serverFeedback){
+            debugger;
             if (serverFeedback.statusCode == 200) {
                 var body = "";
                 serverFeedback.on('data', function (data) {

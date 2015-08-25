@@ -20,11 +20,12 @@ var FI = {
 
     },
     checkSigned: function(uid, callback){
+         //return callback(true);
         var path = '/webservice/users/queryuser.htm?userId=' + uid;
         console.log('check user if signed with uid:' + uid);
         util.sendRequest(path, '', function(stat, result){
+            console.log('checked userinfo from foreign system:' + JSON.stringify(result));
             if(stat == 200){
-                console.log('checked userinfo from foreign system:' + result);
                 if(typeof result == 'string'){
                     result = JSON.parse(result);
                 }

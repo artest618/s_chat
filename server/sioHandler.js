@@ -1,6 +1,7 @@
 var message = require('./services/message');
 
 var users = global.onlineUsers;
+var unreadcount = global.unreadMsgCount;
 
 
 var handlers = {
@@ -30,7 +31,9 @@ var handlers = {
     
     say: function(socket, data, io){
         //clients 为存储所有连接对象的数组
-        var clients = io.sockets.clients();
+        data.from = parseInt(data.from);
+        data.to = parseInt(data.to);
+        var clients = io.sockets.clients(), userisOnline = false;
         if(data.chattype == 'single'){
             //向特定用户发送该用户发话信息
             //遍历找到该用户
@@ -38,18 +41,34 @@ var handlers = {
                 if (client.uid == data.to) {
                     //触发该用户客户端的 say 事件
                     client.emit('say', data);
+                    userisOnline = true;
                 }
             });
+            if(!userisOnline){
+                unreadcount[data.to] = unreadcount[data.to] == undefined ? {} : unreadcount[data.to];
+                unreadcount[data.to][data.from] = unreadcount[data.to][data.from] == undefined ? 1 : ++unreadcount[data.to][data.from];
+            }
         }else{
+            var members = global.group_user_list[data.to].members;
             clients.forEach(function(client){
-                console.log(global.group_user_list[data.to].members);
-                for(var i in global.group_user_list[data.to].members){
-                    if(parseInt(client.uid) == parseInt(global.group_user_list[data.to].members[i].uid)){
+                for(var i in members){
+                    if(parseInt(client.uid) == parseInt(members[i].uid)){
                         client.emit('say', data);
                     }
                 }
             });
-
+            for(var i in members){
+                userisOnline = false;
+                clients.forEach(function(client){
+                    if(parseInt(client.uid) == parseInt(members[i].uid) ){
+                        userisOnline = true;
+                    }
+                });
+                if(!userisOnline){
+                    unreadcount[parseInt(members[i].uid)] = unreadcount[parseInt(members[i].uid)] == undefined ? {} : unreadcount[parseInt(members[i].uid)];
+                    unreadcount[parseInt(members[i].uid)][data.to] = unreadcount[parseInt(members[i].uid)][data.to] == undefined ? 1 : ++unreadcount[parseInt(members[i].uid)][data.to];
+                }
+            };
         }
         message.addMessage(data);
     }

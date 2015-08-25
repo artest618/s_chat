@@ -35,22 +35,26 @@
 //console.log(files);
 
 var util = require('./server/_util');
-var data = {
-    "header":
-    {
-        "local":"zh_CN",
-        "agent":"WEB15",
-        "bfw-ctrl":"json",
-        "version":"",
-        "device":"",
-        "platform":"",
-        "plugins":"",
-        "page":"",
-        "ext":"",
-        "username":""
-    },
-    "request": [{"id": 3, "method": "PSNCreatConversationLoginPre", "conversationId": null, "params": null}]
-}
-util.sendRequest('/webservice/users/queryuser.htm', {userId:374}, function (status, data) {
-    debugger;
+//var data = {
+//    "header":
+//    {
+//        "local":"zh_CN",
+//        "agent":"WEB15",
+//        "bfw-ctrl":"json",
+//        "version":"",
+//        "device":"",
+//        "platform":"",
+//        "plugins":"",
+//        "page":"",
+//        "ext":"",
+//        "username":""
+//    },
+//    "request": [{"id": 3, "method": "PSNCreatConversationLoginPre", "conversationId": null, "params": null}]
+//}
+//util.sendRequest('/webservice/users/queryuser.htm', {userId:374}, function (status, data) {
+//    debugger;
+//});
+
+util.sendRequest('/flushMsgCount', {uid:223}, function (status, data) {
+    console.log(data);
 });

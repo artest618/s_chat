@@ -1,10 +1,92 @@
 <div id="outer" style="width: 300px; height: 100px; background-color: #0099FF">
     <div id="inner" style="width: 200px; height: 100px; background-color: blue;"></div>
 </div>
-
+<button id="imgbtn">发送图片</button>
+<input type="file" id="fileinput" style="display:none" />
+<div id="readImg"></div>
+<!-- img id="b64img" src='' style="width:800px;height:500px;" /-->
+<script src="../js/zepto.js"></script>
 <script>
+    //$('b64img').src="";
 
-    document.getElementById('outer').onclick = function(e){
-        alert(e.target.id);
+    $('#fileinput').on('change', function(e){
+        var file = this.files[0];
+        /*if(!/image\/\w+/.test(file.type)){
+         alert("文件必须为图片！");
+         return false;
+         }*/
+        var reader = new FileReader();
+//        reader.readAsDataURL(file);
+        reader.readAsBinaryString(file);
+//        reader.readAsText(file);
+        reader.onload = function(e){
+            //$('#readImg').html('<img src="'+this.result+'" alt="" style="width:800px;height:500px;"/>');
+
+            upFile(this.result);
+//            $('readImg').innerHTML = this.result;
+        }
+    });
+    window.onload = function(){
+        /*var upload = new XMLHttpRequestUpload();
+         upload.onprogress = function(e){
+         console.log(e.loaded);
+         console.log(e.total);
+         }*/
+        $('#outer').on('click', function(e){
+            alert(e.target.id);
+        });
+        $('#imgbtn').on('click', function(e){
+            var fi = $('#fileinput')[0];
+            fi.click();
+        });
+        //sendAjax();
     }
+
+    function upFile(data){
+        $.ajax({
+            url: '/offline',
+            type: 'post',
+            async: true,
+            data: data,
+            "upload.onprogress": function(e){
+                console.log(e.loaded);
+                console.log(e.total);
+            },
+            success: function(data){
+
+            },
+            error: function(xhr, status, err){
+
+            },
+            complete: function(xhr, status){
+
+            }
+        });
+    }
+
+    function sendAjax(){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                alert(xhr.responseText);
+            }
+        }
+
+        //侦查当前附件上传情况
+        xhr.upload.onprogress = function(evt){
+            //侦查附件上传情况
+            //通过事件对象侦查
+            //该匿名函数表达式大概0.05-0.1秒执行一次
+            //console.log(evt);
+            //console.log(evt.loaded);  //已经上传大小情况
+            //evt.total; 附件总大小
+            var loaded = evt.loaded;
+            var tot = evt.total;
+            var per = Math.floor(100*loaded/tot);  //已经上传的百分比
+        }
+
+        xhr.open("post","/offline");
+        xhr.send('');
+    }
+
 </script>

@@ -69,8 +69,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     app.chattype = $(e.target).attr('chattype');
                     var tid = $(e.target).attr('tid');
                     showChatView(tid);
-                    $('#contact_' + tid).removeClass('newmeg');
+                    //$('#contact_' + tid).removeClass('newmeg');
+                    $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                     $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+
                 });
             },
             error: function(err){}
@@ -158,7 +160,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             app.chattype = $(e.target).attr('chattype');
                             var tid = $(e.target).attr('tid');
                             showChatView(tid);
-                            $('#contact_' + tid).removeClass('newmeg');
+                            //$('#contact_' + tid).removeClass('newmeg');
+                            $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                             $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
                         });
                     },
@@ -198,53 +201,56 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     inputmsg.val(inputmsg.val()  + $(e.target).attr('code')).focus();
                 });
             });
-            var au1 = new AjaxUpload($('#' + tid).find('.upfilebtn'), {
-                action: '/upfile',
-                name: 'file',
-                autoSubmit: true,
-                onChange: function(file, ext){
-                    if(Common.upfiletypes.image.indexOf(ext[0]) == -1 &&
-                        Common.upfiletypes.office.indexOf(ext[0]) == -1 &&
-                        Common.upfiletypes.zipfile.indexOf(ext[0]) == -1
-                    ){
-                        return false;
+            if(app.chattype == 'single'){
+                var au1 = new AjaxUpload($('#' + tid).find('.upfilebtn'), {
+                    action: '/upfile',
+                    name: 'file',
+                    autoSubmit: true,
+                    onChange: function(file, ext){
+                        if(Common.upfiletypes.image.indexOf(ext[0]) == -1 &&
+                            Common.upfiletypes.office.indexOf(ext[0]) == -1 &&
+                            Common.upfiletypes.zipfile.indexOf(ext[0]) == -1
+                        ){
+                            return false;
+                        }
+                        this.fileid = "file" + parseInt(Math.random()*0xffffff);
+                        return true;
+                    },
+                    onSubmit: function(file, ext){
+                        var html = new EJS({url: 'views/tmpls/upfileproc.ejs'}).render({
+                            fileid: this.fileid,
+                            ficon: Common.filetypeicon[Common.getFileTypeByExt(ext)],
+                            file: file,
+                            percent: 0
+                        });
+                        var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
+                            cname: app.from.cname,
+                            datetime: Common.formatDate(new Date()),
+                            msg: Common.formatMsgDisp(html) //.replace(/\n/g, '<br />')
+                        }});
+                        $('#' + tid).find('.l-c1-c3').append(ejs.replace(/\<\s*br\s*\/\>/g, ''));
+                        $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                    },
+                    onprogress: function(loaded, total, per){
+                        $('#' + au1.fileid).find('.progress-bar').css('width', per * 100);
+                    },
+                    onComplete: function(file, res){
+                        $('#' + au1.fileid).find('.progress-bar').css('width', 100);
+                        socket.emit('say', {
+                            from: app.from.uid,
+                            to: app.to,
+                            fromname:app.from.cname,
+                            toname:user.cname || user.groupname,
+                            fromtype: app.from.usertype,
+                            totype: user.totype || user.grouptype,
+                            chattype: app.chattype,
+                            msgtype: 'file',
+                            msg: {file: file, url: JSON.parse(res).url}
+                        });
                     }
-                    this.fileid = "file" + parseInt(Math.random()*0xffffff);
-                    return true;
-                },
-                onSubmit: function(file, ext){
-                    var html = new EJS({url: 'views/tmpls/upfileproc.ejs'}).render({
-                        fileid: this.fileid,
-                        ficon: Common.filetypeicon[Common.getFileTypeByExt(ext)],
-                        file: file,
-                        percent: 0
-                    });
-                    var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
-                        cname: app.from.cname,
-                        datetime: Common.formatDate(new Date()),
-                        msg: Common.formatMsgDisp(html) //.replace(/\n/g, '<br />')
-                    }});
-                    $('#' + tid).find('.l-c1-c3').append(ejs.replace(/\<\s*br\s*\/\>/g, ''));
-                    $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
-                },
-                onprogress: function(loaded, total, per){
-                    $('#' + au1.fileid).find('.progress-bar').css('width', per * 100);
-                },
-                onComplete: function(file, res){
-                    $('#' + au1.fileid).find('.progress-bar').css('width', 100);
-                    socket.emit('say', {
-                        from: app.from.uid,
-                        to: app.to,
-                        fromname:app.from.cname,
-                        toname:user.cname || user.groupname,
-                        fromtype: app.from.usertype,
-                        totype: user.totype || user.grouptype,
-                        chattype: app.chattype,
-                        msgtype: 'file',
-                        msg: {file: file, url: JSON.parse(res).url}
-                    });
-                }
-            });
+                });
+            }
+
             //new AjaxUpload($('#' + tid).find('.upimgbtn'), {
             //    action: '/upfile',
             //    name: 'file',
@@ -412,7 +418,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 }
                 //当前聊天窗口并非消息要显示的窗口，提示消息
                 if($('.box .currentW').attr('id') != data.to){
-                    $('#contact_' + data.to).addClass('newmeg');
+                    var node = $('#contact_' + data.to).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                    node.addClass('new').html(++count);
                 }
             }
         }
@@ -435,12 +442,15 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data, chattype: data.chattype});
                                 $(".contactlistview").append(ejs);
                                 app.addingchat[data.from] = false;
-                                $('#contact_' + data.from).addClass('newmeg');
+                                var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                                node.html(++count);
+                                node.hasClass('new') || (node.addClass('new'));
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
                                     var tid = $(e.target).attr('tid');
                                     showChatView(tid);
                                     app.chattype = $(e.target).attr('chattype');
-                                    $('#contact_' + tid).removeClass('newmeg');
+                                    //$('#contact_' + tid).removeClass('newmeg');
+                                    $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                                     $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
                                 });
                             },
@@ -450,7 +460,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 }
                 //联系人列表中有消息发送者，但是用户当前还未打开过与该联系人的聊天窗口，直接提示消息
                 else if($('#' + data.from).length <= 0){
-                    $('#contact_' + data.from).addClass('newmeg');
+                    var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                    node.addClass('new').html(++count);
                 }
                 //消息发送者的聊天窗口已经被打开过，直接往窗口中添加聊天消息
                 else{
@@ -468,7 +479,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#' + data.from).find('.l-c1-c3').append(ejs);
                     //当前聊天窗口并非消息要显示的窗口，提示消息
                     if($('.box .currentW').attr('id') != data.from){
-                        $('#contact_' + data.from).addClass('newmeg');
+                        var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                        node.html(++count);
+                        node.hasClass('new') || (node.addClass('new'));
                     }else{
                         $('#' + data.from).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
                     }

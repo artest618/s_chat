@@ -128,6 +128,11 @@ var routedefines = [
         'pathname': '/upfile',
         'handler': actions.upfile,
         'method': 'post'
+    },
+    {
+        'pathname': '/flushMsgCount',
+        'handler': actions.flushMsgCount,
+        'method': 'post'
     }
 ];
 
@@ -139,7 +144,7 @@ for(var i=0; i<routedefines.length; i++){
         return function (req, res){
             try{
                 console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
-                if(path != '/' && path != '/createCounselor' && path != '/getHistoryList' && path!='/offline' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && path!='/flushMsgCount' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }

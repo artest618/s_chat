@@ -109,9 +109,19 @@ var actions = {
                 } else {
                     item.isOnline = 0;
                 }
+                item.unreadCount = global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] || 0;
+                global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] && (
+                    global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] = 0
+                );
             });
             list.schat = data;
             chatService.getUserGroupList(user.uid, function(data){
+                data.forEach(function(item){
+                    item.unreadCount = global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.groupid)] || 0;
+                    global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.groupid)] && (
+                        global.unreadMsgCount[parseInt(user.uid)][parseInt(item.groupid)] = 0
+                    );
+                });
                 list.gchat = data;
                 console.log(list);
                 res.send(list);
@@ -457,6 +467,19 @@ var actions = {
                     });
                 }
             });
+        }
+    },
+    flushMsgCount: function(req, res){
+        var uid = req.body.uid || req.query.uid;
+        var usermsgs = global.unreadMsgCount[parseInt(uid)];
+        if(!usermsgs){
+            res.send({count: 0});
+        } else{
+            var count = 0;
+            for(var k in usermsgs){
+                count += usermsgs[k];
+            }
+            res.send({count: count});
         }
     }
 

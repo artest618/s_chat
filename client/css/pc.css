@@ -97,12 +97,26 @@
      padding-bottom: 20px;
 }
 
-.box-l-c ul li{background-image: url(../images/custom_r3_c1.jpg);
-               height: 38px;
-               line-height: 38px;
-               padding-left: 55px;
-               background-position: 10px 0;
-               background-repeat: no-repeat;
+.box-l-c ul li{
+    background-image: url(../images/custom_r3_c1.jpg);
+    height: 38px;
+    line-height: 38px;
+    padding-left: 55px;
+    background-position: 10px 0;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.box-l-c ul .new{
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: -6px;
+    right: 60px;
+    background-image: url(../images/new.png);
+    line-height: 26px;
+    z-index: 99;
+    color: white;
+    text-align: center;
 }
 .box-l-c ul li.current{background-image: url(../images/custom_r1_c1.jpg);}
 .foot{position:absolute;

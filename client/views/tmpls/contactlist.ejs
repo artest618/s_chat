@@ -1,5 +1,8 @@
 <%for(var i=0; i<data.length; i++){%>
 <li class="mt20 w160 <%=data[i].groupid ? 'current' : (data[i].isOnline ? 'current' : '')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
     <span class="f14 color3" id="contact_<%=parseInt(data[i].toid || data[i].groupid)%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>"><%=data[i].cname || data[i].groupname%></span>
+    <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>'>
+        <%=data[i].unreadCount ? data[i].unreadCount : ""%>
+    </div>
 </li>
 <%}%>
