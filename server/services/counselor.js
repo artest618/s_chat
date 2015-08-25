@@ -28,8 +28,8 @@ var CounselorService = {
      */
     createCounselor: function(userInfo, callback){
         var self= this;
-        var sql = "INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate)  " +
-                  "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3, 3, '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')";
+        var sql = "INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  " +
+                  "VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3, 3, '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"' ,'')";
         var msg = "创建成功",msg_error = "顾问已存在，请不要重复创建";
             this.queryCounselor(userInfo,function(vals){
                 if(!vals || vals.length==0){
