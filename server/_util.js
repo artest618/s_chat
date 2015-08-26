@@ -68,7 +68,8 @@ var _util={};
         headers: {
             //"Content-Type": 'application/x-www-form-urlencoded',
             "Content-Type": 'application/json',
-            "Content-Length": 0
+            "Content-Length": 0,
+            "charset":"utf-8"
         }
     };
 
