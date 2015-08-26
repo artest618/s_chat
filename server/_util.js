@@ -78,7 +78,6 @@ var _util={};
         _util.fifset.headers['Content-Length'] = data.length;
         _util.fifset.path = path;
         var req = http.request(_util.fifset, function(serverFeedback){
-            debugger;
             serverFeedback.setEncoding('utf8');
             if (serverFeedback.statusCode == 200) {
                 var body = "";
