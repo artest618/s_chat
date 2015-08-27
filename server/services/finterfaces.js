@@ -1,5 +1,6 @@
 var http = require('http');
 var util = require('../_util');
+var logger = require('../logger').logger;
 //var q = require('querystring');
 
 var FI = {
@@ -22,9 +23,9 @@ var FI = {
     checkSigned: function(uid, callback){
          //return callback(true);
         var path = '/webservice/users/queryuser.htm?userId=' + uid;
-        console.log('check user if signed with uid:' + uid);
+        logger.info('check user if signed with uid:' + uid);
         util.sendRequest(path, '', function(stat, result){
-            console.log('checked userinfo from foreign system:' + JSON.stringify(result));
+            logger.info('checked userinfo from foreign system:' + JSON.stringify(result));
             if(stat == 200){
                 if(typeof result == 'string'){
                     result = JSON.parse(result);
@@ -105,9 +106,9 @@ var FI = {
         };
         //return callback(res.proEdit);
         var path = '/webservice/appproduct/queryproedit_app.htm?productId=' + pid;
-        console.log('get product ' + pid + ' info from foreign system');
+        logger.info('get product ' + pid + ' info from foreign system');
         util.sendRequest(path, '', function(stat, result){
-            console.log('got product info from foreign system:' + JSON.stringify(result));
+            logger.info('got product info from foreign system:' + JSON.stringify(result));
             if(stat == 200){
                 if(typeof result == 'string'){
                     result = JSON.parse(result);

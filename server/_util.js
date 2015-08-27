@@ -2,19 +2,7 @@
  * Created by tony on 15-7-26.
  */
 var http = require('http');
-var log4js = require('log4js');
-log4js.configure({
-    appenders: [
-        {
-            type: 'file', //文件输出
-            filename: 'logs/access.log',
-            maxLogSize: 1024,
-            backups:3,
-            category: 'normal'
-        }
-    ],
-    replaceConsole: true
-});
+
 var _util={};
     /**
      *
@@ -51,7 +39,6 @@ var _util={};
 
     _util.isMobile = function(req){
         var ua = req.headers['user-agent'];
-        console.log(ua);
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
     };
 
@@ -105,11 +92,6 @@ var _util={};
         });
         req.write(data);
         req.end();
-    }
+    };
 
-    _util.getLogger = function(name){
-        var logger = log4js.getLogger(name);
-        logger.setLevel('INFO');
-        return logger;
-    }
 module.exports=_util;

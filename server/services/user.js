@@ -1,5 +1,6 @@
 var JDB=require("../mysqldbfactory.js");
 var util = require('../_util');
+var logger = require('../logger').logger;
 
 var UserService = {
     checkuser: function(uid, onsuccess, onerror){
@@ -7,7 +8,7 @@ var UserService = {
         JDB.query(sql,function(err,vals,fields){
             //console.log(JSON.stringify(vals));
             if(err){
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             for(var i in vals){

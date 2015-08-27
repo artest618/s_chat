@@ -1,7 +1,7 @@
 var fs = require('fs');
 var util = require("../_util");
+var logger = require('../logger').logger;
 
-console.log(process.cwd());
 var root = util.msgroot;
 if(!fs.existsSync(root)){
     fs.mkdirSync(root);
@@ -45,7 +45,7 @@ var msgService= {
                 file = dir + '/' + (len + 1) + '.json';
             }
         }
-        console.log(file);
+        logger.info(file);
         var record = {
             id: data.from,
             cname: data.fromname,
@@ -55,7 +55,7 @@ var msgService= {
             message: data.msg
         };
         fs.appendFile(file, JSON.stringify(record) + ',', function(){
-            console.log('record a message from ' + data.from + ': ' + JSON.stringify(record));
+            logger.debug('record a message from ' + data.from + ': ' + JSON.stringify(record));
         });
     },
     readMsg: function(tid, chattype, user, date, page, callback){
@@ -135,13 +135,12 @@ var msgService= {
         }
         path += page + '.json';
 
-        console.log(path);
         fs.readFile(path, {encoding:'utf8',flag:'r'}, function(err, data){
             if(err || !data){
                 callback(rs);
                 return;
             }
-            console.log(data);
+            logger.info(data);
             rs.msg = JSON.parse('[' + data.substring(0, data.length-1) + ']');
             callback(rs);
         });

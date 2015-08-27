@@ -5,6 +5,7 @@ var chatService = require('./services/chats');
 var util = require("./_util");
 var msgService = require('./services/message');
 var fs = require('fs');
+var logger = require('./logger').logger;
 
 var actions = {
     root: function(req, res){
@@ -20,13 +21,11 @@ var actions = {
                     userSerivce.checkuser(uid, function(flag, user){
                         if(flag){
                             req.session.sessiondata = {user: user};
-                            console.log(JSON.stringify(user));
                             return res.sendfile(send_target);
                         } else{
                             //var suser = FI.syncUser(uid);
                             userSerivce.addUser(suser, function(){
                                 req.session.sessiondata = {user: suser};
-                                console.log(req.session.sessiondata);
                                 return res.sendfile(send_target);
                             });
                             return;
@@ -46,7 +45,6 @@ var actions = {
             return res.send({error: '您还未登录系统，请在登录页面进行登录！'});
         }
         var tid = req.body.tid, user = req.session.sessiondata.user;
-        console.log('get user info....');
         if(!tid){
             res.send( [req.session.sessiondata.user]);
             return;
@@ -58,18 +56,17 @@ var actions = {
         //}
         userSerivce.checkuser(tid, function(f, csr){
             if(user.usertype != 3 && csr && csr.usertype != 3){
-                console.log('指定交谈对象非顾问，请联系管理员');
+                logger.info('指定交谈对象非顾问，请联系管理员');
                 res.send({error: '指定交谈对象非顾问，请联系管理员'});
                 return;
             }
             req.session.sessiondata.counselor = csr;
             req.session.save();
-            console.log(req.session.sessiondata);
+            logger.info(req.session.sessiondata);
             res.send( [req.session.sessiondata.user, csr]);
         });
     },
     getChatList: function(req, res){
-        console.log(req.session.sessiondata);
         var user = req.session.sessiondata.user, counselor = req.session.sessiondata.counselor;
         //if(user.usertype != 3 && !counselor){
         //    throw new Error("顾问不存在!");
@@ -123,7 +120,7 @@ var actions = {
                     );
                 });
                 list.gchat = data;
-                console.log(list);
+                logger.info(list);
                 res.send(list);
             }, function(err){});
         }, function(err){});
@@ -131,7 +128,6 @@ var actions = {
     //顾问在被用户会话时，列表中添加对该用户的会话
     addChat:function(req, res){
         var uid = req.body.uid, tid=req.body.tid;
-        console.log(req.query);
         userSerivce.checkuser(tid, function(flag, user){
             if(flag){
                 var chat = {
@@ -264,7 +260,7 @@ var actions = {
             if(csr){
                 req.session.sessiondata.counselor = csr;
                 req.session.save();
-                console.log(req.session.sessiondata);
+                logger.info(req.session.sessiondata);
                 res.send( [req.session.sessiondata.user, csr]);
             }else{
                 res.send( {error: '您访问的聊天对象不存在，请联系管理员'});
@@ -422,13 +418,13 @@ var actions = {
     createCounselor:function(req,res){
         var uid = req.query.uid,uname = decodeURI(req.query.uname);
         CounselorService.createCounselor({uid:uid ,uname:uname},function(res_obj){
-            console.log(res_obj);
+            logger.info(res_obj);
             res.send(res_obj);
         });
     },
     testrequest: function(req, res){
         var uid = req.body.uid;
-        console.log(uid + ' is offline.................');
+        logger.info(uid + ' is offline.................');
         res.send({data: 'ok'})
     },
     upfile: function(req, res){
