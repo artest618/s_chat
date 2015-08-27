@@ -47,6 +47,81 @@ var FI = {
                 callback(false);
             }
         });
+    },
+    getProductInfo: function(pid, callback){
+        var res = {
+            "code":"SINO000000","message":"查询成功",
+            "proEdit":{
+                "applicationCondition":"1111",
+                "auditReason":"",
+                "cardLevel":"1",
+                "costOf":"11",
+                "creditRequire":0,
+                "currentFee":12.00,
+                "custom1":"你好单位否",
+                "custom2":"你好单位否",
+                "custom3":"你好单位否",
+                "designatedAdvisor":1,
+                "endTime":0,
+                "endTimeCh":"",
+                "financeType":"",
+                "identity":0,
+                "institution":"",
+                "institutionId":0,
+                "isAudit":1,
+                "isNeedCar":0,
+                "isNeedRoom":0,
+                "isRecommend":0,
+                "loanLimit":11.00,
+                "loanLimitMax":23.00,
+                "loanPeriod":1,
+                "localInsurance":0,
+                "localProvidentFund":0,
+                "monthRate":11.00,
+                "monthRateEnd":0,
+                "needService":0,
+                "productCharacteristic":"11111",
+                "productId":4,
+                "productIgUrl":"http://anliangfile1.7zhibao.com/www/advertise/12/2015/08/05/19/016957/1438774917840.jpg",
+                "productName":"产品名称",
+                "productNumber":"1001",
+                "productType":1,
+                "productWeight":0,
+                "publishTime":0,
+                "publishTimeCh":"",
+                "rate":11.00,
+                "remark":"sssss",
+                "repayDescript":"啊啊啊",
+                "repayMethod":"1",
+                "requiredMaterials":"111",
+                "returnFee":"啊啊啊",
+                "stageRate":23.00,
+                "status":2,
+                "supportHouse":0,
+                "telephone":"13333333333",
+                "webSite":"",
+                "yearFee":"22"
+            }
+        };
+        //return callback(res.proEdit);
+        var path = '/webservice/appproduct/queryproedit_app.htm?productId=' + pid;
+        console.log('get product ' + pid + ' info from foreign system');
+        util.sendRequest(path, '', function(stat, result){
+            console.log('got product info from foreign system:' + JSON.stringify(result));
+            if(stat == 200){
+                if(typeof result == 'string'){
+                    result = JSON.parse(result);
+                }
+                if(result.code != 'SINO000000'){
+                    callback(false);
+                    return;
+                }
+                var product = result.proEdit;
+                callback(product);
+            }else{
+                callback(false);
+            }
+        });
     }
 }
 

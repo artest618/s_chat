@@ -4,10 +4,11 @@ var express = require('express'),
       http = require('http'),
       path = require('path'),
       actions = require('./server/actions.js'),
-      sioHandler = require('./server/sioHandler.js');
+      sioHandler = require('./server/sioHandler.js'),
+      log4js = require('log4js')
+      util = require('./server/_util');
 
-
-var app = express();
+var app = express(), logger = util.getLogger('app');
 
 // all environments
 app.set('port', process.env.PORT || 9003);
@@ -22,6 +23,7 @@ app.use(express.session({ secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
+app.use(log4js.connectLogger(logger, {level:log4js.levels.debug}));
 
 // development only
 if ('development' == app.get('env')) {
@@ -132,6 +134,11 @@ var routedefines = [
     {
         'pathname': '/flushMsgCount',
         'handler': actions.flushMsgCount,
+        'method': 'post'
+    },
+    {
+        'pathname': '/getProductInfo',
+        'handler': actions.getProductInfo,
         'method': 'post'
     }
 ];

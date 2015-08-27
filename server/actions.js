@@ -481,7 +481,12 @@ var actions = {
             }
             res.send({count: count});
         }
+    },
+    getProductInfo: function(req, res){
+        var pid = req.body.pid;
+        FI.getProductInfo(pid, function(product){
+            res.send(product);
+        })
     }
-
 }
 module.exports=actions;

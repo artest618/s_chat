@@ -2,6 +2,19 @@
  * Created by tony on 15-7-26.
  */
 var http = require('http');
+var log4js = require('log4js');
+log4js.configure({
+    appenders: [
+        {
+            type: 'file', //文件输出
+            filename: 'logs/access.log',
+            maxLogSize: 1024,
+            backups:3,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
 var _util={};
     /**
      *
@@ -77,7 +90,6 @@ var _util={};
         _util.fifset.headers['Content-Length'] = data.length;
         _util.fifset.path = path;
         var req = http.request(_util.fifset, function(serverFeedback){
-            debugger;
             if (serverFeedback.statusCode == 200) {
                 var body = "";
                 serverFeedback.on('data', function (data) {
@@ -92,5 +104,11 @@ var _util={};
         });
         req.write(data);
         req.end();
+    }
+
+    _util.getLogger = function(name){
+        var logger = log4js.getLogger(name);
+        logger.setLevel('INFO');
+        return logger;
     }
 module.exports=_util;
