@@ -137,7 +137,7 @@ var routedefines = [
     {
         'pathname': '/flushMsgCount',
         'handler': actions.flushMsgCount,
-        'method': 'post'
+        'method': 'get'
     },
     {
         'pathname': '/getProductInfo',
