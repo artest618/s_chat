@@ -1,298 +1,804 @@
-[2015-08-27 10:56:14.637] [DEBUG] dateFileLog - Express server listening on port 9003
-[2015-08-27 10:56:21.761] [INFO] dateFileLog - action / start-------------------------------------------
-[2015-08-27 10:56:21.762] [INFO] dateFileLog - param uid=374
-[2015-08-27 10:56:21.762] [INFO] dateFileLog - param __proto__=[object Object]
-[2015-08-27 10:56:23.062] [DEBUG] dateFileLog - GET /?uid=374
-[2015-08-27 10:56:23.088] [DEBUG] dateFileLog - GET /css/service.css
-[2015-08-27 10:56:23.089] [DEBUG] dateFileLog - GET /css/pc.css
-[2015-08-27 10:56:23.091] [DEBUG] dateFileLog - GET /js/require.js
-[2015-08-27 10:56:23.377] [DEBUG] dateFileLog - GET /js/schat.js
-[2015-08-27 10:56:23.400] [DEBUG] dateFileLog - GET /js/jquery.js
-[2015-08-27 10:56:23.400] [DEBUG] dateFileLog - GET /js/common.js
-[2015-08-27 10:56:23.401] [DEBUG] dateFileLog - GET /js/domReady.js
-[2015-08-27 10:56:23.402] [DEBUG] dateFileLog - GET /js/ejs.js
-[2015-08-27 10:56:23.404] [DEBUG] dateFileLog - GET /js/ajaxupload.js
-[2015-08-27 10:56:23.426] [INFO] dateFileLog - action /getUserInfo start-------------------------------------------
-[2015-08-27 10:56:23.429] [DEBUG] dateFileLog - POST /getUserInfo
-[2015-08-27 10:56:23.431] [DEBUG] dateFileLog - GET /images/loading.gif
-[2015-08-27 10:56:23.441] [INFO] dateFileLog - action /chatList start-------------------------------------------
-[2015-08-27 10:56:23.752] [DEBUG] dateFileLog - POST /chatList
-[2015-08-27 10:56:23.756] [DEBUG] dateFileLog - GET /views/tmpls/contactlist.ejs
-[2015-08-27 10:57:16.854] [DEBUG] dateFileLog - Express server listening on port 9003
-[2015-08-27 11:16:29.858] [INFO] dateFileLog - Express server listening on port 9003
-[2015-08-27 11:16:55.244] [INFO] dateFileLog - Express server listening on port 9003
-[2015-08-27 11:18:48.493] [INFO] dateFileLog - Express server listening on port 9003
-[2015-08-27 11:18:48.497] [ERROR] dateFileLog - { [Error: getaddrinfo ENOTFOUND chat.rdsmpk3228qyv2t.rds.bj.baidubce.com]
-  code: 'ENOTFOUND',
-  errno: 'ENOTFOUND',
-  syscall: 'getaddrinfo',
-  hostname: 'chat.rdsmpk3228qyv2t.rds.bj.baidubce.com',
-  fatal: true }
-Error: getaddrinfo ENOTFOUND chat.rdsmpk3228qyv2t.rds.bj.baidubce.com
-    at errnoException (dns.js:44:10)
-    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:94:26)
+[2015-08-28 10:41:41.171] [INFO] dateFileLog - Express server listening on port 9003
+[2015-08-28 10:41:41.438] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 10:41:41.649] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 10:41:41.806] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 10:41:41.807] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 10:41:41.808] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 10:41:41.808] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 10:41:41.809] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 10:41:41.857] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 10:41:41.857] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 10:41:41.858] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 10:41:41.861] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 10:41:41.862] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 10:41:41.950] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 10:41:41.950] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 10:41:41.950] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 10:41:41.951] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 10:41:41.955] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 10:41:41.986] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 10:41:41.986] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 10:41:41.992] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 10:41:41.996] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 10:41:42.037] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 10:41:42.191] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 10:41:42.192] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 10:41:42.193] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 10:41:42.194] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 10:41:42.194] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 10:41:42.194] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 10:41:42.195] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 10:41:42.195] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 10:41:42.267] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 10:41:42.281] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 10:41:42.314] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 10:41:42.327] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 10:41:42.328] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 10:41:42.339] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 10:44:10.771] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:10.778] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:12.418] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:12.421] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:12.614] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:12.616] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:13.646] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:13.646] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:14.415] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:14.415] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:15.211] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:15.212] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:16.386] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:16.387] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:17.664] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:17.664] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:17.952] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:17.953] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:18.735] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:18.736] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:19.094] [INFO] dateFileLog - action / start......
+[2015-08-28 10:44:19.095] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:44:40.228] [INFO] dateFileLog - action /flushMsgCount start......
+[2015-08-28 10:44:40.228] [INFO] dateFileLog - param uid=220
+[2015-08-28 10:44:40.229] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:44:40.231] [DEBUG] dateFileLog - GET /flushMsgCount?uid=220
+[2015-08-28 10:44:40.381] [DEBUG] dateFileLog - GET /favicon.ico
+[2015-08-28 10:50:01.487] [INFO] dateFileLog - action / start......
+[2015-08-28 10:50:01.487] [DEBUG] dateFileLog - GET /
+[2015-08-28 10:50:06.700] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:50:06.701] [INFO] dateFileLog - param uid=394
+[2015-08-28 10:50:06.701] [INFO] dateFileLog - param uname=张顾问
+[2015-08-28 10:50:06.701] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:50:08.800] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='394'
+[2015-08-28 10:50:08.897] [INFO] dateFileLog - { code: '10002', msg: '顾问已存在，请不要重复创建' }
+[2015-08-28 10:50:08.901] [DEBUG] dateFileLog - GET /createCounselor?uid=394&uname=%E5%BC%A0%E9%A1%BE%E9%97%AE
+[2015-08-28 10:50:22.432] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:50:22.432] [INFO] dateFileLog - param uid=999
+[2015-08-28 10:50:22.432] [INFO] dateFileLog - param uname=张顾问
+[2015-08-28 10:50:22.432] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:50:25.235] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='999'
+[2015-08-28 10:50:25.509] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:50:25.510] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (999, '张顾问', '张顾问', 3, 3, '2015-08-28 10:50:22' ,'')
+[2015-08-28 10:50:25.613] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (999, '张顾问', '张顾问', 3, 3, '2015-08-28 10:50:22' ,'')
+[2015-08-28 10:50:25.614] [ERROR] dateFileLog - ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+Error: ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+    at Query.Sequence._packetToError (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:48:14)
+    at Query.ErrorPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:83:18)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+    at Socket.Readable.push (_stream_readable.js:126:10)
+    at TCP.onread (net.js:538:20)
     --------------------
     at Protocol._enqueue (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:135:48)
-    at Protocol.handshake (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:52:41)
-    at PoolConnection.connect (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:123:18)
-    at Pool.getConnection (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Pool.js:45:23)
-    at Object.JDB.query (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:15:14)
-    at Object.chatService.getAllGroup (/Users/garden/projects/s_chat/s_chat/server/services/chats.js:63:13)
-    at initGroupInfo (/Users/garden/projects/s_chat/s_chat/server/globalcache.js:7:17)
-    at Object.<anonymous> (/Users/garden/projects/s_chat/s_chat/server/globalcache.js:19:1)
-    at Module._compile (module.js:460:26)
-    at Object.Module._extensions..js (module.js:478:10)
-[2015-08-27 11:18:48.499] [INFO] dateFileLog - {"code":"ENOTFOUND","errno":"ENOTFOUND","syscall":"getaddrinfo","hostname":"chat.rdsmpk3228qyv2t.rds.bj.baidubce.com","fatal":true}
-[2015-08-27 11:20:04.920] [INFO] dateFileLog - Express server listening on port 9003
-[2015-08-27 11:20:05.048] [INFO] dateFileLog - SELECT * FROM tb_grouplist
-[2015-08-27 11:20:05.167] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
-[2015-08-27 11:20:05.223] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
-[2015-08-27 11:20:05.248] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
-[2015-08-27 11:20:05.252] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
-[2015-08-27 11:20:05.258] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
-[2015-08-27 11:20:05.259] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
-[2015-08-27 11:20:05.261] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
-[2015-08-27 11:20:05.261] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
-[2015-08-27 11:20:05.263] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
-[2015-08-27 11:20:05.269] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
-[2015-08-27 11:20:05.289] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
-[2015-08-27 11:20:05.356] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
-[2015-08-27 11:20:05.378] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
-[2015-08-27 11:20:05.378] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
-[2015-08-27 11:20:05.379] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
-[2015-08-27 11:20:05.380] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
-[2015-08-27 11:20:05.388] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
-[2015-08-27 11:20:05.388] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
-[2015-08-27 11:20:05.389] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
-[2015-08-27 11:20:05.389] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
-[2015-08-27 11:20:05.389] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
-[2015-08-27 11:20:05.439] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
-[2015-08-27 11:20:05.447] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
-[2015-08-27 11:20:05.448] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
-[2015-08-27 11:20:05.448] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
-[2015-08-27 11:20:05.463] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
-[2015-08-27 11:20:05.464] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
-[2015-08-27 11:20:05.464] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
-[2015-08-27 11:20:05.465] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
-[2015-08-27 11:20:05.467] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
-[2015-08-27 11:20:05.468] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
-[2015-08-27 11:20:05.536] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
-[2015-08-27 11:20:05.536] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
-[2015-08-27 11:20:05.751] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
-[2015-08-27 11:20:05.752] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
-[2015-08-27 11:21:14.416] [INFO] dateFileLog - action / start......
-[2015-08-27 11:21:14.416] [INFO] dateFileLog - param uid=374
-[2015-08-27 11:21:14.417] [INFO] dateFileLog - param __proto__=[object Object]
-[2015-08-27 11:21:14.417] [INFO] dateFileLog - check user if signed with uid:374
-[2015-08-27 11:21:14.672] [INFO] dateFileLog - checked userinfo from foreign system:"{\"code\":\"SINO000000\",\"ftpReturnUrl\":\"http://anliangfile1.7zhibao.com/\",\"message\":\"请求成功\",\"userEdit\":{\"acctGroupNo\":\"\",\"acctManGroupNo\":\"\",\"adminId\":0,\"advisoryNum\":0,\"age\":\"\",\"authentication\":\"0\",\"bankName\":\"\",\"birthday\":0,\"birthdayCh\":\"\",\"cardNo\":\"\",\"cardNoImg\":\"\",\"companyAddr\":\"\",\"companyName\":\"\",\"createTime\":1440645956324,\"createTimeCh\":\"2015-08-27 11:25:56\",\"evaluateAvg\":0,\"evaluation\":\"\",\"finInvestment\":\"\",\"financeName\":\"\",\"fincNo\":\"\",\"firstLogin\":\"0\",\"fundsImg\":\"\",\"hasCar\":\"\",\"hasHouse\":\"\",\"histPerfom\":\"\",\"idNo\":\"\",\"idNoImg\":\"\",\"idType\":\"\",\"incomeMonthly\":\"\",\"isActivate\":\"1\",\"isCar\":\"0\",\"isCard\":\"0\",\"isCredit\":\"0\",\"isHouse\":\"0\",\"isInfoPerfect\":\"\",\"isLogin\":\"0\",\"isReco\":\"1\",\"isSignIn\":\"0\",\"isVerified\":\"0\",\"lastAdvisoryTime\":0,\"lastAdvisoryTimeCh\":\"\",\"lastSignInTime\":0,\"lastSignInTimeCh\":\"1970-01-01 08:00:00\",\"loginIp\":\"\",\"loginState\":\"\",\"mainBus\":\"\",\"mainBusStr\":\"\",\"maintSts\":\"\",\"marriageSts\":\"\",\"nickName\":\"\",\"orgId\":0,\"parent\":0,\"persIntro\":\"\",\"position\":\"\",\"professIdentity\":\"\",\"qq\":\"\",\"realName\":\"\",\"recoWeight\":0,\"recoWeightStr\":\"0\",\"recommendCode\":\"\",\"registerTime\":0,\"registerTimeCh\":\"\",\"remark\":\"\",\"resource\":\"\",\"resumeUrl\":\"\",\"score\":0,\"scoreAvg\":0,\"sex\":\"\",\"signManName\":\"\",\"signManPhone\":\"\",\"silvStatus\":\"\",\"starLevel\":0,\"strCreateTime\":\"2015-08-27\",\"totalDisAmount\":\"\",\"totalTranVolume\":\"\",\"userAddr\":\"\",\"userEmail\":\"\",\"userGrade\":1,\"userId\":374,\"userImg\":\"\",\"userName\":\"金九胖\",\"userPhone\":\"15801662611\",\"userPwd\":\"ff92a240d11b05ebd392348c35f781b2\",\"userRole\":\"2\",\"userStatus\":\"\",\"userType\":\"1\",\"weChat\":\"\",\"workPermit\":\"\",\"workTime\":\"\"}}"
-[2015-08-27 11:21:14.767] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=374
-[2015-08-27 11:21:14.824] [DEBUG] dateFileLog - GET /?uid=374
-[2015-08-27 11:21:14.853] [DEBUG] dateFileLog - GET /css/service.css
-[2015-08-27 11:21:14.855] [DEBUG] dateFileLog - GET /css/pc.css
-[2015-08-27 11:21:14.856] [DEBUG] dateFileLog - GET /js/require.js
-[2015-08-27 11:21:15.163] [DEBUG] dateFileLog - GET /js/schat.js
-[2015-08-27 11:21:15.183] [DEBUG] dateFileLog - GET /js/jquery.js
-[2015-08-27 11:21:15.184] [DEBUG] dateFileLog - GET /js/common.js
-[2015-08-27 11:21:15.185] [DEBUG] dateFileLog - GET /js/domReady.js
-[2015-08-27 11:21:15.186] [DEBUG] dateFileLog - GET /js/ejs.js
-[2015-08-27 11:21:15.187] [DEBUG] dateFileLog - GET /js/ajaxupload.js
-[2015-08-27 11:21:15.218] [DEBUG] dateFileLog - GET /images/loading.gif
-[2015-08-27 11:21:15.220] [INFO] dateFileLog - action /getUserInfo start......
-[2015-08-27 11:21:15.222] [DEBUG] dateFileLog - POST /getUserInfo
-[2015-08-27 11:21:15.232] [INFO] dateFileLog - action /chatList start......
-[2015-08-27 11:21:15.234] [INFO] dateFileLog - 用户000000374上线了..........
-[2015-08-27 11:21:15.782] [INFO] dateFileLog - SELECT a.*,b.* FROM tb_contacthistory_list a INNER JOIN tb_userinfo b WHERE a.user=000000374 AND a.toid = b.uid
-[2015-08-27 11:21:16.656] [INFO] dateFileLog - SELECT * FROM tb_group_userlist a INNER JOIN tb_grouplist b WHERE a.userid=000000374 AND a.groupid = b.id
-[2015-08-27 11:21:16.714] [INFO] dateFileLog - { schat: 
-   [ { user: 374,
-       toid: 111111111,
-       totype: 3,
-       lastchattime: null,
-       id: 12,
-       uid: 111111111,
-       name: '王顾问',
-       cname: '王顾问',
-       usertype: 3,
-       headicon: 'images/headers/default.png',
-       groupcount: 3,
-       createdate: Fri Aug 21 2015 10:07:52 GMT+0800 (CST),
-       delflag: 0,
-       isOnline: 0,
-       unreadCount: 0 },
-     { user: 374,
-       toid: 220,
-       totype: 3,
-       lastchattime: null,
-       id: 24,
-       uid: '000000220',
-       name: '用户名称1',
-       cname: '用户名称1',
-       usertype: 3,
-       headicon: '',
-       groupcount: 0,
-       createdate: null,
-       delflag: 0,
-       isOnline: 0,
-       unreadCount: 0 },
-     { user: 374,
-       toid: 223,
-       totype: 3,
-       lastchattime: null,
-       id: 21,
-       uid: '000000223',
-       name: '李丽',
-       cname: '李丽',
-       usertype: 3,
-       headicon: 'images/headers/default.png',
-       groupcount: 3,
-       createdate: Fri Aug 21 2015 19:51:41 GMT+0800 (CST),
-       delflag: 0,
-       isOnline: 0,
-       unreadCount: 0 } ],
-  gchat: 
-   [ { id: 23,
-       userid: 374,
-       username: '金九胖',
-       usercname: '金九胖',
-       usertype: 1,
-       groupid: 23,
-       jointime: null,
-       owner: 223,
-       ownername: '李丽',
-       ownercname: '李丽',
-       groupname: '李丽的客户群',
-       grouptype: 2,
-       groupnum: '223_8150053696',
-       unreadCount: 0 } ] }
-[2015-08-27 11:21:16.721] [DEBUG] dateFileLog - POST /chatList
-[2015-08-27 11:21:16.726] [DEBUG] dateFileLog - GET /views/tmpls/contactlist.ejs
-[2015-08-27 11:30:02.538] [INFO] dateFileLog - SELECT * FROM tb_grouplist
-[2015-08-27 11:30:03.237] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
-[2015-08-27 11:30:03.238] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
-[2015-08-27 11:30:03.345] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
-[2015-08-27 11:30:03.346] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
-[2015-08-27 11:30:03.346] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
-[2015-08-27 11:30:03.346] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
-[2015-08-27 11:30:03.347] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
-[2015-08-27 11:30:03.348] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
-[2015-08-27 11:30:03.349] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
-[2015-08-27 11:30:03.349] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
-[2015-08-27 11:30:03.489] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
-[2015-08-27 11:30:03.499] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
-[2015-08-27 11:30:03.644] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
-[2015-08-27 11:30:03.644] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
-[2015-08-27 11:30:03.645] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
-[2015-08-27 11:30:03.655] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
-[2015-08-27 11:30:03.656] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
-[2015-08-27 11:30:03.657] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
-[2015-08-27 11:30:03.657] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
-[2015-08-27 11:30:03.658] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
-[2015-08-27 11:30:03.845] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
-[2015-08-27 11:30:03.876] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
-[2015-08-27 11:30:03.962] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
-[2015-08-27 11:30:03.965] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
-[2015-08-27 11:30:03.994] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
-[2015-08-27 11:30:03.995] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
-[2015-08-27 11:30:03.995] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
-[2015-08-27 11:30:03.995] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
-[2015-08-27 11:30:04.040] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
-[2015-08-27 11:30:04.041] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
-[2015-08-27 11:30:04.171] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
-[2015-08-27 11:30:04.262] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
-[2015-08-27 11:30:04.269] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
-[2015-08-27 11:30:04.327] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
-[2015-08-27 11:30:04.327] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
-[2015-08-27 13:22:40.998] [ERROR] dateFileLog - { [Error: Handshake inactivity timeout]
-  code: 'PROTOCOL_SEQUENCE_TIMEOUT',
-  fatal: true,
-  timeout: 10000 }
-Error: Handshake inactivity timeout
-    at Handshake.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:154:17)
-    at Handshake.emit (events.js:104:17)
-    at Handshake._onTimeout (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:116:8)
-    at Timer.listOnTimeout (timers.js:110:15)
+    at PoolConnection.query (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:201:25)
+    at excutesql (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:40:28)
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:69:23)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+[2015-08-28 10:50:25.662] [ERROR] dateFileLog - cerr is not defined
+ReferenceError: cerr is not defined
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:100:58)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+[2015-08-28 10:50:59.241] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:50:59.241] [INFO] dateFileLog - param uid=999
+[2015-08-28 10:50:59.241] [INFO] dateFileLog - param uname=张顾问
+[2015-08-28 10:50:59.241] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:51:02.305] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='999'
+[2015-08-28 10:51:02.518] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:51:02.519] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (999, '张顾问', '张顾问', 3, 3, '2015-08-28 10:50:59' ,'')
+[2015-08-28 10:51:02.642] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (999, '张顾问', '张顾问', 3, 3, '2015-08-28 10:50:59' ,'')
+[2015-08-28 10:51:02.643] [ERROR] dateFileLog - ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+Error: ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+    at Query.Sequence._packetToError (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:48:14)
+    at Query.ErrorPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:83:18)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+    at Socket.Readable.push (_stream_readable.js:126:10)
+    at TCP.onread (net.js:538:20)
     --------------------
     at Protocol._enqueue (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:135:48)
-    at Protocol.handshake (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:52:41)
-    at PoolConnection.connect (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:123:18)
-    at Pool.getConnection (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Pool.js:45:23)
-    at Pool.releaseConnection (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Pool.js:135:10)
-    at Pool._removeConnection (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Pool.js:247:8)
-    at Pool._purgeConnection (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Pool.js:228:8)
-    at Ping.onPing [as _callback] (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Pool.js:90:12)
-    at Ping.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
-    at /Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:390:18
-[2015-08-27 13:22:40.999] [INFO] dateFileLog - {"code":"PROTOCOL_SEQUENCE_TIMEOUT","fatal":true,"timeout":10000}
-[2015-08-27 13:30:42.801] [INFO] dateFileLog - SELECT * FROM tb_grouplist
-[2015-08-27 13:30:42.918] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
-[2015-08-27 13:30:42.985] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
-[2015-08-27 13:30:42.994] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
-[2015-08-27 13:30:43.001] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
-[2015-08-27 13:30:43.009] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
-[2015-08-27 13:30:43.016] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
-[2015-08-27 13:30:43.021] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
-[2015-08-27 13:30:43.022] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
-[2015-08-27 13:30:43.032] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
-[2015-08-27 13:30:43.048] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
-[2015-08-27 13:30:43.049] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
-[2015-08-27 13:30:43.095] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
-[2015-08-27 13:30:43.096] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
-[2015-08-27 13:30:43.102] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
-[2015-08-27 13:30:43.102] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
-[2015-08-27 13:30:43.102] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
-[2015-08-27 13:30:43.103] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
-[2015-08-27 13:30:43.104] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
-[2015-08-27 13:30:43.109] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
-[2015-08-27 13:30:43.135] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
-[2015-08-27 13:30:43.141] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
-[2015-08-27 13:30:43.178] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
-[2015-08-27 13:30:43.179] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
-[2015-08-27 13:30:43.199] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
-[2015-08-27 13:30:43.204] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
-[2015-08-27 13:30:43.205] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
-[2015-08-27 13:30:43.210] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
-[2015-08-27 13:30:43.210] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
-[2015-08-27 13:30:43.210] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
-[2015-08-27 13:30:43.221] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
-[2015-08-27 13:30:43.228] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
-[2015-08-27 13:30:43.253] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
-[2015-08-27 13:30:43.259] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
-[2015-08-27 13:30:43.265] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
-[2015-08-27 13:30:43.267] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
-[2015-08-27 17:32:25.559] [INFO] dateFileLog - user 000000374 disconnected............
-[2015-08-27 17:33:25.882] [INFO] dateFileLog - SELECT * FROM tb_grouplist
-[2015-08-27 17:33:26.036] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
-[2015-08-27 17:33:26.113] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
-[2015-08-27 17:33:26.253] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
-[2015-08-27 17:33:26.254] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
-[2015-08-27 17:33:26.254] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
-[2015-08-27 17:33:26.254] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
-[2015-08-27 17:33:26.255] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
-[2015-08-27 17:33:26.263] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
-[2015-08-27 17:33:26.263] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
-[2015-08-27 17:33:26.264] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
-[2015-08-27 17:33:26.264] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
-[2015-08-27 17:33:26.331] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
-[2015-08-27 17:33:26.350] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
-[2015-08-27 17:33:26.351] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
-[2015-08-27 17:33:26.362] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
-[2015-08-27 17:33:26.363] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
-[2015-08-27 17:33:26.373] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
-[2015-08-27 17:33:26.373] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
-[2015-08-27 17:33:26.374] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
-[2015-08-27 17:33:26.382] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
-[2015-08-27 17:33:26.385] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
-[2015-08-27 17:33:26.433] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
-[2015-08-27 17:33:26.452] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
-[2015-08-27 17:33:26.453] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
-[2015-08-27 17:33:26.462] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
-[2015-08-27 17:33:26.463] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
-[2015-08-27 17:33:26.477] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
-[2015-08-27 17:33:26.478] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
-[2015-08-27 17:33:26.478] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
-[2015-08-27 17:33:26.482] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
-[2015-08-27 17:33:26.487] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
-[2015-08-27 17:33:26.608] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
-[2015-08-27 17:33:26.609] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
-[2015-08-27 17:33:26.610] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
-[2015-08-27 17:33:26.611] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+    at PoolConnection.query (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:201:25)
+    at excutesql (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:40:28)
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:69:23)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+[2015-08-28 10:51:02.690] [ERROR] dateFileLog - cerr is not defined
+ReferenceError: cerr is not defined
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:100:58)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+[2015-08-28 10:51:29.088] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:51:29.088] [INFO] dateFileLog - param uid=999
+[2015-08-28 10:51:29.088] [INFO] dateFileLog - param uname=张顾问
+[2015-08-28 10:51:29.088] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:51:31.957] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='999'
+[2015-08-28 10:51:32.141] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:51:32.141] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (999, '张顾问', '张顾问', 3, 3, '2015-08-28 10:51:29' ,'')
+[2015-08-28 10:51:32.295] [INFO] dateFileLog - commit successfully and transaction end.
+[2015-08-28 10:51:32.296] [INFO] dateFileLog - true
+[2015-08-28 10:51:32.364] [INFO] dateFileLog - SELECT * FROM tb_grouplist WHERE owner='1'
+[2015-08-28 10:51:32.372] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (999, '张顾问', '张顾问', 3, 3, '2015-08-28 10:51:29' ,'')
+[2015-08-28 10:51:32.373] [ERROR] dateFileLog - ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+Error: ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+    at Query.Sequence._packetToError (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:48:14)
+    at Query.ErrorPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:83:18)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+    at Socket.Readable.push (_stream_readable.js:126:10)
+    at TCP.onread (net.js:538:20)
+    --------------------
+    at Protocol._enqueue (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:135:48)
+    at PoolConnection.query (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:201:25)
+    at excutesql (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:40:28)
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:69:23)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+[2015-08-28 10:51:32.592] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:51:32.592] [DEBUG] dateFileLog - INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (999, '张顾问', '张顾问', '张顾问的客户群', 2, '999_5515135919')
+[2015-08-28 10:51:32.592] [DEBUG] dateFileLog - INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (999, '张顾问', '张顾问', '张顾问的客户经理群',3, '999_5664497386')
+[2015-08-28 10:51:32.593] [DEBUG] dateFileLog - INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (999, '张顾问', '张顾问', 3,'14', '2015-08-28 10:51:32')
+[2015-08-28 10:51:32.593] [DEBUG] dateFileLog - INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('999','14','2', null)
+[2015-08-28 10:51:32.651] [INFO] dateFileLog - excuted INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (999, '张顾问', '张顾问', '张顾问的客户群', 2, '999_5515135919')successfully.
+[2015-08-28 10:51:32.701] [INFO] dateFileLog - excuted INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (999, '张顾问', '张顾问', '张顾问的客户经理群',3, '999_5664497386')successfully.
+[2015-08-28 10:51:32.761] [INFO] dateFileLog - excuted INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (999, '张顾问', '张顾问', 3,'14', '2015-08-28 10:51:32')successfully.
+[2015-08-28 10:51:32.823] [INFO] dateFileLog - excuted INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('999','14','2', null)successfully.
+[2015-08-28 10:51:32.954] [INFO] dateFileLog - commit successfully and transaction end.
+[2015-08-28 10:51:33.002] [INFO] dateFileLog - SELECT * FROM tb_grouplist WHERE owner='999'
+[2015-08-28 10:51:33.162] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:51:33.162] [DEBUG] dateFileLog - INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (999, '张顾问', '张顾问', 3,'49', '2015-08-28 10:51:33')
+[2015-08-28 10:51:33.163] [DEBUG] dateFileLog - INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (999, '张顾问', '张顾问', 3,'50', '2015-08-28 10:51:33')
+[2015-08-28 10:51:33.163] [DEBUG] dateFileLog - INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('999','49','2', null)
+[2015-08-28 10:51:33.163] [DEBUG] dateFileLog - INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('999','50','2', null)
+[2015-08-28 10:51:33.223] [INFO] dateFileLog - excuted INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (999, '张顾问', '张顾问', 3,'49', '2015-08-28 10:51:33')successfully.
+[2015-08-28 10:51:33.284] [INFO] dateFileLog - excuted INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (999, '张顾问', '张顾问', 3,'50', '2015-08-28 10:51:33')successfully.
+[2015-08-28 10:51:33.344] [INFO] dateFileLog - excuted INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('999','49','2', null)successfully.
+[2015-08-28 10:51:33.397] [INFO] dateFileLog - excuted INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('999','50','2', null)successfully.
+[2015-08-28 10:51:33.524] [INFO] dateFileLog - commit successfully and transaction end.
+[2015-08-28 10:51:33.571] [INFO] dateFileLog - SELECT * FROM tb_grouplist WHERE owner='999'
+[2015-08-28 10:51:33.615] [INFO] dateFileLog - { code: '10001',
+  list: 
+   [ { group_name: '张顾问的客户群', group_id: '999_5515135919' },
+     { group_name: '张顾问的客户经理群', group_id: '999_5664497386' } ] }
+[2015-08-28 10:51:33.617] [DEBUG] dateFileLog - GET /createCounselor?uid=999&uname=%E5%BC%A0%E9%A1%BE%E9%97%AE
+[2015-08-28 10:51:39.365] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 10:51:40.543] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 10:51:40.556] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 10:51:40.556] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 10:51:40.557] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 10:51:40.565] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 10:51:40.671] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 10:51:40.685] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 10:51:40.741] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 10:51:40.747] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 10:51:40.748] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 10:51:40.831] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 10:51:40.832] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 10:51:40.845] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 10:51:40.856] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 10:51:40.881] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 10:51:40.973] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 10:51:40.974] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 10:51:40.981] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 10:51:41.047] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 10:51:41.048] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 10:51:41.124] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 10:51:41.125] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 10:51:41.138] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 10:51:41.151] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 10:51:41.165] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 10:51:41.244] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 10:51:41.252] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 10:51:41.258] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 10:51:41.261] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 10:51:41.271] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 10:51:41.396] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 10:51:41.406] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 10:51:41.426] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 10:51:41.427] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 10:51:41.427] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 10:51:41.519] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 10:51:41.520] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 10:53:58.789] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:53:58.789] [INFO] dateFileLog - param uid=998
+[2015-08-28 10:53:58.789] [INFO] dateFileLog - param uname=张顾问
+[2015-08-28 10:53:58.789] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:54:00.896] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='998'
+[2015-08-28 10:54:01.047] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:54:01.047] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (998, '张顾问', '张顾问', 3, 3, '2015-08-28 10:53:58' ,'')
+[2015-08-28 10:54:01.161] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (998, '张顾问', '张顾问', 3, 3, '2015-08-28 10:53:58' ,'')
+[2015-08-28 10:54:01.162] [ERROR] dateFileLog - ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+Error: ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+    at Query.Sequence._packetToError (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:48:14)
+    at Query.ErrorPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:83:18)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+    at Socket.Readable.push (_stream_readable.js:126:10)
+    at TCP.onread (net.js:538:20)
+    --------------------
+    at Protocol._enqueue (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:135:48)
+    at PoolConnection.query (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:201:25)
+    at excutesql (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:40:28)
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:69:23)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+[2015-08-28 10:54:01.209] [ERROR] dateFileLog - cerr is not defined
+ReferenceError: cerr is not defined
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:100:58)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+[2015-08-28 10:54:12.584] [INFO] dateFileLog - Express server listening on port 9003
+[2015-08-28 10:54:12.921] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 10:54:13.099] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 10:54:13.228] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 10:54:13.248] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 10:54:13.259] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 10:54:13.260] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 10:54:13.280] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 10:54:13.299] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 10:54:13.308] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 10:54:13.323] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 10:54:13.324] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 10:54:13.324] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 10:54:13.378] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 10:54:13.378] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 10:54:13.379] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 10:54:13.380] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 10:54:13.382] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 10:54:13.399] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 10:54:13.408] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 10:54:13.418] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 10:54:13.419] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 10:54:13.456] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 10:54:13.485] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 10:54:13.489] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 10:54:13.497] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 10:54:13.497] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 10:54:13.498] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 10:54:13.506] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 10:54:13.507] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 10:54:13.517] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 10:54:13.532] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 10:54:13.554] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 10:54:13.669] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 10:54:13.679] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 10:54:13.680] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 10:54:13.680] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 10:54:13.681] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 10:54:13.681] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 10:54:25.010] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:54:25.010] [INFO] dateFileLog - param uid=998
+[2015-08-28 10:54:25.010] [INFO] dateFileLog - param uname=张顾问
+[2015-08-28 10:54:25.010] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:54:25.150] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='998'
+[2015-08-28 10:54:25.430] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:54:25.430] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (998, '张顾问', '张顾问', 3, 3, '2015-08-28 10:54:25' ,'')
+[2015-08-28 10:54:25.570] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (998, '张顾问', '张顾问', 3, 3, '2015-08-28 10:54:25' ,'')
+[2015-08-28 10:54:25.571] [ERROR] dateFileLog - ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+Error: ER_DUP_ENTRY: Duplicate entry '张顾问' for key 'name_UNIQUE'
+    at Query.Sequence._packetToError (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:48:14)
+    at Query.ErrorPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:83:18)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+    at Socket.Readable.push (_stream_readable.js:126:10)
+    at TCP.onread (net.js:538:20)
+    --------------------
+    at Protocol._enqueue (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:135:48)
+    at PoolConnection.query (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:201:25)
+    at excutesql (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:40:28)
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:69:23)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+[2015-08-28 10:54:25.622] [ERROR] dateFileLog - cerr is not defined
+ReferenceError: cerr is not defined
+    at Query._callback (/Users/garden/projects/s_chat/s_chat/server/mysqldbfactory.js:100:58)
+    at Query.Sequence.end (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Sequence.js:96:24)
+    at Query._handleFinalResultPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:144:8)
+    at Query.OkPacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/sequences/Query.js:78:10)
+    at Protocol._parsePacket (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:271:23)
+    at Parser.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Parser.js:77:12)
+    at Protocol.write (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/Users/garden/projects/s_chat/s_chat/node_modules/mysql/lib/Connection.js:96:28)
+    at Socket.emit (events.js:107:17)
+    at readableAddChunk (_stream_readable.js:163:16)
+[2015-08-28 10:55:23.392] [INFO] dateFileLog - Express server listening on port 9003
+[2015-08-28 10:55:26.591] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 10:55:26.857] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 10:55:26.948] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 10:55:26.956] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 10:55:27.015] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 10:55:27.024] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 10:55:27.031] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 10:55:27.032] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 10:55:27.032] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 10:55:27.033] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 10:55:27.036] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 10:55:27.043] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 10:55:27.096] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 10:55:27.096] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 10:55:27.097] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 10:55:27.097] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 10:55:27.107] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 10:55:27.108] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 10:55:27.108] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 10:55:27.134] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 10:55:27.135] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 10:55:27.143] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 10:55:27.176] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 10:55:27.177] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 10:55:27.178] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 10:55:27.190] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 10:55:27.191] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 10:55:27.191] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 10:55:27.194] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 10:55:27.211] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 10:55:27.212] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 10:55:27.216] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 10:55:27.264] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 10:55:27.289] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 10:55:27.290] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 10:55:27.290] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 10:55:27.290] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 10:55:27.292] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 10:55:44.765] [INFO] dateFileLog - Express server listening on port 9003
+[2015-08-28 10:55:45.091] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 10:55:45.501] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 10:55:45.570] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 10:55:45.642] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 10:55:45.643] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 10:55:45.644] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 10:55:45.645] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 10:55:45.645] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 10:55:45.645] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 10:55:45.646] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 10:55:45.664] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 10:55:45.665] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 10:55:45.807] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 10:55:45.840] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 10:55:45.841] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 10:55:45.842] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 10:55:45.842] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 10:55:45.864] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 10:55:45.864] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 10:55:45.865] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 10:55:45.891] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 10:55:45.891] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 10:55:45.967] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 10:55:45.967] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 10:55:45.986] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 10:55:45.986] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 10:55:45.986] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 10:55:46.001] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 10:55:46.012] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 10:55:46.022] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 10:55:46.040] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 10:55:46.041] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 10:55:46.056] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 10:55:46.079] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 10:55:46.087] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 10:55:46.087] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 10:55:46.100] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 10:55:46.101] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 10:56:24.977] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 10:56:24.978] [INFO] dateFileLog - param uid=997
+[2015-08-28 10:56:24.978] [INFO] dateFileLog - param uname=张顾问1
+[2015-08-28 10:56:24.978] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 10:56:25.039] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='997'
+[2015-08-28 10:56:25.330] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:56:25.330] [DEBUG] dateFileLog - INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (997, '张顾问1', '张顾问1', 3, 3, '2015-08-28 10:56:24' ,'')
+[2015-08-28 10:56:25.440] [INFO] dateFileLog - excuted INSERT INTO tb_userinfo (uid, name, cname, usertype, groupcount, createdate ,headicon)  VALUES (997, '张顾问1', '张顾问1', 3, 3, '2015-08-28 10:56:24' ,'')successfully.
+[2015-08-28 10:56:25.492] [INFO] dateFileLog - commit successfully and transaction end.
+[2015-08-28 10:56:25.492] [INFO] dateFileLog - true
+[2015-08-28 10:56:25.540] [INFO] dateFileLog - SELECT * FROM tb_grouplist WHERE owner='1'
+[2015-08-28 10:56:25.690] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:56:25.691] [DEBUG] dateFileLog - INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (997, '张顾问1', '张顾问1', '张顾问1的客户群', 2, '997_4167629535')
+[2015-08-28 10:56:25.691] [DEBUG] dateFileLog - INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (997, '张顾问1', '张顾问1', '张顾问1的客户经理群',3, '997_3361916328')
+[2015-08-28 10:56:25.691] [DEBUG] dateFileLog - INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (997, '张顾问1', '张顾问1', 3,'14', '2015-08-28 10:56:25')
+[2015-08-28 10:56:25.691] [DEBUG] dateFileLog - INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('997','14','2', null)
+[2015-08-28 10:56:25.750] [INFO] dateFileLog - excuted INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (997, '张顾问1', '张顾问1', '张顾问1的客户群', 2, '997_4167629535')successfully.
+[2015-08-28 10:56:25.809] [INFO] dateFileLog - excuted INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES (997, '张顾问1', '张顾问1', '张顾问1的客户经理群',3, '997_3361916328')successfully.
+[2015-08-28 10:56:25.868] [INFO] dateFileLog - excuted INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (997, '张顾问1', '张顾问1', 3,'14', '2015-08-28 10:56:25')successfully.
+[2015-08-28 10:56:25.928] [INFO] dateFileLog - excuted INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('997','14','2', null)successfully.
+[2015-08-28 10:56:26.049] [INFO] dateFileLog - commit successfully and transaction end.
+[2015-08-28 10:56:26.100] [INFO] dateFileLog - SELECT * FROM tb_grouplist WHERE owner='997'
+[2015-08-28 10:56:26.278] [INFO] dateFileLog - start transaction...
+[2015-08-28 10:56:26.279] [DEBUG] dateFileLog - INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (997, '张顾问1', '张顾问1', 3,'51', '2015-08-28 10:56:26')
+[2015-08-28 10:56:26.279] [DEBUG] dateFileLog - INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (997, '张顾问1', '张顾问1', 3,'52', '2015-08-28 10:56:26')
+[2015-08-28 10:56:26.279] [DEBUG] dateFileLog - INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('997','51','2', null)
+[2015-08-28 10:56:26.279] [DEBUG] dateFileLog - INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('997','52','2', null)
+[2015-08-28 10:56:26.339] [INFO] dateFileLog - excuted INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (997, '张顾问1', '张顾问1', 3,'51', '2015-08-28 10:56:26')successfully.
+[2015-08-28 10:56:26.399] [INFO] dateFileLog - excuted INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES (997, '张顾问1', '张顾问1', 3,'52', '2015-08-28 10:56:26')successfully.
+[2015-08-28 10:56:26.459] [INFO] dateFileLog - excuted INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('997','51','2', null)successfully.
+[2015-08-28 10:56:26.520] [INFO] dateFileLog - excuted INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('997','52','2', null)successfully.
+[2015-08-28 10:56:26.933] [INFO] dateFileLog - commit successfully and transaction end.
+[2015-08-28 10:56:27.689] [INFO] dateFileLog - SELECT * FROM tb_grouplist WHERE owner='997'
+[2015-08-28 10:56:27.780] [INFO] dateFileLog - { code: '10001',
+  list: 
+   [ { group_name: '张顾问1的客户群', group_id: '997_4167629535', type: 2 },
+     { group_name: '张顾问1的客户经理群', group_id: '997_3361916328', type: 3 } ] }
+[2015-08-28 10:56:27.788] [DEBUG] dateFileLog - GET /createCounselor?uid=997&uname=%E5%BC%A0%E9%A1%BE%E9%97%AE1
+[2015-08-28 11:05:45.250] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 11:05:45.374] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 11:05:45.375] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 11:05:45.375] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 11:05:45.387] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 11:05:45.387] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 11:05:45.388] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 11:05:45.390] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 11:05:45.533] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 11:05:45.534] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 11:05:45.543] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 11:05:45.554] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 11:05:45.555] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 11:05:45.563] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 11:05:45.564] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 11:05:45.674] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 11:05:45.675] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 11:05:45.676] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 11:05:45.690] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 11:05:45.705] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 11:05:45.712] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 11:05:45.746] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 11:05:45.783] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 11:05:45.804] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 11:05:45.805] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 11:05:45.811] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 11:05:45.823] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 11:05:45.834] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 11:05:45.862] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 11:05:45.895] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 11:05:45.952] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 11:05:45.956] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 11:05:45.957] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 11:05:45.964] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 11:05:45.972] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 11:05:46.007] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 11:05:46.065] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 11:05:46.081] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 11:05:46.101] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=51)
+[2015-08-28 11:05:46.116] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=52)
+[2015-08-28 11:11:31.421] [INFO] dateFileLog - action /createCounselor start......
+[2015-08-28 11:11:31.421] [INFO] dateFileLog - param uid=220
+[2015-08-28 11:11:31.422] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:11:31.422] [INFO] dateFileLog - param pid=123
+[2015-08-28 11:11:31.422] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:11:34.300] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid='220'
+[2015-08-28 11:11:34.393] [INFO] dateFileLog - { code: '10002', msg: '顾问已存在，请不要重复创建' }
+[2015-08-28 11:11:34.398] [DEBUG] dateFileLog - GET /createCounselor?uid=220&tid=426&pid=123
+[2015-08-28 11:11:44.318] [INFO] dateFileLog - action / start......
+[2015-08-28 11:11:44.318] [INFO] dateFileLog - param uid=220
+[2015-08-28 11:11:44.318] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:11:44.318] [INFO] dateFileLog - param pid=123
+[2015-08-28 11:11:44.319] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:11:44.319] [INFO] dateFileLog - check user if signed with uid:220
+[2015-08-28 11:11:46.902] [INFO] dateFileLog - checked userinfo from foreign system:"{\"code\":\"SINO000000\",\"ftpReturnUrl\":\"http://anliangfile1.7zhibao.com/\",\"message\":\"请求成功\",\"userEdit\":{\"acctGroupNo\":\"\",\"acctManGroupNo\":\"\",\"adminId\":0,\"advisoryNum\":0,\"age\":\"\",\"authentication\":\"0\",\"bankName\":\"招商银行\",\"birthday\":0,\"birthdayCh\":\"\",\"cardNo\":\"6214815098749999\",\"cardNoImg\":\"\",\"companyAddr\":\"北京\",\"companyName\":\"公司名称1\",\"createTime\":1438148562659,\"createTimeCh\":\"2015-07-29 13:42:42\",\"evaluateAvg\":0,\"evaluation\":\"\",\"finInvestment\":\"\",\"financeName\":\"\",\"fincNo\":\"\",\"firstLogin\":\"\",\"fundsImg\":\"\",\"hasCar\":\"1\",\"hasHouse\":\"1\",\"histPerfom\":\"\",\"idNo\":\"370125199009090909\",\"idNoImg\":\"\",\"idType\":\"3\",\"incomeMonthly\":\"\",\"isActivate\":\"1\",\"isCar\":\"0\",\"isCard\":\"0\",\"isCredit\":\"0\",\"isHouse\":\"0\",\"isInfoPerfect\":\"1\",\"isLogin\":\"1\",\"isReco\":\"1\",\"isSignIn\":\"0\",\"isVerified\":\"\",\"lastAdvisoryTime\":0,\"lastAdvisoryTimeCh\":\"\",\"lastSignInTime\":0,\"lastSignInTimeCh\":\"1970-01-01 08:00:00\",\"loginIp\":\"124.202.191.174\",\"loginState\":\"\",\"mainBus\":\"\",\"mainBusStr\":\"\",\"maintSts\":\"0\",\"marriageSts\":\"1\",\"nickName\":\"\",\"orgId\":0,\"parent\":0,\"persIntro\":\"\",\"position\":\"业务总监\",\"professIdentity\":\"职业身份1\",\"qq\":\"\",\"realName\":\"\",\"recoWeight\":0,\"recoWeightStr\":\"0\",\"recommendCode\":\"13111111111\",\"registerTime\":0,\"registerTimeCh\":\"\",\"remark\":\"备注1\",\"resource\":\"3\",\"resumeUrl\":\"\",\"score\":0,\"scoreAvg\":0,\"sex\":\"2\",\"signManName\":\"\",\"signManPhone\":\"\",\"silvStatus\":\"\",\"starLevel\":0,\"strCreateTime\":\"2015-07-29\",\"totalDisAmount\":\"\",\"totalTranVolume\":\"\",\"userAddr\":\"联系地址1\",\"userEmail\":\"25345234@163.com\",\"userGrade\":0,\"userId\":220,\"userImg\":\"\",\"userName\":\"用户名称1\",\"userPhone\":\"18510707634\",\"userPwd\":\"ff92a240d11b05ebd392348c35f781b2\",\"userRole\":\"2\",\"userStatus\":\"0\",\"userType\":\"\",\"weChat\":\"\",\"workPermit\":\"http://anliangfile1.7zhibao.com/www/user/220/2015/08/24/14/008585/1440398072363.PNG\",\"workTime\":\"\"}}"
+[2015-08-28 11:11:46.954] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=220
+[2015-08-28 11:11:47.008] [DEBUG] dateFileLog - GET /?uid=220&tid=426&pid=123
+[2015-08-28 11:11:47.035] [DEBUG] dateFileLog - GET /css/service.css
+[2015-08-28 11:11:47.040] [DEBUG] dateFileLog - GET /css/pc.css
+[2015-08-28 11:11:47.041] [DEBUG] dateFileLog - GET /js/require.js
+[2015-08-28 11:11:47.440] [DEBUG] dateFileLog - GET /js/schat.js
+[2015-08-28 11:11:47.456] [DEBUG] dateFileLog - GET /js/jquery.js
+[2015-08-28 11:11:47.457] [DEBUG] dateFileLog - GET /js/common.js
+[2015-08-28 11:11:47.458] [DEBUG] dateFileLog - GET /js/domReady.js
+[2015-08-28 11:11:47.460] [DEBUG] dateFileLog - GET /js/ejs.js
+[2015-08-28 11:11:47.464] [DEBUG] dateFileLog - GET /js/ajaxupload.js
+[2015-08-28 11:11:47.554] [INFO] dateFileLog - action /getUserInfo start......
+[2015-08-28 11:11:47.554] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:11:47.555] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:11:47.557] [DEBUG] dateFileLog - GET /images/loading.gif
+[2015-08-28 11:11:47.610] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=426
+[2015-08-28 11:11:47.651] [INFO] dateFileLog - { user: 
+   { id: 24,
+     uid: '000000220',
+     name: '用户名称1',
+     cname: '用户名称1',
+     usertype: 3,
+     headicon: '',
+     groupcount: 0,
+     createdate: null,
+     delflag: 0 },
+  counselor: undefined }
+[2015-08-28 11:11:47.654] [DEBUG] dateFileLog - POST /getUserInfo
+[2015-08-28 11:11:47.659] [INFO] dateFileLog - 用户000000220上线了..........
+[2015-08-28 11:11:47.661] [INFO] dateFileLog - action /chatList start......
+[2015-08-28 11:11:47.693] [INFO] dateFileLog - SELECT a.*,b.* FROM tb_contacthistory_list a INNER JOIN tb_userinfo b WHERE a.user=000000220 AND a.toid = b.uid
+[2015-08-28 11:11:47.829] [INFO] dateFileLog - SELECT * FROM tb_group_userlist a INNER JOIN tb_grouplist b WHERE a.userid=000000220 AND a.groupid = b.id
+[2015-08-28 11:11:47.872] [INFO] dateFileLog - { schat: [], gchat: [] }
+[2015-08-28 11:11:47.873] [DEBUG] dateFileLog - POST /chatList
+[2015-08-28 11:11:47.879] [DEBUG] dateFileLog - GET /views/tmpls/contactlist.ejs
+[2015-08-28 11:11:53.703] [INFO] dateFileLog - action / start......
+[2015-08-28 11:11:53.703] [INFO] dateFileLog - param uid=221
+[2015-08-28 11:11:53.703] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:11:53.703] [INFO] dateFileLog - param pid=123
+[2015-08-28 11:11:53.703] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:11:53.705] [DEBUG] dateFileLog - GET /?uid=221&tid=426&pid=123
+[2015-08-28 11:11:53.709] [INFO] dateFileLog - user 000000220 disconnected............
+[2015-08-28 11:11:53.717] [DEBUG] dateFileLog - GET /css/service.css
+[2015-08-28 11:11:53.719] [DEBUG] dateFileLog - GET /css/pc.css
+[2015-08-28 11:11:53.720] [DEBUG] dateFileLog - GET /js/require.js
+[2015-08-28 11:11:53.736] [DEBUG] dateFileLog - GET /js/schat.js
+[2015-08-28 11:11:53.747] [DEBUG] dateFileLog - GET /js/jquery.js
+[2015-08-28 11:11:53.748] [DEBUG] dateFileLog - GET /js/common.js
+[2015-08-28 11:11:53.749] [DEBUG] dateFileLog - GET /js/domReady.js
+[2015-08-28 11:11:53.751] [DEBUG] dateFileLog - GET /js/ejs.js
+[2015-08-28 11:11:53.753] [DEBUG] dateFileLog - GET /js/ajaxupload.js
+[2015-08-28 11:11:53.767] [INFO] dateFileLog - action /getUserInfo start......
+[2015-08-28 11:11:53.767] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:11:53.767] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:11:53.769] [DEBUG] dateFileLog - GET /images/loading.gif
+[2015-08-28 11:11:53.864] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=426
+[2015-08-28 11:11:53.948] [INFO] dateFileLog - { user: 
+   { id: 24,
+     uid: '000000220',
+     name: '用户名称1',
+     cname: '用户名称1',
+     usertype: 3,
+     headicon: '',
+     groupcount: 0,
+     createdate: null,
+     delflag: 0 },
+  counselor: undefined }
+[2015-08-28 11:11:53.949] [DEBUG] dateFileLog - POST /getUserInfo
+[2015-08-28 11:11:53.953] [INFO] dateFileLog - 用户000000220上线了..........
+[2015-08-28 11:11:53.955] [INFO] dateFileLog - action /chatList start......
+[2015-08-28 11:11:53.986] [INFO] dateFileLog - SELECT a.*,b.* FROM tb_contacthistory_list a INNER JOIN tb_userinfo b WHERE a.user=000000220 AND a.toid = b.uid
+[2015-08-28 11:11:54.083] [INFO] dateFileLog - SELECT * FROM tb_group_userlist a INNER JOIN tb_grouplist b WHERE a.userid=000000220 AND a.groupid = b.id
+[2015-08-28 11:11:54.126] [INFO] dateFileLog - { schat: [], gchat: [] }
+[2015-08-28 11:11:54.127] [DEBUG] dateFileLog - POST /chatList
+[2015-08-28 11:11:54.132] [DEBUG] dateFileLog - GET /views/tmpls/contactlist.ejs
+[2015-08-28 11:12:00.709] [INFO] dateFileLog - action / start......
+[2015-08-28 11:12:00.709] [INFO] dateFileLog - param uid=220
+[2015-08-28 11:12:00.709] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:12:00.709] [INFO] dateFileLog - param pid=123
+[2015-08-28 11:12:00.709] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:12:00.710] [DEBUG] dateFileLog - GET /?uid=220&tid=426&pid=123
+[2015-08-28 11:12:00.725] [DEBUG] dateFileLog - GET /css/service.css
+[2015-08-28 11:12:00.730] [DEBUG] dateFileLog - GET /css/pc.css
+[2015-08-28 11:12:00.731] [DEBUG] dateFileLog - GET /js/require.js
+[2015-08-28 11:12:01.390] [DEBUG] dateFileLog - GET /js/schat.js
+[2015-08-28 11:12:05.237] [INFO] dateFileLog - user 000000220 disconnected............
+[2015-08-28 11:12:16.759] [INFO] dateFileLog - action / start......
+[2015-08-28 11:12:16.760] [INFO] dateFileLog - param uid=220
+[2015-08-28 11:12:16.760] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:12:16.760] [INFO] dateFileLog - param pid=123
+[2015-08-28 11:12:16.760] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:12:16.760] [INFO] dateFileLog - check user if signed with uid:220
+[2015-08-28 11:12:16.939] [INFO] dateFileLog - checked userinfo from foreign system:"{\"code\":\"SINO000000\",\"ftpReturnUrl\":\"http://anliangfile1.7zhibao.com/\",\"message\":\"请求成功\",\"userEdit\":{\"acctGroupNo\":\"\",\"acctManGroupNo\":\"\",\"adminId\":0,\"advisoryNum\":0,\"age\":\"\",\"authentication\":\"0\",\"bankName\":\"招商银行\",\"birthday\":0,\"birthdayCh\":\"\",\"cardNo\":\"6214815098749999\",\"cardNoImg\":\"\",\"companyAddr\":\"北京\",\"companyName\":\"公司名称1\",\"createTime\":1438148562659,\"createTimeCh\":\"2015-07-29 13:42:42\",\"evaluateAvg\":0,\"evaluation\":\"\",\"finInvestment\":\"\",\"financeName\":\"\",\"fincNo\":\"\",\"firstLogin\":\"\",\"fundsImg\":\"\",\"hasCar\":\"1\",\"hasHouse\":\"1\",\"histPerfom\":\"\",\"idNo\":\"370125199009090909\",\"idNoImg\":\"\",\"idType\":\"3\",\"incomeMonthly\":\"\",\"isActivate\":\"1\",\"isCar\":\"0\",\"isCard\":\"0\",\"isCredit\":\"0\",\"isHouse\":\"0\",\"isInfoPerfect\":\"1\",\"isLogin\":\"1\",\"isReco\":\"1\",\"isSignIn\":\"0\",\"isVerified\":\"\",\"lastAdvisoryTime\":0,\"lastAdvisoryTimeCh\":\"\",\"lastSignInTime\":0,\"lastSignInTimeCh\":\"1970-01-01 08:00:00\",\"loginIp\":\"124.202.191.174\",\"loginState\":\"\",\"mainBus\":\"\",\"mainBusStr\":\"\",\"maintSts\":\"0\",\"marriageSts\":\"1\",\"nickName\":\"\",\"orgId\":0,\"parent\":0,\"persIntro\":\"\",\"position\":\"业务总监\",\"professIdentity\":\"职业身份1\",\"qq\":\"\",\"realName\":\"\",\"recoWeight\":0,\"recoWeightStr\":\"0\",\"recommendCode\":\"13111111111\",\"registerTime\":0,\"registerTimeCh\":\"\",\"remark\":\"备注1\",\"resource\":\"3\",\"resumeUrl\":\"\",\"score\":0,\"scoreAvg\":0,\"sex\":\"2\",\"signManName\":\"\",\"signManPhone\":\"\",\"silvStatus\":\"\",\"starLevel\":0,\"strCreateTime\":\"2015-07-29\",\"totalDisAmount\":\"\",\"totalTranVolume\":\"\",\"userAddr\":\"联系地址1\",\"userEmail\":\"25345234@163.com\",\"userGrade\":0,\"userId\":220,\"userImg\":\"\",\"userName\":\"用户名称1\",\"userPhone\":\"18510707634\",\"userPwd\":\"ff92a240d11b05ebd392348c35f781b2\",\"userRole\":\"2\",\"userStatus\":\"0\",\"userType\":\"\",\"weChat\":\"\",\"workPermit\":\"http://anliangfile1.7zhibao.com/www/user/220/2015/08/24/14/008585/1440398072363.PNG\",\"workTime\":\"\"}}"
+[2015-08-28 11:12:17.049] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=220
+[2015-08-28 11:12:17.110] [DEBUG] dateFileLog - GET /?uid=220&tid=426&pid=123
+[2015-08-28 11:12:17.192] [DEBUG] dateFileLog - GET /css/pc.css
+[2015-08-28 11:12:17.193] [DEBUG] dateFileLog - GET /css/service.css
+[2015-08-28 11:12:17.263] [DEBUG] dateFileLog - GET /js/require.js
+[2015-08-28 11:12:17.605] [DEBUG] dateFileLog - GET /js/schat.js
+[2015-08-28 11:12:17.762] [DEBUG] dateFileLog - GET /js/ajaxupload.js
+[2015-08-28 11:12:17.772] [DEBUG] dateFileLog - GET /js/jquery.js
+[2015-08-28 11:12:17.773] [DEBUG] dateFileLog - GET /js/common.js
+[2015-08-28 11:12:17.773] [DEBUG] dateFileLog - GET /js/domReady.js
+[2015-08-28 11:12:17.781] [DEBUG] dateFileLog - GET /js/ejs.js
+[2015-08-28 11:12:17.925] [INFO] dateFileLog - action /getUserInfo start......
+[2015-08-28 11:12:17.925] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:12:17.925] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:12:17.969] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=426
+[2015-08-28 11:12:18.017] [INFO] dateFileLog - { user: 
+   { id: 24,
+     uid: '000000220',
+     name: '用户名称1',
+     cname: '用户名称1',
+     usertype: 3,
+     headicon: '',
+     groupcount: 0,
+     createdate: null,
+     delflag: 0 },
+  counselor: undefined }
+[2015-08-28 11:12:18.018] [DEBUG] dateFileLog - POST /getUserInfo
+[2015-08-28 11:12:18.024] [INFO] dateFileLog - action /chatList start......
+[2015-08-28 11:12:18.024] [INFO] dateFileLog - 用户000000220上线了..........
+[2015-08-28 11:12:18.069] [INFO] dateFileLog - SELECT a.*,b.* FROM tb_contacthistory_list a INNER JOIN tb_userinfo b WHERE a.user=000000220 AND a.toid = b.uid
+[2015-08-28 11:12:18.081] [DEBUG] dateFileLog - GET /images/loading.gif
+[2015-08-28 11:12:18.279] [INFO] dateFileLog - SELECT * FROM tb_group_userlist a INNER JOIN tb_grouplist b WHERE a.userid=000000220 AND a.groupid = b.id
+[2015-08-28 11:12:18.339] [INFO] dateFileLog - { schat: [], gchat: [] }
+[2015-08-28 11:12:18.340] [DEBUG] dateFileLog - POST /chatList
+[2015-08-28 11:12:18.380] [DEBUG] dateFileLog - GET /views/tmpls/contactlist.ejs
+[2015-08-28 11:12:32.016] [DEBUG] dateFileLog - GET /css/service.css
+[2015-08-28 11:12:32.017] [DEBUG] dateFileLog - GET /css/pc.css
+[2015-08-28 11:12:45.226] [INFO] dateFileLog - action / start......
+[2015-08-28 11:12:45.226] [INFO] dateFileLog - param uid=220
+[2015-08-28 11:12:45.226] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:12:45.226] [INFO] dateFileLog - param pid=123
+[2015-08-28 11:12:45.226] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:12:45.227] [DEBUG] dateFileLog - GET /?uid=220&tid=426&pid=123
+[2015-08-28 11:12:45.233] [INFO] dateFileLog - user 000000220 disconnected............
+[2015-08-28 11:12:45.253] [DEBUG] dateFileLog - GET /css/service.css
+[2015-08-28 11:12:45.254] [DEBUG] dateFileLog - GET /css/pc.css
+[2015-08-28 11:12:45.255] [DEBUG] dateFileLog - GET /js/require.js
+[2015-08-28 11:12:45.297] [DEBUG] dateFileLog - GET /js/schat.js
+[2015-08-28 11:12:45.412] [DEBUG] dateFileLog - GET /js/jquery.js
+[2015-08-28 11:12:45.421] [DEBUG] dateFileLog - GET /js/common.js
+[2015-08-28 11:12:45.422] [DEBUG] dateFileLog - GET /js/domReady.js
+[2015-08-28 11:12:45.423] [DEBUG] dateFileLog - GET /js/ejs.js
+[2015-08-28 11:12:45.425] [DEBUG] dateFileLog - GET /js/ajaxupload.js
+[2015-08-28 11:12:45.517] [DEBUG] dateFileLog - GET /images/loading.gif
+[2015-08-28 11:12:45.519] [INFO] dateFileLog - action /getUserInfo start......
+[2015-08-28 11:12:45.519] [INFO] dateFileLog - param tid=426
+[2015-08-28 11:12:45.519] [INFO] dateFileLog - param __proto__=[object Object]
+[2015-08-28 11:12:45.778] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid=426
+[2015-08-28 11:12:45.858] [INFO] dateFileLog - { user: 
+   { id: 24,
+     uid: '000000220',
+     name: '用户名称1',
+     cname: '用户名称1',
+     usertype: 3,
+     headicon: '',
+     groupcount: 0,
+     createdate: null,
+     delflag: 0 },
+  counselor: undefined }
+[2015-08-28 11:12:45.860] [DEBUG] dateFileLog - POST /getUserInfo
+[2015-08-28 11:12:45.864] [INFO] dateFileLog - 用户000000220上线了..........
+[2015-08-28 11:12:45.866] [INFO] dateFileLog - action /chatList start......
+[2015-08-28 11:12:45.928] [INFO] dateFileLog - SELECT a.*,b.* FROM tb_contacthistory_list a INNER JOIN tb_userinfo b WHERE a.user=000000220 AND a.toid = b.uid
+[2015-08-28 11:12:46.067] [INFO] dateFileLog - SELECT * FROM tb_group_userlist a INNER JOIN tb_grouplist b WHERE a.userid=000000220 AND a.groupid = b.id
+[2015-08-28 11:12:46.139] [INFO] dateFileLog - { schat: [], gchat: [] }
+[2015-08-28 11:12:46.140] [DEBUG] dateFileLog - POST /chatList
+[2015-08-28 11:12:46.147] [DEBUG] dateFileLog - GET /views/tmpls/contactlist.ejs
+[2015-08-28 11:16:28.608] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 11:16:28.713] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 11:16:28.720] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 11:16:28.724] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 11:16:28.725] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 11:16:28.725] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 11:16:28.725] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 11:16:28.726] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 11:16:28.827] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 11:16:28.841] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 11:16:28.842] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 11:16:28.845] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 11:16:28.864] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 11:16:28.864] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 11:16:28.865] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 11:16:28.918] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 11:16:28.944] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 11:16:28.945] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 11:16:28.947] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 11:16:28.964] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 11:16:28.965] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 11:16:28.965] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 11:16:29.030] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 11:16:29.038] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 11:16:29.038] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 11:16:29.039] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 11:16:29.081] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 11:16:29.082] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 11:16:29.092] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 11:16:29.138] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 11:16:29.143] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 11:16:29.143] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 11:16:29.152] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 11:16:29.212] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 11:16:29.215] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 11:16:29.216] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 11:16:29.245] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 11:16:29.260] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 11:16:29.313] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=52)
+[2015-08-28 11:16:29.314] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=51)
+[2015-08-28 11:26:24.481] [INFO] dateFileLog - SELECT * FROM tb_grouplist
+[2015-08-28 11:26:24.661] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=14)
+[2015-08-28 11:26:24.661] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=15)
+[2015-08-28 11:26:24.662] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=16)
+[2015-08-28 11:26:24.662] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=17)
+[2015-08-28 11:26:24.665] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=18)
+[2015-08-28 11:26:24.666] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=19)
+[2015-08-28 11:26:24.666] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=20)
+[2015-08-28 11:26:24.744] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=21)
+[2015-08-28 11:26:24.747] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=22)
+[2015-08-28 11:26:24.748] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=23)
+[2015-08-28 11:26:24.750] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=24)
+[2015-08-28 11:26:24.755] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=25)
+[2015-08-28 11:26:24.755] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=26)
+[2015-08-28 11:26:24.764] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=27)
+[2015-08-28 11:26:24.835] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=28)
+[2015-08-28 11:26:24.844] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=29)
+[2015-08-28 11:26:24.845] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=30)
+[2015-08-28 11:26:24.852] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=32)
+[2015-08-28 11:26:24.853] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=31)
+[2015-08-28 11:26:24.871] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=33)
+[2015-08-28 11:26:24.871] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=34)
+[2015-08-28 11:26:25.104] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=35)
+[2015-08-28 11:26:25.106] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=37)
+[2015-08-28 11:26:25.107] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=36)
+[2015-08-28 11:26:25.107] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=38)
+[2015-08-28 11:26:25.112] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=39)
+[2015-08-28 11:26:25.118] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=40)
+[2015-08-28 11:26:25.119] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=41)
+[2015-08-28 11:26:25.177] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=42)
+[2015-08-28 11:26:25.179] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=43)
+[2015-08-28 11:26:25.192] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=44)
+[2015-08-28 11:26:25.193] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=45)
+[2015-08-28 11:26:25.193] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=46)
+[2015-08-28 11:26:25.204] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=47)
+[2015-08-28 11:26:25.205] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=48)
+[2015-08-28 11:26:25.264] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=49)
+[2015-08-28 11:26:25.293] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=50)
+[2015-08-28 11:26:25.294] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=51)
+[2015-08-28 11:26:25.294] [INFO] dateFileLog - SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=52)

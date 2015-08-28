@@ -44,7 +44,7 @@ var CounselorService = {
                                     //再根据uid 查询
                                     self.queryGroupByOwer(userInfo.uid,function(all_group){
                                         for(i in all_group){
-                                            new_arr.push({"group_name":all_group[i].groupname,"group_id":all_group[i].groupnum});
+                                            new_arr.push({"group_name":all_group[i].groupname,"group_id":all_group[i].groupnum, "type": all_group[i].grouptype});
                                         }
                                         callback({"code":"10001","list":new_arr});
                                     });
