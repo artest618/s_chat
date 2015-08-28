@@ -83,7 +83,16 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                 //    }
                                 //}
                                 //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
-                                $('#' + tid).find('.productinfocontainer img').attr(src, data.productIgUrl);
+                                $('#' + tid).find('.productimgcontainer img').attr(src, data.productIgUrl);
+                                $('#' + tid).find('.productinfocontainer').html(data.productName + '，' +
+                                    Common.productDispValue.loanLimit + ":" + data.loanLimit + "; " +
+                                    Common.productDispValue.monthRate + ":" + data.monthRate + "; " +
+                                    (data.rate && (Common.productDispValue.rate + ":" + data.rate + "; ") || '') +
+                                    (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "; ") || '') +
+                                    (data.publishTime && (Common.productDispValue.publishTime + ":" + data.publishTime + "; ") || '') +
+                                    (data.endTime && (Common.productDispValue.endTime + ":" + data.endTime + "; ") || '')
+                                );
+
                             }
                         });
                     }

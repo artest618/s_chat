@@ -24,6 +24,9 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
 
+global.process.on('uncaughtException', function(e){
+    logger.error(e.message + '\n' + e.stack);
+});
 
 // development only
 if ('development' == app.get('env')) {
