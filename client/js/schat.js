@@ -98,7 +98,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
 
                     var str = "<div>"+data.productName+"</div>"+
                         "<div>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
-                        "<div>"+Common.productDispValue.monthRate + ":" + data.monthRate+"</div>"+
+                        "<div>"+Common.productDispValue.monthRate + ":" + data.monthRate+"%</div>"+
                         "<div>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%；") || '')+"</div>"+
                         "<div>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</div>"+
                         "<div>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + Common.formatDate(data.publishTime, 'yyyy-MM-dd') ) || '')+"</div>"+
