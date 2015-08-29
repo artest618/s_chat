@@ -34,7 +34,20 @@ var FI = {
                     callback(false);
                     return;
                 }
-                var usertype = result.userEdit.userRole == 1 ? 1 : result.userEdit.userRole == 2 ? 2 : 3;
+               // var usertype = result.userEdit.userRole == 1 ? 1 : result.userEdit.userRole == 2 ? 2 : 3;
+
+
+                var userRole = result.userEdit.userRole;
+
+                if(userRole == 1||userRole ==3){
+                    usertype = 1;
+                }else if(userRole == 2||userRole ==5){
+                    usertype = 2;
+                }else if(userRole == 4){
+                    usertype = 3
+                }else{
+                    usertype = 1;
+                }
                 var user = {
                     name: result.userEdit.userName,
                     uid: result.userEdit.userId,

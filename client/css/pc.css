@@ -1,20 +1,28 @@
 *{margin:0;padding: 0;}
-.bigbox{width: 100%;
+.bigbox{width: 1031px;
      overflow: hidden;
-     min-height: 630px;}
-.box{margin-left: 80px;
-     margin-top: 40px;
+     min-height: 620px;
+	 padding: 5px;
+	 }
+.box{
+	/***
+	margin-left: 80px;
+    margin-top: 40px;
+	**/
 }
-.box-l{margin-top: 40px;
-       margin-left: 50px;
-       height: 560px;
+.box-l{
+	/**
+	margin-top: 40px;
+    margin-left: 50px;
+	*/
+     height: 560px;
 }
 .box-in{width: 840px;
         height: 560px;
         
 }
-.box-in-t{line-height: 57px;}
-.box-in-c{height: 503px;
+.box-in-t{line-height: 57px;border-bottom:1px solid #F3F2F2}
+.box-in-c{height: 561px;
           overflow: hidden;
           position: relative;
 }
@@ -26,7 +34,7 @@
         line-height: 26px;
 }
 .mt32{margin-top: 32px;}
-.l-c1{height: 330px;
+.l-c1{height: 388px;
       overflow: hidden;
 }
 .l-c2{height: 32px;}
@@ -93,8 +101,8 @@
 .r-c1-r{margin-left: -38px;}
 
 .pl10{padding-left: 10px;}
-.p20{padding-top: 20px;
-     padding-bottom: 20px;
+.p20{padding-top: 17px;
+     padding-bottom: 17px;
 }
 
 .box-l-c ul li{
