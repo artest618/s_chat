@@ -133,7 +133,7 @@ var FI = {
                     callback(false);
                     return;
                 }
-                var product = result.proEdit;
+                var product = result.result.product;
                 callback(product);
             }else{
                 callback(false);
