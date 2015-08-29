@@ -75,7 +75,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     if(Common.urlparams.tid && Common.urlparams.tid == tid && Common.urlparams.pid){
                         Common.post({
                             url: 'getProductInfo',
-                            data: {tid: Common.urlparams.pid},
+                            data: {pid: Common.urlparams.pid},
                             success: function(data){
                                 //for(var k in data){
                                 //    if(Common.constants[k]){
@@ -83,8 +83,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                 //    }
                                 //}
                                 //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
-                                $('#' + tid).find('.productimgcontainer img').attr(src, data.productIgUrl);
-                                $('#' + tid).find('.productinfocontainer').html(data.productName + '，' +
+                                data && $('#' + tid).find('.productimgcontainer img').attr('src', data.productIgUrl);
+                                data && $('#' + tid).find('.productinfocontainer').html(data.productName + '，' +
                                     Common.productDispValue.loanLimit + ":" + data.loanLimit + "; " +
                                     Common.productDispValue.monthRate + ":" + data.monthRate + "; " +
                                     (data.rate && (Common.productDispValue.rate + ":" + data.rate + "; ") || '') +
@@ -138,6 +138,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             });
             $('#' + tid).find('.btnsend').on('click', function(){
                 var msg = $('#' + tid).find('.inputmsg').val();
+                if(!msg){
+                    alert('请输入消息后发送。');
+                    return;
+                }
                 var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
