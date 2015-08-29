@@ -469,13 +469,13 @@ var actions = {
         var uid = req.body.uid || req.query.uid;
         var usermsgs = global.unreadMsgCount[parseInt(uid)];
         if(!usermsgs){
-            res.send({count: 0});
+            res.send({"count": 0});
         } else{
             var count = 0;
             for(var k in usermsgs){
                 count += usermsgs[k];
             }
-            res.send({count: count});
+            res.send({"count": count});
         }
     },
     getProductInfo: function(req, res){
