@@ -81,6 +81,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
     }
 
     function getProductInfo(tid){
+        tid = parseInt(tid);
+        Common.urlparams.tid = parseInt(Common.urlparams.tid);
         if(Common.urlparams.tid && Common.urlparams.tid == tid && Common.urlparams.pid){
             Common.post({
                 url: 'getProductInfo',
