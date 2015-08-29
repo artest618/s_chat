@@ -41,7 +41,7 @@ var actions = {
                         }
                     });
                 }else{
-                    res.send('<script>alert(' + suser.error + ');window.close();</script>');
+                    res.send(suser.error);
                     return;
                 }
             });
