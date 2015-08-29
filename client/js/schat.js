@@ -140,7 +140,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             $('#' + tid).find('.btnsend').on('click', function(){
                 var msg = $('#' + tid).find('.inputmsg').val();
                 if(!msg){
-                    alert('请输入消息后发送。');
+                    Common.showAlert('请输入消息后发送。');
                     return;
                 }
                 var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {

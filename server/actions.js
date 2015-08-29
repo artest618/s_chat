@@ -41,7 +41,7 @@ var actions = {
                         }
                     });
                 }else{
-                    res.send('<script>alert(' + suser.error + ');window.close();</script>');
+                    res.send(suser.error);
                     return;
                 }
             });
@@ -491,6 +491,34 @@ var actions = {
         var pid = req.body.pid;
         FI.getProductInfo(pid, function(product){
             res.send(product);
+        })
+    },
+    updateUserType: function(req, res){
+        var uid=req.body.uid, type=req.body.type;
+        if(type != 2){
+            res.send({error: '用户类型错误'});
+            return;
+        }
+        userSerivce.checkuser(uid, function(flag, user){
+            if(flag){
+                userSerivce.updateUserType(uid, type, function(res){
+                   res.send({result: true});
+                });
+            }else{
+                res.send({error: '用户不存在或已删除。'});
+            }
+        })
+    },
+    deleteUser: function(req, res){
+        var uid = req.body.uid;
+        userSerivce.checkuser(uid, function(flag, user){
+            if(flag){
+                userSerivce.deleteUser(uid, function(res){
+                    res.send({result: true});
+                });
+            }else{
+                res.send({error: '用户不存在或已删除。'});
+            }
         })
     }
 }

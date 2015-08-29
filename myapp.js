@@ -143,6 +143,16 @@ var routedefines = [
         'pathname': '/getProductInfo',
         'handler': actions.getProductInfo,
         'method': 'post'
+    },
+    {
+        'pathname': '/updateUserType',
+        'handler': actions.updateUserType,
+        'method': 'post'
+    },
+    {
+        'pathname': '/deleteUser',
+        'handler': actions.deleteUser,
+        'method': 'post'
     }
 ];
 
@@ -161,7 +171,7 @@ for(var i=0; i<routedefines.length; i++){
                 for(var k in req.query){
                     logger.info('param ' + k + '=' + req.query[k]);
                 }
-                if(path != '/' && path != '/createCounselor' && path!='/flushMsgCount' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && path!='/flushMsgCount' && path!='/updateUserType' && path!='/deleteUser' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }

@@ -1,4 +1,4 @@
-define("common", ['jquery'], function($){
+define("common", ['jquery', 'ejs'], function($, EJS){
     var _t;
     return _t = {
         processing: 0,
@@ -10,7 +10,7 @@ define("common", ['jquery'], function($){
                 data: p.data,
                 success: function(data){
                     if(data.error){
-                        alert(data.error);
+                        _t.showAlert(data.error);
                         return;
                     }
                     p.success(data);
@@ -233,7 +233,18 @@ define("common", ['jquery'], function($){
             }
         },
         showAlert: function(msg){
-
+            if($('.edu_ui_dialog').length <= 0){
+                var ejs = new EJS({url: 'views/tmpls/dialog.ejs'}).render({msg: msg});
+                $('.bigbox').append(ejs);
+                $('.edu_ui_dialog').find('.close').on('click', _t.hideAlert);
+            }
+            else{
+                $('.edu_ui_dialog').find('.edu_msg_content').html(msg);
+                $('.edu_ui_dialog').show();
+            }
+        },
+        hideAlert: function(){
+            $('.edu_ui_dialog').hide();
         },
         productDispValue: {
             //productId: '产品ID',
