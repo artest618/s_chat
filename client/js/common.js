@@ -169,11 +169,108 @@ define("common", ['jquery'], function($){
             'zipfile': '../images/zip.png',
             'unkown': '../images/file.png'
         },
-        upfile: function(){
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function(){
-
+        constants: {
+            productType:{
+                '_1': '房抵贷',
+                '_2': '车抵贷',
+                '_3': '信用贷',
+                '_4': '信用卡'
+            },
+            localInsurance:{
+                '_0': '否',
+                '_1': '是'
+            },
+            LocalProvidentFund:{
+                '_0': '否',
+                '_1': '是'
+            },
+            isNeedRoom: {
+                '_0': '否',
+                '_1': '商品住宅',
+                '_2': '商铺',
+                '_3': '经济适用房/限价房',
+                '_4': '房改房/危房',
+                '_5': '小产权',
+                '_6': '商住两用',
+                '_7': '军用房/央产房'
+            },
+            creditRequire: {
+                '_0': '否',
+                '_1': '无信用卡或贷款',
+                '_2': '信用良好',
+                '_3': '有少数逾期',
+                '_4': '长期多次逾期'
+            },
+            isNeedCar: {
+                '_0': '无车',
+                '_1': '有车',
+                '_2': '有车但已被抵押'
+            },
+            needService: {
+                '_0': '否',
+                '_1': '是'
+            },
+            designatedAdvisor: {
+                '_0': '否',
+                '_1': '是'
+            },
+            supportHouse: {
+                '_0': '否',
+                '_1': '是'
+            },
+            isAudit: {
+                '_0': '否',
+                '_1': '是'
+            },
+            isRecommend: {
+                '_0': '否',
+                '_1': '是'
+            },
+            Int: {
+                '_1': '未发布',
+                '_2': '已发布',
+                '_3': '已取消'
             }
+        },
+        productDispValue: {
+            //productId: '产品ID',
+            productType: '产品类型', //1、房抵贷；2、车抵贷；3、信用贷；4、信用卡'
+            productWeight: '产品权值',
+            productNumber: '产品编号',
+            productName: '产品名称',
+            loanLimit: '额度',
+            loanPeriod: '贷款期限	',
+            monthRate: '月利率',
+            rate: '费率',
+            repayMethod: '还款方式',
+            institution: '所属机构',
+            cardLevel: '卡片等级',
+            yearFee: '年费政策',
+            currentFee: '取现手续费',
+            stageRate: '分期费率',
+            localInsurance: '本地保险	',
+            LocalProvidentFund: '本地公积金',
+            publishTime: '发布时间',
+            endTime: '结束时间',
+            isNeedRoom: '是否需要房',
+            creditRequire: '信用要求',
+            isNeedCar: '是否需要车',
+            telephone: '联系电话',
+            needService: '需要信贷顾问提供服务',
+            designatedAdvisor: '指定信贷顾问',
+            supportHouse: '支持房屋二抵',
+            productCharacteristic: '产品特点',
+            applicationCondition:'申请条件',
+            requiredMaterials: '所需材料',
+            costOf: '所含费用',
+            repayDescript: '还款说明',
+            returnFee: '返费情况',
+            remark: '备注',
+            Int: '状态',
+            productIgUrl: '图片地址',
+            isAudit: '是否审核',
+            auditReason: '审核原因',
+            isRecommend: '是否推荐'
         }
     }
 });

@@ -1,13 +1,13 @@
 var JDB=require("../mysqldbfactory.js");
 var _util=require("../_util.js");
+var logger = require('../logger').logger;
 
 var chatService = {
     getChatList: function(uid, onsuccess, onerror){
-        console.log('get ' + uid + 'chat list....')
         var sql = "SELECT a.*,b.* FROM tb_contacthistory_list a INNER JOIN tb_userinfo b WHERE a.user=" + uid + " AND a.toid = b.uid";
         JDB.query(sql,function(err,vals,fields){
             if(err){
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             var validvals = [];
@@ -32,7 +32,7 @@ var chatService = {
         var sql = 'SELECT * FROM tb_contacthistory_list WHERE user=' + chat.user + ' AND toid ='+chat.toid;
         JDB.query(sql,function(err,vals,fields){
             if(err){
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             if(!vals || vals.length==0){//如果没有数据则插入，如果有则更新
@@ -52,7 +52,7 @@ var chatService = {
         var sql = 'SELECT * FROM tb_group_userlist a INNER JOIN tb_grouplist b WHERE a.userid=' + uid + ' AND a.groupid = b.id';
         JDB.query(sql,function(err,vals,fields){
             if(err){
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             onsuccess(vals);
@@ -62,7 +62,7 @@ var chatService = {
         var sql = 'SELECT * FROM tb_grouplist';
         JDB.query(sql,function(err,vals,fields){
             if(err) {
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             onsuccess(vals);
@@ -72,7 +72,7 @@ var chatService = {
         var sql = 'SELECT * FROM tb_userinfo WHERE uid IN (SELECT userid FROM tb_group_userlist WHERE groupid=' + gid + ')';
         JDB.query(sql,function(err,vals,fields){
             if(err) {
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             onsuccess(vals);
@@ -95,7 +95,7 @@ var chatService = {
         var sql = 'SELECT * FROM tb_grouplist WHERE id = ' + gid;
         JDB.query(sql,function(err,vals,fields){
             if(err) {
-                console.log(JSON.stringify(err));
+                logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }
             onsuccess(vals);

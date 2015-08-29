@@ -4,8 +4,8 @@ var express = require('express'),
       http = require('http'),
       path = require('path'),
       actions = require('./server/actions.js'),
-      sioHandler = require('./server/sioHandler.js');
-
+      sioHandler = require('./server/sioHandler.js'),
+      logger = require('./server/logger').logger;
 
 var app = express();
 
@@ -14,6 +14,7 @@ app.set('port', process.env.PORT || 9003);
 app.set('views', __dirname + '/client/views');
 app.set('view engine', 'ejs');
 app.set('upfiles', __dirname + '/client/upfiles');
+logger.use(app);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
@@ -22,6 +23,10 @@ app.use(express.session({ secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
+
+global.process.on('uncaughtException', function(e){
+    logger.error(e.message + '\n' + e.stack);
+});
 
 // development only
 if ('development' == app.get('env')) {
@@ -133,8 +138,14 @@ var routedefines = [
         'pathname': '/flushMsgCount',
         'handler': actions.flushMsgCount,
         'method': 'post'
+    },
+    {
+        'pathname': '/getProductInfo',
+        'handler': actions.getProductInfo,
+        'method': 'post'
     }
 ];
+
 
 for(var i=0; i<routedefines.length; i++){
     var handle = (function bb(i){
@@ -143,15 +154,21 @@ for(var i=0; i<routedefines.length; i++){
         var path = routedefines[i].pathname;
         return function (req, res){
             try{
-                console.log('action ' + routedefines[i].pathname + ' start-------------------------------------------');
+                logger.info('action ' + routedefines[i].pathname + ' start......');
+                for(var k in req.body){
+                    logger.info('param ' + k + '=' + req.body[k]);
+                }
+                for(var k in req.query){
+                    logger.info('param ' + k + '=' + req.query[k]);
+                }
                 if(path != '/' && path != '/createCounselor' && path!='/flushMsgCount' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }
                 handler(req, res);
             }catch(e){
-                console.log(e);
-                console.log(e.stack);
+                logger.info(e);
+                logger.info(e.stack);
                 if(method == 'post'){
                     res.send({error: "服务器正忙，请稍后再试..."});
                 }
@@ -167,7 +184,7 @@ for(var i=0; i<routedefines.length; i++){
 var users = {};
 var server = http.createServer(app);
 server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+    logger.info('Express server listening on port ' + app.get('port'));
 });
 var seventdefines = {
     'online': sioHandler.online,

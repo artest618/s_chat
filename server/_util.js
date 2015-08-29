@@ -2,6 +2,7 @@
  * Created by tony on 15-7-26.
  */
 var http = require('http');
+
 var _util={};
     /**
      *
@@ -38,7 +39,6 @@ var _util={};
 
     _util.isMobile = function(req){
         var ua = req.headers['user-agent'];
-        console.log(ua);
         return /(android)|(Android)|(ios)|(IOS)|(iPhone)|(ipad)|(iPad)|(Windows Phone)/.test(ua);
     };
 
@@ -68,8 +68,7 @@ var _util={};
         headers: {
             //"Content-Type": 'application/x-www-form-urlencoded',
             "Content-Type": 'application/json',
-            "Content-Length": 0,
-            "charset":"utf-8"
+            "Content-Length": 0
         }
     };
 
@@ -93,5 +92,6 @@ var _util={};
         });
         req.write(data);
         req.end();
-    }
+    };
+
 module.exports=_util;

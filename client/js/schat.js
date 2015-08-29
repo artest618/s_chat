@@ -72,6 +72,30 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     //$('#contact_' + tid).removeClass('newmeg');
                     $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                     $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                    if(Common.urlparams.tid && Common.urlparams.tid == tid && Common.urlparams.pid){
+                        Common.post({
+                            url: 'getProductInfo',
+                            data: {tid: Common.urlparams.pid},
+                            success: function(data){
+                                //for(var k in data){
+                                //    if(Common.constants[k]){
+                                //        data[k] = Common.constants[k]['_'+data[k]];
+                                //    }
+                                //}
+                                //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
+                                $('#' + tid).find('.productimgcontainer img').attr(src, data.productIgUrl);
+                                $('#' + tid).find('.productinfocontainer').html(data.productName + '，' +
+                                    Common.productDispValue.loanLimit + ":" + data.loanLimit + "; " +
+                                    Common.productDispValue.monthRate + ":" + data.monthRate + "; " +
+                                    (data.rate && (Common.productDispValue.rate + ":" + data.rate + "; ") || '') +
+                                    (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "; ") || '') +
+                                    (data.publishTime && (Common.productDispValue.publishTime + ":" + data.publishTime + "; ") || '') +
+                                    (data.endTime && (Common.productDispValue.endTime + ":" + data.endTime + "; ") || '')
+                                );
+
+                            }
+                        });
+                    }
 
                 });
             },

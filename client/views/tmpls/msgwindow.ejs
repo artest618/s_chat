@@ -1,6 +1,8 @@
 <div class="box-in marauto" id="<%=parseInt(chat.id)%>">
     <div class="box-in-t helght57 bgcolor p15">
-        <h3 class="f20 cf"><!--蜜蜂金融--><%=chat.to_cname%></h3>
+        <img src="../images/logo.png"  style="float:left;padding-top:10px;"/>
+        <h3 style = "float:left;margin-left:130px;" class="f20 cf"><!--蜜蜂金融--><%=chat.to_cname%></h3>
+
     </div>
     <div class="box-in-c bgcolor5">
         <div class="box-c-l fleft">
@@ -30,12 +32,12 @@
             </div>
         </div>
         <div class="box-c-r fleft">
-            <div class="r-c1">
+            <div class="r-c1 productimgcontainer" style="height: 210px; overflow-x: hidden; overflow-y: auto;">
                 <img src="../images/pc.jpg" alt="">
             </div>
             <div class="r-c2 mt20">
                 <p class="p15">
-                    <span>欢迎访问蜜蜂金融，我是智能顾问蜜蜂，请问有什么可以帮助您？</span>
+                    <span class="productinfocontainer">欢迎访问蜜蜂金融，我是智能顾问蜜蜂，请问有什么可以帮助您？</span>
                 </p>
             </div>
             <%if(!chat.joinedGroup){%>

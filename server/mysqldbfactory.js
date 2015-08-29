@@ -1,4 +1,5 @@
 var mysql=require("mysql");
+var logger = require('./logger').logger;
 //var queues = require('mysql-queues');
 
 var pool = mysql.createPool({
@@ -13,10 +14,10 @@ JDB = {
     query: function(sql,callback){
         pool.getConnection(function(err,conn){
             if(err){
-                console.log(err);
+                logger.error(err);
                 callback(err,null,null);
             }else{
-                console.log(sql);
+                logger.info(sql);
                 conn.query(sql,function(qerr,vals,fields){
                     //释放连接
                     conn.release();
@@ -33,13 +34,13 @@ JDB = {
            } else {
                conn.beginTransaction(function(terr){
                   if(terr){throw terr;}
-                  console.log("start transaction...");
+                   logger.info("start transaction...");
                   function excutesql(sql, i){
-                      console.log(sql);
+                      logger.debug(sql);
                       conn.query(sql, function(qerr, result){
                           if(qerr){
                               conn.rollback(function(){
-                                 console.log(sql);
+                                  logger.debug(sql);
                                   throw qerr;
                               });
                               excutedtracor[i] = {
@@ -52,7 +53,7 @@ JDB = {
                               back: true,
                               success: true
                           }
-                          console.log('excuted ' + sql + 'successfully.');
+                          logger.info('excuted ' + sql + 'successfully.');
                       });
                   }
                   var excutedtracor = [];
@@ -85,18 +86,18 @@ JDB = {
                               conn.commit(function(cerr){
                                   if(cerr){
                                       conn.rollback(function(){
-                                          console.log('error--'+cerr);
+                                          logger.error('error--'+cerr);
                                           callback(false);
                                           //throw cerr;
                                       });
                                       return false;
                                   }
-                                  console.log('commit successfully and transaction end.');
+                                  logger.info('commit successfully and transaction end.');
                                   callback(true);
                               });
                           }else{
                               conn.rollback(function(){
-                                  console.log('error--'+cerr);
+                                  logger.error('error--'+cerr);
                                   callback(false);
                                   //throw cerr;
                               });

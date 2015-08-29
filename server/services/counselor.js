@@ -3,6 +3,7 @@
  */
 var JDB=require("../mysqldbfactory.js");
 var _util=require("../_util.js");
+var logger = require('../logger').logger;
 
 /**
  * 顾问相关信息
@@ -35,7 +36,7 @@ var CounselorService = {
                 if(!vals || vals.length==0){
                     JDB.oper(sql, function(result){
                         if(result){
-                            console.log(JSON.stringify(result));
+                            logger.info(JSON.stringify(result));
                             //callback({"code":"10001","msg":msg});
                             self.createCGroup(userInfo,function(c_g_r){
                                 if(c_g_r){
@@ -43,17 +44,17 @@ var CounselorService = {
                                     //再根据uid 查询
                                     self.queryGroupByOwer(userInfo.uid,function(all_group){
                                         for(i in all_group){
-                                            new_arr.push({"group_name":all_group[i].groupname,"group_id":all_group[i].groupnum});
+                                            new_arr.push({"group_name":all_group[i].groupname,"group_id":all_group[i].groupnum, "type": all_group[i].grouptype});
                                         }
                                         callback({"code":"10001","list":new_arr});
                                     });
 
                                 }else{
-                                    console.log('create Invalid');
+                                    logger.error('create Invalid');
                                 }
                             });
                         }else{
-                            console.log('create Invalid');
+                            logger.error('create Invalid');
                         }
 
                     });
