@@ -137,7 +137,7 @@ var routedefines = [
     {
         'pathname': '/flushMsgCount',
         'handler': actions.flushMsgCount,
-        'method': 'post'
+        'method': 'get'
     },
     {
         'pathname': '/getProductInfo',
@@ -170,7 +170,7 @@ for(var i=0; i<routedefines.length; i++){
                 logger.info(e);
                 logger.info(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再试..."});
+                    res.send({error: "服务器正忙，请稍后再�?..."});
                 }
                 else {
                     res.redirect('/');
