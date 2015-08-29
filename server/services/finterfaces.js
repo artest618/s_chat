@@ -125,7 +125,7 @@ var FI = {
         logger.info('get product ' + pid + ' info from foreign system');
         util.sendRequest(path, '', function(stat, result){
             logger.info('got product info from foreign system:' + JSON.stringify(result));
-            if(stat == 200){
+            if(stat == 200 && result){
                 if(typeof result == 'string'){
                     result = JSON.parse(result);
                 }
