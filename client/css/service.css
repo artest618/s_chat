@@ -31,6 +31,7 @@
 .bgcolor9{background-color: #F9F9FA;}
 .bgf{background-color: #fff;}
 .marauto{margin: 0 auto;}
+.mt100{margin-top: 100px;}
 .mt30{margin-top: 30px;}
 .mt20{margin-top: 20px;}
 .mt15{margin-top: 15px;}
@@ -232,3 +233,6 @@ textarea{min-height: 90px;
     margin-bottom: 100px;
 }
 .gray {      -webkit-filter: grayscale(100%);     -moz-filter: grayscale(100%);     -ms-filter: grayscale(100%);     -o-filter: grayscale(100%);          filter: grayscale(100%); 	     filter: gray; }
+.chat_view_sub .bgcolor3,.chat_view_sub .fbtnsend{
+    color: #FFF;
+}

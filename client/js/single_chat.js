@@ -18,6 +18,8 @@ require.config({
 var app = {
     from: '',
     to: '',
+    pid:'',
+    added:false,
     chattype: 'single',
     addingchat: {}
 };
@@ -26,9 +28,10 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
     var socket = io.connect();
 
     $dom(function () {
-        var sendData = {tid: Common.urlparams.tid, to: Common.urlparams.to,totype: Common.urlparams.totype};
+        var sendData = {tid: Common.urlparams.tid, to: Common.urlparams.to,
+            totype: Common.urlparams.totype,pid:Common.urlparams.pid};
         if (!sendData.tid && !sendData.to) {
-            alert("error");
+            alert("访问不正确，请联系管理员");
             return;
         }
         if(sendData.totype&&sendData.totype==2){
@@ -56,6 +59,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 success: function (data) {
                     app.users = data;
                     app.from = data[0];
+                    app.pid=sendData.pid?sendData.pid:"";
                     //TODO 过滤
                     showChatView(sendData.tid ? true : false);
                     socket.emit('online', {user: app.from});
@@ -127,8 +131,13 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             getHistoryMsg(toId, '', 1);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
-                var msg = $('#' + toId).find('.inputmsg').val();
-                var ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
+                var msg,ejs;
+                 msg = $('#' + toId).find('.inputmsg').val();
+                 if(!msg){
+                     alert("您发送的消息为空！");
+                     return false;
+                 }
+                 ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
                     msg: Common.formatMsgDisp(msg)
@@ -185,6 +194,32 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             $('#' + toId).find('.moremsgbtn').on('click', function(){
                 getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
             });
+
+            //判断是否要写入产品信息
+            if(app.pid){
+                Common.post({
+                    url: 'getProductInfo',
+                    data: {pid: app.pid},
+                    success: function (data) {
+                        $('#' + toId).find('.pro_info .pro_img').attr("src", data.productIgUrl);
+
+
+
+                        var str = "<div class='f20'>"+data.productName+"</div>"+
+                            "<div class='f20'>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
+                            "<div class='f20'><span>"+Common.productDispValue.monthRate + ":" + data.monthRate+"%</span>"+
+                            "<span style='margin-left: 30px'>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%") || '')+"</span></div>"+
+                            "<div class='f20'>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + Common.formatDate(data.publishTime, 'yyyy-MM-dd') ) || '')+"</div>";
+
+                        $('#' + toId).find('.pro_info .pro_content').html(str);
+
+                    },
+                    error: function (err) {
+                    }
+                });
+            }else{
+                $('#' + toId).find('.pro_info').hide()
+            }
         }
         $('#' + toId).show();
     }
@@ -260,13 +295,18 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                 $('#' + data.from).find('.c_msg_list').append(ejs);
 
                 $(window.document.body).scrollTop($('#' + data.from).find('.c_msg_list')[0].scrollHeight);
-                //向服务器添加联系人
-                Common.post({
-                    url: 'addChatList',
-                    data: {uid: data.to, tid: data.from},
-                    success: function(data){
-                    }
-                });
+
+                if(!app.added){
+                    //向服务器添加联系人
+                    Common.post({
+                        url: 'addChatList',
+                        data: {uid: data.to, tid: data.from},
+                        success: function(data){
+                        }
+                    });
+                    app.added=true;
+                }
+
             }
         }
     });
