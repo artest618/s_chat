@@ -18,7 +18,7 @@ define("common", ['jquery'], function($){
                 beforeSend: function(xhr){
                     _t.processing++;
                     if(_t.processing <= 1){
-                        _t.showLoading();
+                            /*_t.showLoading();*/
                     }
                 },
                 error: function(xhr, status, err){
@@ -28,7 +28,7 @@ define("common", ['jquery'], function($){
                     _t.processing--;
                     setTimeout(function(){
                         if(_t.processing <= 0){
-                            _t.hideLoading();
+                            /*_t.hideLoading();*/
                         }
                     }, 1);
                 }
