@@ -28,10 +28,15 @@ var actions = {
                             return res.sendfile(send_target);
                         } else{
                             //var suser = FI.syncUser(uid);
-                            userSerivce.addUser(suser, function(){
-                                req.session.sessiondata = {user: suser};
-                                return res.sendfile(send_target);
-                            });
+                            if(user.usertype != 3){
+                                userSerivce.addUser(suser, function(){
+                                    req.session.sessiondata = {user: suser};
+                                    res.sendfile(send_target);
+                                });
+                            }else{
+                                res.send("该顾问用户还未同步，请联系管理员。");
+                            }
+
                             return;
                         }
                     });

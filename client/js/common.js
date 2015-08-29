@@ -232,6 +232,9 @@ define("common", ['jquery'], function($){
                 '_3': '已取消'
             }
         },
+        showAlert: function(msg){
+
+        },
         productDispValue: {
             //productId: '产品ID',
             productType: '产品类型', //1、房抵贷；2、车抵贷；3、信用贷；4、信用卡'
