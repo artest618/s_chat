@@ -31,7 +31,7 @@ var FI = {
                     result = JSON.parse(result);
                 }
                 if(result.code != 'SINO000000'){
-                    callback(false);
+                    callback({error: "您还未登录系统或无权限进入聊天，请在登录页面进行登录！"});
                     return;
                 }
                // var usertype = result.userEdit.userRole == 1 ? 1 : result.userEdit.userRole == 2 ? 2 : 3;
@@ -41,10 +41,13 @@ var FI = {
 
                 if(userRole == 1||userRole ==3){
                     usertype = 1;
-                }else if(userRole == 2||userRole ==5){
+                }else if(userRole == 2){
                     usertype = 2;
                 }else if(userRole == 4){
                     usertype = 3
+                }else if(userRole ==5) {
+                    callback({error: '签约经理无权限进行聊天。'});
+                    return;
                 }else{
                     usertype = 1;
                 }
@@ -58,7 +61,7 @@ var FI = {
 
                 callback(user);
             }else{
-                callback(false);
+                callback({error: '您还未登录系统或无权限进入聊天，请在登录页面进行登录！'});
             }
         });
     },
@@ -130,7 +133,7 @@ var FI = {
                     callback(false);
                     return;
                 }
-                var product = result.proEdit;
+                var product = result.result.product;
                 callback(product);
             }else{
                 callback(false);

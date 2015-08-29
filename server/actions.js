@@ -11,28 +11,37 @@ var actions = {
     root: function(req, res){
         var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
             send_target = ua ? 'client/views/biunique_chat.html' : 'client/views/index.html';
+        if(uid == tid){
+            res.send("用户不能与自己聊天，请检查地址是否错误！");
+            return;
+        }
         if (!req.session.sessiondata || !req.session.sessiondata.user) {
             if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
             FI.checkSigned(uid, function(suser){
-                if(suser){
+                if(!suser.error){
                     userSerivce.checkuser(uid, function(flag, user){
                         if(flag){
                             req.session.sessiondata = {user: user};
                             return res.sendfile(send_target);
                         } else{
                             //var suser = FI.syncUser(uid);
-                            userSerivce.addUser(suser, function(){
-                                req.session.sessiondata = {user: suser};
-                                return res.sendfile(send_target);
-                            });
+                            if(user.usertype != 3){
+                                userSerivce.addUser(suser, function(){
+                                    req.session.sessiondata = {user: suser};
+                                    res.sendfile(send_target);
+                                });
+                            }else{
+                                res.send("该顾问用户还未同步，请联系管理员。");
+                            }
+
                             return;
                         }
                     });
                 }else{
-                    res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
+                    res.send(suser.error);
                     return;
                 }
             });
@@ -469,19 +478,47 @@ var actions = {
         var uid = req.body.uid || req.query.uid;
         var usermsgs = global.unreadMsgCount[parseInt(uid)];
         if(!usermsgs){
-            res.send({count: 0});
+            res.send({"count": 0});
         } else{
             var count = 0;
             for(var k in usermsgs){
                 count += usermsgs[k];
             }
-            res.send({count: count});
+            res.send({"count": count});
         }
     },
     getProductInfo: function(req, res){
         var pid = req.body.pid;
         FI.getProductInfo(pid, function(product){
             res.send(product);
+        })
+    },
+    updateUserType: function(req, res){
+        var uid=req.body.uid, type=req.body.type;
+        if(type != 2){
+            res.send({error: '用户类型错误'});
+            return;
+        }
+        userSerivce.checkuser(uid, function(flag, user){
+            if(flag){
+                userSerivce.updateUserType(uid, type, function(res){
+                   res.send({result: true});
+                });
+            }else{
+                res.send({error: '用户不存在或已删除。'});
+            }
+        })
+    },
+    deleteUser: function(req, res){
+        var uid = req.body.uid;
+        userSerivce.checkuser(uid, function(flag, user){
+            if(flag){
+                userSerivce.deleteUser(uid, function(res){
+                    res.send({result: true});
+                });
+            }else{
+                res.send({error: '用户不存在或已删除。'});
+            }
         })
     }
 }

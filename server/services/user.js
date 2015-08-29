@@ -46,6 +46,23 @@ var UserService = {
         JDB.oper([sql], function(res){
             onsuccess && onsuccess(res);
         });
+    },
+    updateUserType: function(uid, type, onsuccess, onerror){
+        var sql = [
+            'UPDATE tb_userinfo SET usertype=' + type + ' where uid=' + uid,
+            'DELETE FROM tb_group_userlist where userid=' + uid
+        ];
+        JDB.oper([sql], function(res){
+            onsuccess && onsuccess(res);
+        });
+    },
+    deleteUser: function(uid, onsuccess, onerror){
+        var sql = [
+            'UPDATE tb_userinfo SET delflag=1 where uid=' + uid,
+        ];
+        JDB.oper([sql], function(res){
+            onsuccess && onsuccess(res);
+        });
     }
 }
 
