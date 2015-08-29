@@ -64,6 +64,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 $(".contactlistview").append(ejs);
                 if(app.from.usertype != 3 && app.users[1]){
                     showChatView(app.users[1].uid);
+                    getProductInfo(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
                     app.chattype = $(e.target).attr('chattype');
@@ -72,36 +73,39 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     //$('#contact_' + tid).removeClass('newmeg');
                     $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                     $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
-                    if(Common.urlparams.tid && Common.urlparams.tid == tid && Common.urlparams.pid){
-                        Common.post({
-                            url: 'getProductInfo',
-                            data: {pid: Common.urlparams.pid},
-                            success: function(data){
-                                //for(var k in data){
-                                //    if(Common.constants[k]){
-                                //        data[k] = Common.constants[k]['_'+data[k]];
-                                //    }
-                                //}
-                                //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
-                                data && data.productIgUrl && $('#' + tid).find('.productimgcontainer img').attr('src', data.productIgUrl);
-
-                                var str = "<span>"+data.productName+"</span>"+
-                                          "<span>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</span>"+
-                                          "<span>"+Common.productDispValue.monthRate + ":" + data.monthRate+"</span>"+
-                                          "<span>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%") || '')+"</span>"+
-                                          "<span>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</span>"+
-                                          "<span>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + data.publishTime ) || '')+"</span>"+
-                                          "<span>"+(data.endTime && (Common.productDispValue.endTime + ":" + data.endTime) || '')+"</span>";
-
-                                data && $('#' + tid).find('.productinfocontainer').html(str);
-                            }
-                        });
-                    }
-
+                    getProductInfo(tid);
                 });
             },
             error: function(err){}
         });
+    }
+
+    function getProductInfo(tid){
+        if(Common.urlparams.tid && Common.urlparams.tid == tid && Common.urlparams.pid){
+            Common.post({
+                url: 'getProductInfo',
+                data: {pid: Common.urlparams.pid},
+                success: function(data){
+                    //for(var k in data){
+                    //    if(Common.constants[k]){
+                    //        data[k] = Common.constants[k]['_'+data[k]];
+                    //    }
+                    //}
+                    //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
+                    data && data.productIgUrl && $('#' + tid).find('.productimgcontainer img').attr('src', data.productIgUrl);
+
+                    var str = "<span>"+data.productName+"</span>"+
+                        "<span>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</span>"+
+                        "<span>"+Common.productDispValue.monthRate + ":" + data.monthRate+"</span>"+
+                        "<span>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%") || '')+"</span>"+
+                        "<span>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</span>"+
+                        "<span>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + data.publishTime ) || '')+"</span>"+
+                        "<span>"+(data.endTime && (Common.productDispValue.endTime + ":" + data.endTime) || '')+"</span>";
+
+                    data && $('#' + tid).find('.productinfocontainer').html(str);
+                }
+            });
+        }
     }
 
     function showChatView(tid){
