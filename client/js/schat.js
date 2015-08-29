@@ -96,13 +96,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
                     data && data.productIgUrl && $('#' + tid).find('.productimgcontainer img').attr('src', data.productIgUrl);
 
-                    var str = "<span>"+data.productName+"</span>"+
-                        "<span>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</span>"+
-                        "<span>"+Common.productDispValue.monthRate + ":" + data.monthRate+"</span>"+
-                        "<span>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%") || '')+"</span>"+
-                        "<span>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</span>"+
-                        "<span>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + data.publishTime ) || '')+"</span>"+
-                        "<span>"+(data.endTime && (Common.productDispValue.endTime + ":" + data.endTime) || '')+"</span>";
+                    var str = "<div>"+data.productName+"</div>"+
+                        "<div>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
+                        "<div>"+Common.productDispValue.monthRate + ":" + data.monthRate+"</div>"+
+                        "<div>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%；") || '')+"</div>"+
+                        "<div>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</div>"+
+                        "<div>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + Common.formatDate(data.publishTime, 'yyyy-MM-dd') ) || '')+"</div>"+
+                        "<div>"+(data.endTime && (Common.productDispValue.endTime + ":" + Common.formatDate(data.endTime, 'yyyy-MM-dd')) || '')+"</div>";
 
                     data && $('#' + tid).find('.productinfocontainer').html(str);
                 }
@@ -199,6 +199,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                             $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
                         });
+                        $('#' + tid).find('.applyGroup').hide();
                     },
                     error: function(err){
 
