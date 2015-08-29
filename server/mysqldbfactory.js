@@ -2,7 +2,7 @@ var mysql=require("mysql");
 //var queues = require('mysql-queues');
 
 var pool = mysql.createPool({
-    host: 'chat.rdsmpk3228qyv2t.rds.bj.baidubce.com',
+    host: 'localhost',
     user: 'zjd4chat',
     password: '1q2w3e4r',
     database: 'chat',
