@@ -11,13 +11,17 @@ var actions = {
     root: function(req, res){
         var q=req.query,uid = q.uid, pid = q.pid,tid= q.tid, ua = util.isMobile(req),
             send_target = ua ? 'client/views/biunique_chat.html' : 'client/views/index.html';
+        if(uid == tid){
+            res.send("用户不能与自己聊天，请检查地址是否错误！");
+            return;
+        }
         if (!req.session.sessiondata || !req.session.sessiondata.user) {
             if(!uid){
                 res.send('<script>alert("用户标识错误！");window.close();</script>');
                 return;
             }
             FI.checkSigned(uid, function(suser){
-                if(suser){
+                if(!suser.error){
                     userSerivce.checkuser(uid, function(flag, user){
                         if(flag){
                             req.session.sessiondata = {user: user};
@@ -32,7 +36,7 @@ var actions = {
                         }
                     });
                 }else{
-                    res.send('<script>alert("您还未登录系统，请在登录页面进行登录！");window.close();</script>');
+                    res.send('<script>alert(' + suser.error + ');window.close();</script>');
                     return;
                 }
             });
