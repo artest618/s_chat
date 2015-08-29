@@ -3,9 +3,9 @@ var logger = require('./logger').logger;
 //var queues = require('mysql-queues');
 
 var pool = mysql.createPool({
-    host: 'localhost',
-    user: 'zjd4chat',
-    password: '1q2w3e4r',
+    host: '120.131.68.151',
+    user: 'bee_chat',
+    password: 'bee_1234',
     database: 'chat',
     port: 3306
 });
