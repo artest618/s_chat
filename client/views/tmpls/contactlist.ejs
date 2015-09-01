@@ -1,5 +1,6 @@
 <%for(var i=0; i<data.length; i++){%>
-<li class="mt20 w160 <%=data[i].groupid ? 'current' : (data[i].isOnline ? 'current' : '')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+<li class="mt20 w160" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+    <img src="<%=data[i].groupid ? '../images/custom_r1_c1.jpg' : (data[i].isOnline ? (data[i].headicon ? data[i].headicon : '../images/custom_r1_c1.jpg') : '../images/custom_r3_c1.jpg')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>"  chattype="<%=chattype || 'single'%>" />
     <span class="f14 color3" id="contact_<%=parseInt(data[i].toid || data[i].groupid)%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>"><%=data[i].cname || data[i].groupname%></span>
     <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>'>
         <%=data[i].unreadCount ? data[i].unreadCount : ""%>

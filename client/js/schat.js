@@ -75,6 +75,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
                     getProductInfo(tid);
                 });
+
             },
             error: function(err){}
         });
@@ -83,7 +84,12 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
     function getProductInfo(tid){
         tid = parseInt(tid);
         Common.urlparams.tid = parseInt(Common.urlparams.tid);
-        if(Common.urlparams.tid && Common.urlparams.tid == tid && Common.urlparams.pid){
+        if(
+            (//用户从产品页进入，指定了顾问，且当前聊天对象就是指定的顾问
+                Common.urlparams.tid && Common.urlparams.tid == tid ||
+                //用户自己就是顾问，url中带了pid
+                app.from.usertype == 3
+            ) && Common.urlparams.pid ){
             Common.post({
                 url: 'getProductInfo',
                 data: {pid: Common.urlparams.pid},
@@ -152,6 +158,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
+                    headicon: app.from.headicon ? app.from.headicon : '../images/pic_r1_c1.jpg',
                     msg: Common.formatMsgDisp(msg) //.replace(/\n/g, '<br />')
                 }});
                 $('#' + tid).find('.l-c1-c3').append(ejs);
@@ -375,7 +382,16 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     }
                     return item;
                 });
-                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
+                var user = {};
+                for(var i in app.chatUsers){
+                    if(app.chatUsers[i].toid == tid){
+                        user = app.chatUsers[i];
+                    }
+                }
+                if(data.msg.length > 0 ){
+                    $('#' + tid).find('.l-c1-c3 .tip').remove();
+                }
+                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from, toheadicon: user.headicon || '../images/pic_r1_c1.jpg'}});
                 ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
                 $('#' + tid).find('.l-c1-c3').prepend(ejs); //.append(ejs);
                 //$('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
@@ -391,7 +407,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 上线了！</div>';
             $('.contactlistview').find('li').each(function(i, item){
                 if($(item).attr('tid') == parseInt(data.user.uid) ) {
-                    $(item).addClass('current');
+                    $(item).find('img').attr('src', data.user.headicon ? data.user.headicon : '../images/custom_r1_c1.jpg');
                 }
             });
         } else {
@@ -417,7 +433,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         //showSayTo();
         $('.contactlistview').find('li').each(function(i, item){
             if($(item).attr('tid') == parseInt(data.uid) ) {
-                $(item).removeClass('current');
+                $(item).find('img').attr('src', '../images/custom_r3_c1.jpg');
             }
         });
     });
@@ -507,9 +523,16 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     } else if (data.msgtype == 'file') {
                         msg = Common.formatFileMsg(data.msg);
                     }
+                    var user = {};
+                    for(var i in app.chatUsers){
+                        if(app.chatUsers[i].toid == data.from){
+                            user = app.chatUsers[i];
+                        }
+                    }
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
+                        headicon: user.headicon || '../images/pic_r1_c1.jpg',
                         msg: msg //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.from).find('.l-c1-c3').append(ejs);
