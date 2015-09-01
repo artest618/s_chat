@@ -69,6 +69,11 @@ var actions = {
                 res.send({error: '指定交谈对象非顾问，请联系管理员'});
                 return;
             }
+            if(user.usertype == 3 && csr && csr.usertype == 3){
+                logger.info('顾问不能与顾问聊天，请联系管理员');
+                res.send({error: '顾问不能与顾问聊天，请联系管理员'});
+                return;
+            }
             req.session.sessiondata.counselor = csr;
             req.session.save();
             logger.info(req.session.sessiondata);
