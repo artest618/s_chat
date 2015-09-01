@@ -78,8 +78,7 @@ CREATE TABLE `tb_userinfo` (
   `groupcount` int(2) DEFAULT 0 COMMENT '拥有群数',
   `createdate` TIMESTAMP COMMENT '创建时间',
   `delflag` int(1) DEFAULT 0 COMMENT '删除标记 0 代表未删除 1代表已删除',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
