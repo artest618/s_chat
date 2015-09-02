@@ -428,6 +428,7 @@ var actions = {
         var uid = req.query.uid,uname = decodeURI(req.query.uname);
         CounselorService.createCounselor({uid:uid ,uname:uname},function(res_obj){
             logger.info(res_obj);
+            /*res.header("Access-Control-Allow-Origin", "*");*/
             res.send(res_obj);
         });
     },

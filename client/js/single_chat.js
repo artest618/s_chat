@@ -255,10 +255,11 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                         $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
                     },
                     onprogress: function(loaded, total, per){
-                        $('#' + au1.fileid).find('.progress-bar').css('width', per * 100);
+                        $('#' + au1.fileid).find('.progress-bar').css('width', per * 100+"%");
                     },
                     onComplete: function(file, res){
-                        $('#' + au1.fileid).find('.progress-bar').css('width', 100);
+                        $('#' + au1.fileid).find("img").css({width:"60px",height:"60px"});
+                        $('#' + au1.fileid).find('.progress-bar').css('width', "100%");
                         socket.emit('say', {
                             from: app.from.uid,
                             to: app.to,
