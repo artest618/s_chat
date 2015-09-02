@@ -50,9 +50,9 @@
 }
 .row-r{margin-left: -20px;}
 .row-l img{border-radius: 50%;
-           width:60%;
+           width:60px;
            display: block;
-           
+           height:60px;
 }
 .l-c1-c2{margin-top: 10px;
          
@@ -66,8 +66,6 @@
           line-height: 32px;
           color: #000;
           text-indent: 1em;
-         
-          
 }
 
 .mright{margin-right: -25px;}
