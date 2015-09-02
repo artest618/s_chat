@@ -101,10 +101,10 @@ var CounselorService = {
                 ] ;
 
                 JDB.oper(sql, function(result){
-                    console.log("创建自己群");
+                    logger.info("创建自己群");
                     if(result&&!result.message){
                         self.queryGroupByOwer(userInfo.uid,function(err, group, fields){//查询顾问自己的群
-                            console.log("查询顾问自己的群");
+                            logger.info("查询顾问自己的群");
                             if(err){
                                 logger.info(JSON.stringify(err));
                                 onerror && onerror(err);
@@ -118,7 +118,7 @@ var CounselorService = {
                                 ] ;
 
                                 JDB.oper(sql, function(result){//加入自己的群
-                                    console.log("加入自己的群");
+                                    logger.info("加入自己的群");
                                     if(result&&!result.message){
                                         callback(result);
                                     }else{

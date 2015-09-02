@@ -59,20 +59,26 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                 url: 'getUserInfoM',
                 data: sendData,
                 success: function (data) {
-                    app.users = data;
-                    app.from = data[0];
-                    app.pid=sendData.pid?sendData.pid:"";
-                    //TODO 过滤
-                    showChatView(sendData.tid ? true : false);
-                    socket.emit('online', {user: app.from});
+                    if(data[0].usertype==3&&data[1].usertype==3){
+                        alert("访问不正确，请联系管理员");
+                        return;
+                    }else{
+                        app.users = data;
+                        app.from = data[0];
+                        app.pid=sendData.pid?sendData.pid:"";
+                        //TODO 过滤
+                        showChatView(sendData.tid ? true : false);
+                        socket.emit('online', {user: app.from});
 
-                    //向服务器添加联系人
-                    Common.post({
-                        url: 'addChatList',
-                        data: {uid: app.from.uid, tid:data[1].uid},
-                        success: function(data){
-                        }
-                    });
+                        //向服务器添加联系人
+                        Common.post({
+                            url: 'addChatList',
+                            data: {uid: app.from.uid, tid:data[1].uid},
+                            success: function(data){
+                            }
+                        });
+                    }
+
                 },
                 error: function (err) {
 
