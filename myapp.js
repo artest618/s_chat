@@ -180,7 +180,7 @@ for(var i=0; i<routedefines.length; i++){
                 logger.info(e);
                 logger.info(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再�?..."});
+                    res.send({error: "服务器正忙，请稍后再�?..."});
                 }
                 else {
                     res.redirect('/');

@@ -11,7 +11,9 @@ require.config({
     paths: {
         domReady: "domReady",
         ejs: "ejs",
-        common: "common"
+        common: "common",
+        jquery: 'jquery',
+        AjaxUpload: 'ajaxupload'
     }
 });
 
@@ -24,7 +26,7 @@ var app = {
     addingchat: {}
 };
 
-require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) {
+require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Common, $dom, EJS) {
     var socket = io.connect();
 
     $dom(function () {
@@ -152,6 +154,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                     fromtype: app.from.usertype,
                     totype: user.totype || user.grouptype,
                     chattype: app.chattype,
+                    msgtype: 'text',
                     msg: msg
                 });
 
@@ -220,6 +223,57 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             }else{
                 $('#' + toId).find('.pro_info').hide()
             }
+
+            if(app.chattype == 'single'){
+                var au1 = new AjaxUpload($('#' + toId).find('.upfilebtn'), {
+                    action: '/upfile',
+                    name: 'file',
+                    autoSubmit: true,
+                    onChange: function(file, ext){
+                        if(Common.upfiletypes.image.indexOf(ext[0]) == -1 &&
+                            Common.upfiletypes.office.indexOf(ext[0]) == -1 &&
+                            Common.upfiletypes.zipfile.indexOf(ext[0]) == -1
+                            ){
+                            return false;
+                        }
+                        this.fileid = "file" + parseInt(Math.random()*0xffffff);
+                        return true;
+                    },
+                    onSubmit: function(file, ext){
+                        var html = new EJS({url: 'views/tmpls/m_upfileproc.ejs'}).render({
+                            fileid: this.fileid,
+                            ficon: Common.filetypeicon[Common.getFileTypeByExt(ext)],
+                            file: file,
+                            percent: 0
+                        });
+                        var ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
+                            cname: app.from.cname,
+                            datetime: Common.formatDate(new Date()),
+                            msg: Common.formatMsgDisp(html) //.replace(/\n/g, '<br />')
+                        }});
+                        $('#' + toId).find('.c_msg_list').append(ejs.replace(/\<\s*br\s*\/\>/g, ''));
+                        $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
+                    },
+                    onprogress: function(loaded, total, per){
+                        $('#' + au1.fileid).find('.progress-bar').css('width', per * 100+"%");
+                    },
+                    onComplete: function(file, res){
+                        $('#' + au1.fileid).find("img").css({width:"60px",height:"60px"});
+                        $('#' + au1.fileid).find('.progress-bar').css('width', "100%");
+                        socket.emit('say', {
+                            from: app.from.uid,
+                            to: app.to,
+                            fromname:app.from.cname,
+                            toname:user.cname || user.groupname,
+                            fromtype: app.from.usertype,
+                            totype: user.totype || user.grouptype,
+                            chattype: app.chattype,
+                            msgtype: 'file',
+                            msg: {file: file, url: JSON.parse(res).url}
+                        });
+                    }
+                });
+            }
         }
         $('#' + toId).show();
     }
@@ -230,8 +284,12 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
             url: 'chatHistory',
             data: {tid: tid, chattype: app.chattype, date: date, page: page},
             success: function (data) {
-                data.msg.forEach(function (item) {
-                    item.message = Common.formatMsgDisp(item.message);
+                $.each(data.msg, function(i, item){
+                    if(item.msgtype == 'text'){
+                        item.message = Common.formatMsgDisp(item.message);
+                    }else{
+                        item.message = Common.formatFileMsg(item.message);
+                    }
                     return item;
                 });
                 var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
@@ -287,10 +345,17 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
         else {
             //别人给自己发的消息
             if (data.to == app.users[0].uid) {
+                var msg;
+                if(data.msgtype == 'text'){
+                    msg = Common.formatMsgDisp(data.msg);
+                } else if (data.msgtype == 'file') {
+                    msg = Common.formatFileMsg(data.msg);
+                }
+
                 var ejs = new EJS({url: "views/tmpls/m_msgrow_l.ejs"}).render({msg: {
                     cname: data.fromname,
                     datetime: Common.formatDate(new Date()),
-                    msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
+                    msg: msg //.replace(/\n/g, '<br />')
                 }});
                 $('#' + data.from).find('.c_msg_list').append(ejs);
 

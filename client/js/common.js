@@ -143,12 +143,21 @@ define("common", ['jquery', 'ejs'], function($, EJS){
             return msg;
         },
         formatFileMsg: function(msg){
-            var ext = msg.file.split('.'), ext = ext[ext.length - 1];
-            return msg = new EJS({url: 'views/tmpls/filemessage.ejs'}).render({
-                url: msg.url,
-                ficon: _t.filetypeicon[_t.getFileTypeByExt(ext)],
-                file: msg.file
-            });
+            if(msg  &&  typeof msg == "object"){
+                var ext = msg.file.split('.'), ext = ext[ext.length - 1];
+                return msg = new EJS({url: 'views/tmpls/filemessage.ejs'}).render({
+                    url: msg.url,
+                    ficon: _t.filetypeicon[_t.getFileTypeByExt(ext)],
+                    file: msg.file
+                });
+            }else{
+                return msg = new EJS({url: 'views/tmpls/filemessage.ejs'}).render({
+                    url: "#",
+                    ficon:"",
+                    file: ""
+                });
+            }
+
         },
         upfiletypes: {
             'image': ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
