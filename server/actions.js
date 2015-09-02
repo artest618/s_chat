@@ -28,7 +28,7 @@ var actions = {
                             return res.sendfile(send_target);
                         } else{
                             //var suser = FI.syncUser(uid);
-                            if(user.usertype != 3){
+                            if(suser.usertype != 3){
                                 userSerivce.addUser(suser, function(){
                                     req.session.sessiondata = {user: suser};
                                     res.sendfile(send_target);

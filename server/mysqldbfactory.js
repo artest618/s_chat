@@ -41,6 +41,7 @@ JDB = {
                           if(qerr){
                               conn.rollback(function(){
                                   logger.debug(sql);
+                                  conn.release();
                                   throw qerr;
                               });
                               excutedtracor[i] = {
@@ -87,17 +88,20 @@ JDB = {
                                   if(cerr){
                                       conn.rollback(function(){
                                           logger.error('error--'+cerr);
+                                          conn.release();
                                           callback(false);
                                           //throw cerr;
                                       });
                                       return false;
                                   }
                                   logger.info('commit successfully and transaction end.');
+                                  conn.release();
                                   callback(true);
                               });
                           }else{
                               conn.rollback(function(){
                                   logger.error('error--'+cerr);
+                                  conn.release();
                                   callback(false);
                                   //throw cerr;
                               });
