@@ -79,7 +79,7 @@ CREATE TABLE `tb_userinfo` (
   `createdate` TIMESTAMP COMMENT '创建时间',
   `delflag` int(1) DEFAULT 0 COMMENT '删除标记 0 代表未删除 1代表已删除',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
+  UNIQUE KEY `uid_UNIQUE` (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------

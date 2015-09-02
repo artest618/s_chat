@@ -5,12 +5,12 @@
 <%}%>
 <%
 for(var i in data.msgs){
-    if( parseInt(data.msgs[i].id) != parseInt(data.user) ){
+    if( parseInt(data.msgs[i].id) != parseInt(data.user.uid) ){
 %>
 <div class="mt20 clear">
     <div class="row p15">
         <div class="row-l fleft">
-            <img src="../images/pic_r1_c1.jpg" alt="" class="border">
+            <img src="<%=data.toheadicon%>" alt="" class="border">
 
         </div>
         <div class="row-r fleft p15 mt5">
@@ -28,7 +28,7 @@ for(var i in data.msgs){
 <div class="mt20 clear">
     <div class="row p15 ">
         <div class="row-l fright mright">
-            <img src="../images/pic_r1_c1.jpg" alt="" class="border">
+            <img src="<%=data.user.headicon ? data.user.headicon : '../images/pic_r1_c1.jpg'%>" alt="" class="border">
         </div>
         <div class="row-r fright p15">
             <div class="tright">

@@ -46,6 +46,7 @@ JDB = {
                           if(qerr){
                               conn.rollback(function(){
                                   logger.debug(sql);
+                                  conn.release();
                                   throw qerr;
                                   //释放连接
                                   conn.release();

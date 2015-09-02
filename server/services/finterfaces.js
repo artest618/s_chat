@@ -21,7 +21,7 @@ var FI = {
 
     },
     checkSigned: function(uid, callback){
-         //return callback(true);
+        //return callback(true);
         var path = '/webservice/users/queryuser.htm?userId=' + uid;
         logger.info('check user if signed with uid:' + uid);
         util.sendRequest(path, '', function(stat, result){
