@@ -102,14 +102,21 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     //var ejs = new EJS({url: 'views/tmpls/product.ejs'}).render({keys: Common.productDispValue, vals: data});
                     data && data.productIgUrl && $('#' + tid).find('.productimgcontainer img').attr('src', data.productIgUrl);
 
-                    var str = "<div>"+data.productName+"</div>"+
-                        "<div>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
-                        "<div>"+Common.productDispValue.monthRate + ":" + data.monthRate+"%</div>"+
-                        "<div>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%；") || '')+"</div>"+
-                        "<div>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</div>"+
-                        "<div>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + Common.formatDate(data.publishTime, 'yyyy-MM-dd') ) || '')+"</div>"+
-                        "<div>"+(data.endTime && (Common.productDispValue.endTime + ":" + Common.formatDate(data.endTime, 'yyyy-MM-dd')) || '')+"</div>";
+                    //var str = "<div>"+data.productName+"</div>"+
+                    //    "<div>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
+                    //    "<div>"+Common.productDispValue.monthRate + ":" + data.monthRate+"%</div>"+
+                    //    "<div>"+(data.rate && (Common.productDispValue.rate + ":" + data.rate + "%；") || '')+"</div>"+
+                    //    "<div>"+ (data.stageRate && (Common.productDispValue.stageRate + ":" + data.stageRate + "% ") || '')+"</div>"+
+                    //    "<div>"+(data.publishTime && (Common.productDispValue.publishTime + ":" + Common.formatDate(data.publishTime, 'yyyy-MM-dd') ) || '')+"</div>"+
+                    //    "<div>"+(data.endTime && (Common.productDispValue.endTime + ":" + Common.formatDate(data.endTime, 'yyyy-MM-dd')) || '')+"</div>";
 
+
+                    var str = "<div>"+(data.productName||"贷款产品")+"</div>"+
+                        "<div>"+"贷款额度:" + (data.loanLimit||"0")+"万</div>"+
+                        "<div>"+"还款方式:" + (Common.constants.repayMethod[data.repayMethod||"_1"]||"等额本息")+"</div>"+
+                        "<div>"+"贷款期限:" + Common.constants.loanPeriod[data.loanPeriod&&"_"+data.loanPeriod||"_1"] +"</div>"+
+                        "<div>"+"放款周期:" + "8" +"天</div>"+
+                        "<div>"+ "月利率:" + (data.monthRate&&data.monthRate+"%"||"0%")+"</div>";
                     data && $('#' + tid).find('.productinfocontainer').html(str);
                 }
             });
