@@ -62,6 +62,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                     if(data[0].usertype==3&&data[1].usertype==3){
                         alert("访问不正确，请联系管理员");
                         return;
+                    }else if(data[0].usertype==1&&data[1].usertype==1){
+                        alert("访问不正确，请联系管理员");
+                        return;
                     }else{
                         app.users = data;
                         app.from = data[0];
@@ -136,7 +139,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
             });
 
             //历史
-            getHistoryMsg(toId, '', 1);
+            getHistoryMsg(toId, '', 999999999);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg,ejs;
@@ -148,6 +151,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                  ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
+                    headicon: app.from.headicon ? app.from.headicon : '../images/headers/default.png',
                     msg: Common.formatMsgDisp(msg)
                 }});
                 $('#' + toId).find('.c_msg_list').append(ejs);
@@ -255,6 +259,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                         var ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
                             cname: app.from.cname,
                             datetime: Common.formatDate(new Date()),
+                            headicon: app.from.headicon ? app.from.headicon : '../images/headers/default.png',
                             msg: Common.formatMsgDisp(html) //.replace(/\n/g, '<br />')
                         }});
                         $('#' + toId).find('.c_msg_list').append(ejs.replace(/\<\s*br\s*\/\>/g, ''));
@@ -298,7 +303,12 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                     }
                     return item;
                 });
-                var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from.uid}});
+
+                var user = {};
+
+
+                var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
+                    user: app.from,toheadicon: user.headicon || '../images/headers/default.png'}});
                 $('#' + tid).find('.c_msg_list').append(ejs);
                 $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
             },
@@ -351,16 +361,19 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
         else {
             //别人给自己发的消息
             if (data.to == app.users[0].uid) {
-                var msg;
+                var msg,user;
                 if(data.msgtype == 'text'){
                     msg = Common.formatMsgDisp(data.msg);
                 } else if (data.msgtype == 'file') {
                     msg = Common.formatFileMsg(data.msg);
                 }
 
+                user=app.users[1];
+
                 var ejs = new EJS({url: "views/tmpls/m_msgrow_l.ejs"}).render({msg: {
                     cname: data.fromname,
                     datetime: Common.formatDate(new Date()),
+                    headicon: user.headicon || '../images/headers/default.png',
                     msg: msg //.replace(/\n/g, '<br />')
                 }});
                 $('#' + data.from).find('.c_msg_list').append(ejs);

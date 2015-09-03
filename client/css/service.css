@@ -236,3 +236,4 @@ textarea{min-height: 90px;
 .chat_view_sub .bgcolor3,.chat_view_sub .fbtnsend{
     color: #FFF;
 }
+.user_headicon{width:71px;height: 71px;border-radius:50% 50%;}
