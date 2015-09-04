@@ -240,9 +240,10 @@ button.chat_dialog_rbtn{
 	height: auto;
 	padding-left: 20px;
 	font-size: 1.4rem;
-	padding: 20px;
-	background: url(../images/dung.png);
+	padding: 5px 20px;
+	background: url(../images/dung.png) no-repeat;
 	margin-left: 60px;
+	border-radius:10px 10px 10px 20px;
 }
 .disscuss dl.dlRight dd{
 	float: left;
@@ -250,11 +251,19 @@ button.chat_dialog_rbtn{
 	height: auto;
 	padding-left: 20px;
 	font-size: 1.4rem;
-	padding: 20px;
+	padding: 5px 20px;
 	background: url(../images/duihuak.png) no-repeat;
 	background-size:100% 100%; 
  	margin-left: 30px;
 }
+
+.disscuss .word-wrap{
+	word-wrap: break-word;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: block
+}
+
 .emojipanel{
 	position: absolute;
 	top:26px;
