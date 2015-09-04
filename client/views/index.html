@@ -2,54 +2,115 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>聊天</title>
-	<link rel="stylesheet" type="text/css" href="../css/service.css">
-	<link rel="stylesheet" type="text/css" href="../css/pc.css">
+	<title>聊天页面</title>
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/style.css">
 	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+//获取id
+function _$ (id)
+{
+	return typeof id === "string" ? document.getElementById(id) : id;
+}
+//获取tagName
+function _$$ (elem, oParent)
+{
+	return (oParent || document).getElementsByTagName(elem);
+}
+//获取class
+function _$$$ (className, oParent)
+{
+	var aClass = [];
+	var reClass = new RegExp("(//s|^)" + className + "($|//s)");
+	var aElem = _$$("*", oParent);
+	for (var i = 0; i < aElem.length; i++) reClass.test(aElem[i].className) && aClass.push(aElem[i]);
+	return aClass
+}
+//初始化对象
+function Roll ()
+{
+	this.initialize.apply(this, arguments)
+}
+Roll.prototype =
+{
+	initialize: function (obj)
+	{
+		var _this = this;
+		this.obj = _$(obj);
+		this.oUp = _$$$("up", this.obj)[0];
+		this.oDown = _$$$("down", this.obj)[0];
+		this.oList = _$$$("list", this.obj)[0];
+		this.aItem = this.oList.children;
+		this.timer = null;
+		this.iHeight = this.aItem[0].offsetHeight;
+		this.oUp.onclick = function ()
+		{
+			_this.up()
+		};
+		this.oDown.onclick = function ()
+		{
+			_this.down()
+		}
+	},
+	up: function ()
+	{
+		this.oList.insertBefore(this.aItem[this.aItem.length], this.oList.firstChild);
+		this.oList.style.top = (-this.iHeight) + "px";
+		this.doMove(0)
+	},
+	down: function ()
+	{
+		this.doMove(-this.iHeight, function ()
+		{
+			this.oList.appendChild(this.aItem[0]);
+			this.oList.style.top = 0;
+		})
+	},
+	doMove: function (iTarget, callBack)
+	{
+		var _this = this;
+		clearInterval(this.timer)
+		this.timer = setInterval(function ()
+		{
+			var iSpeed = (iTarget - _this.oList.offsetTop) / 5;
+			iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+			_this.oList.offsetTop == iTarget ? (clearInterval(_this.timer), callBack && callBack.apply(_this)) : _this.oList.style.top = iSpeed + _this.oList.offsetTop + "px"
+		}, 30)
+	}
+};
+window.onload = function ()
+{
+	new Roll("box_wwwzzjs_net");
+};
+</script>
+	
 </head>
-<body style="overflow:hidden">
-<div class="bigbox clear bgcolor8">
-	<div class="box-l fleft">
-		<div class="bodcolor w160">
-			<div class="w160 boeder-bot-d">
-				<h3 class="cf align-center f20 p20">会话</h3>
-		    </div>
-		    <div class="box-l-c clear">
-		    	<ul class="clear boeder-bot-d contactlistview" style="overflow-y: auto;height: 465px;">
-		    		<!--<li class="mt20 w160 current">
-		    			<span class="f14 color3">信贷顾问群1</span>
-		    		</li>
-		    		<li class="mt20 w160 current">
-		    			<span class="f14 color3">信贷顾问群1</span>
-		    		</li>
-		    		<li class="mt20 w160 current">
-		    			<span class="f14 color3">信贷顾问群1</span>
-		    		</li>
-		    		<li class="mt20 w160">
-		    			<span class="f14 color2">信贷顾问群1</span>
-		    		</li>
-		    		<li class="mt20 w160">
-		    			<span class="f14 color2">信贷顾问群1</span>
-		    		</li>
-		    		<li class="mt20 w160 mb30">
-		    			<span class="f14 color2">信贷顾问群1</span>
-		    		</li>-->
-		    	</ul>
-		    </div>
-		    <div class="clear box-l-b">
-		    	<p class="mt20">
-		    		<h3 class="f16 cf align-center">在线时间</h3>
-		    	</p>
-		    	<p class="mb30 mt10 clear">
-		    		<span class="f14 cf align-center disblock">0:00-24:00</span>
-		    	</p>
-		    </div>
-	    </div>
-	</div>
-	<div class="box fleft">
+<body>
+<div class="chat_box">
+	<div class="chat_cont">
+		<ul class="chuangkou">
+			<li><img src="images/min.png" alt=""></li>
+			<li><img src="images/max.png" alt=""></li>
+			<li><img src="images/close.png" alt=""></li>
+		</ul>
+		<div class="tophead">
+			<img src="images/logo.png" alt="">
+			<p class="chattile"></p>
+		</div>
+		<div class="chat_dialog">
+			<div class="chat_dialog_l" id="box_wwwzzjs_net">
+				
+					<span class="up"><a href="javascript:void(0);"><img src="images/pre.png" alt="" style="margin:0;margin-left:10px;"></a></span>
+					<ul class="list contactlistview">
 
+					</ul>
+					<span class="down"><a href="javascript:void(0);"><img src="images/next.png" alt=""></a></span>
+				
+			</div>
+            <div class="chatwindow"></div>
+        </div>
 	</div>
-</div>
+</div>	
 </body>
 <script data-main="../js/schat" src="../js/require.js" async></script>
 </html>

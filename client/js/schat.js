@@ -72,7 +72,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     showChatView(tid);
                     //$('#contact_' + tid).removeClass('newmeg');
                     $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
-                    $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                    $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                     getProductInfo(tid);
                 });
 
@@ -138,7 +138,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         if(user.usertype != 3 || app.from.usertype == 3){
             joinedGroup = true;
         }
-        $('.box .box-in').removeClass('currentW').hide();
+        $('.chattile').html(user.cname || user.groupname);
+        $('.chatwindow .boxin').removeClass('currentW').hide();
         if($('#' + tid).length <= 0){
             var url = app.chattype == 'single' ? 'views/tmpls/msgwindow.ejs' : 'views/tmpls/g_msgwindow.ejs';
             var ejs = new EJS({url: url}).render({chat: {
@@ -148,9 +149,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 gowner: user.owner,
                 joinedGroup: joinedGroup
             }});
-            $('.box').append(ejs);
+            $('.chatwindow').append(ejs);
 
-            getHistoryMsg(tid, '', 999999999);
+            getHistoryMsg(tid, '', 999999999, true);
             app.chattype == 'gchat' && getGroupUsers(tid);
 
             $('#' + tid).find('.btnclose').on('click', function(){
@@ -165,7 +166,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
                     cname: app.from.cname,
                     datetime: Common.formatDate(new Date()),
-                    headicon: app.from.headicon ? app.from.headicon : '../images/pic_r1_c1.jpg',
+                    headicon: app.from.headicon ? app.from.headicon : '../images/picb.png',
                     msg: Common.formatMsgDisp(msg) //.replace(/\n/g, '<br />')
                 }});
                 $('#' + tid).find('.l-c1-c3').append(ejs);
@@ -181,7 +182,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     msgtype: 'text',
                     msg: msg
                 });
-                $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
             });
             $('#' + tid).find('.applyGroup').on('click', function(){
                 Common.post({
@@ -211,7 +212,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             showChatView(tid);
                             //$('#contact_' + tid).removeClass('newmeg');
                             $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
-                            $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
+                            $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + data.from).find('.dialog_c_e')[0].scrollHeight;
                         });
                         $('#' + tid).find('.applyGroup').hide();
                     },
@@ -279,7 +280,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             msg: Common.formatMsgDisp(html) //.replace(/\n/g, '<br />')
                         }});
                         $('#' + tid).find('.l-c1-c3').append(ejs.replace(/\<\s*br\s*\/\>/g, ''));
-                        $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                        $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                     },
                     onprogress: function(loaded, total, per){
                         $('#' + au1.fileid).find('.progress-bar').css('width', per * 100);
@@ -320,7 +321,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             //});
         }
         $('#' + tid).addClass('currentW').show();
-        $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+        $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
     }
 
     function getGroupUsers(tid){
@@ -375,7 +376,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         });
     }
 
-    function getHistoryMsg(tid, date, page){
+    function getHistoryMsg(tid, date, page, listclick){
         var tid = parseInt(tid);
         Common.post({
             url: 'chatHistory',
@@ -398,10 +399,12 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 if(data.msg.length > 0 ){
                     $('#' + tid).find('.l-c1-c3 .tip').remove();
                 }
-                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from, toheadicon: user.headicon || '../images/pic_r1_c1.jpg'}});
+                var ejs = new EJS({url: "views/tmpls/msgrow.ejs"}).render({data: {msgs: data.msg, user: app.from, toheadicon: user.headicon || '../images/picb.png'}});
                 ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
                 $('#' + tid).find('.l-c1-c3').prepend(ejs); //.append(ejs);
-                //$('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                if(listclick){
+                    $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
+                }
                 $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
             },
             error: function(err){}
@@ -414,7 +417,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 上线了！</div>';
             $('.contactlistview').find('li').each(function(i, item){
                 if($(item).attr('tid') == parseInt(data.user.uid) ) {
-                    $(item).find('img').attr('src', data.user.headicon ? data.user.headicon : '../images/custom_r1_c1.jpg');
+                    $(item).find('img').attr('src', data.user.headicon ? data.user.headicon : '../images/picb.png');
                 }
             });
         } else {
@@ -470,10 +473,11 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
+                        headicon: '../images/picb.png',
                         msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.to).find('.l-c1-c3').append(ejs);
-                    $('#' + data.to).find('.l-c1-c3')[0].scrollTop = $('#' + data.to).find('.l-c1-c3')[0].scrollHeight;
+                    $('#' + data.to).find('.dialog_c_e')[0].scrollTop = $('#' + data.to).find('.dialog_c_e')[0].scrollHeight;
                 }
                 //当前聊天窗口并非消息要显示的窗口，提示消息
                 if($('.box .currentW').attr('id') != data.to){
@@ -510,7 +514,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                     app.chattype = $(e.target).attr('chattype');
                                     //$('#contact_' + tid).removeClass('newmeg');
                                     $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
-                                    $('#' + tid).find('.l-c1-c3')[0].scrollTop = $('#' + tid).find('.l-c1-c3')[0].scrollHeight;
+                                    $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                                 });
                             },
                             error: function(err){}
@@ -539,17 +543,17 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     var ejs = new EJS({url: "views/tmpls/msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
-                        headicon: user.headicon || '../images/pic_r1_c1.jpg',
+                        headicon: user.headicon || '../images/picb.png',
                         msg: msg //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.from).find('.l-c1-c3').append(ejs);
                     //当前聊天窗口并非消息要显示的窗口，提示消息
-                    if($('.box .currentW').attr('id') != data.from){
+                    if($('.chatwindow .currentW').attr('id') != data.from){
                         var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
                         node.html(++count);
                         node.hasClass('new') || (node.addClass('new'));
                     }else{
-                        $('#' + data.from).find('.l-c1-c3')[0].scrollTop = $('#' + data.from).find('.l-c1-c3')[0].scrollHeight;
+                        $('#' + data.from).find('.dialog_c_e')[0].scrollTop = $('#' + data.from).find('.dialog_c_e')[0].scrollHeight;
                     }
                 }
             }
