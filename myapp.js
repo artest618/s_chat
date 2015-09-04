@@ -171,7 +171,8 @@ for(var i=0; i<routedefines.length; i++){
                 for(var k in req.query){
                     logger.info('param ' + k + '=' + req.query[k]);
                 }
-                if(path != '/' && path != '/createCounselor' && path!='/flushMsgCount' && path!='/updateUserType' && path!='/deleteUser' && !req.session.sessiondata){
+                if(path != '/' && path != '/createCounselor' && path!='/flushMsgCount' && path!='/updateUserType' &&
+                    path!='/deleteUser' && path!='/getHistoryList' && !req.session.sessiondata){
                     res.send({error: "您还未登录，请登录后再试"});
                     return ;
                 }

@@ -329,7 +329,7 @@ var actions = {
             }
 
             FI.checkSigned(uid, function(suser){
-                    if(suser){
+                    if(suser&&!suser.error){
                         userSerivce.checkuser(uid, function(flag, user){
                             if(flag){
                                 req.session.sessiondata = {user: user};
@@ -343,7 +343,7 @@ var actions = {
                             }
                         });
                     }else{
-                        return  callback({error:"您还未登录系统，请在登录页面进行登录！"});
+                        return  callback({error:suser.error});
                     }
             });
 
@@ -433,7 +433,8 @@ var actions = {
         var uid = req.query.uid,uname = decodeURI(req.query.uname);
         CounselorService.createCounselor({uid:uid ,uname:uname},function(res_obj){
             logger.info(res_obj);
-            /*res.header("Access-Control-Allow-Origin", "*");*/
+           /* res.header("Access-Control-Allow-Origin", "*");*/
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
             res.send(res_obj);
         });
     },
