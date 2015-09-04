@@ -11,7 +11,7 @@ for(var i in data.msgs){
         <div>
             <span><%=data.msgs[i].cname%> <%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
         </div>
-        <div>
+        <div class="word-wrap">
             <%=data.msgs[i].message.replace(/\n/g, '<br/>')%>
         </div>
     </dd>
@@ -23,7 +23,7 @@ for(var i in data.msgs){
             <span class="f14 p25 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
         </div>
         <div class="row-r-in mt5 border2 bgcolor5">
-            <span class="f14"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
+            <span class="word-wrap"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
             <em class="rs"></em>
         </div>
     </dd>
