@@ -163,6 +163,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
 
             $('#' + tid).find('.btnclose').on('click', function(){
                 $('#' + tid).remove();
+                $('.chattile').html('');
             });
             $('#' + tid).find('.btnsend').on('click', function(){
                 var msg = $('#' + tid).find('.inputmsg').val();
