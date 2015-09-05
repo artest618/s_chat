@@ -94,8 +94,8 @@ var CounselorService = {
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
             }else{
-                sql =["INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户群")+"', 2, '"+(userInfo.uid+"_"+Math.floor(Math.random()*(10000000000-1000+1)+1000))+"')",
-                    "INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"的客户经理群")+"',3, '"+(userInfo.uid+"_"+Math.floor(Math.random()*(10000000000-1000+1)+1000))+"')",
+                sql =["INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"客户群")+"', 2, '"+(userInfo.uid+"_"+Math.floor(Math.random()*(10000000000-1000+1)+1000))+"')",
+                    "INSERT INTO tb_grouplist (owner, ownername, ownercname, groupname, grouptype, groupnum) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', '"+(userInfo.uname+"经理群")+"',3, '"+(userInfo.uid+"_"+Math.floor(Math.random()*(10000000000-1000+1)+1000))+"')",
                     "INSERT INTO tb_group_userlist (userid, username, usercname, usertype, groupid, jointime) VALUES ("+userInfo.uid+", '"+userInfo.uname+"', '"+userInfo.uname+"', 3,'"+group[0].id+"', '"+_util.dateFormat("yyyy-MM-dd hh:mm:ss")+"')",
                     "INSERT INTO tb_contacthistory_list (user, toid, totype, lastchattime) VALUES ('"+userInfo.uid+ "','" + group[0].id+ "','2', null)"
                 ] ;
