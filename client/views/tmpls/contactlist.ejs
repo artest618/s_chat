@@ -1,9 +1,127 @@
 <%for(var i=0; i<data.length; i++){%>
-<li class="mt20 w160" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
-    <img src="<%=data[i].groupid ? '../images/custom_r1_c1.jpg' : (data[i].isOnline ? (data[i].headicon ? data[i].headicon : '../images/custom_r1_c1.jpg') : '../images/custom_r3_c1.jpg')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>"  chattype="<%=chattype || 'single'%>" />
-    <span class="f14 color3" id="contact_<%=parseInt(data[i].toid || data[i].groupid)%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>"><%=data[i].cname || data[i].groupname%></span>
-    <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>'>
-        <%=data[i].unreadCount ? data[i].unreadCount : ""%>
-    </div>
+<li tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>" style="position: relative;">
+    <dl tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+        <dt tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+			<img src="<%=data[i].groupid ? '../images/pica.png' : (data[i].isOnline ? (data[i].headicon ? data[i].headicon : '../images/picd.png') : '../images/picb.png')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>"  chattype="<%=chattype || 'single'%>" alt="">
+		</dt>
+        <dd id="contact_<%=parseInt(data[i].toid || data[i].groupid)%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+			<p tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+				<%=data[i].cname || data[i].groupname%>
+			</p>
+		</dd>
+        <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>'>
+            <%=data[i].unreadCount ? data[i].unreadCount : ""%>
+        </div>
+    </dl>
 </li>
 <%}%>
+
+<!--
+ <li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><img src="images/pica.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+
+						<li>
+							<dl>
+								<dt><img src="images/picb.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+
+						<li>
+							<dl>
+								<dt><img src="images/picc.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+
+						<li class="cur">
+							<dl>
+								<dt><img src="images/picd.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+
+						<li>
+							<dl>
+								<dt><img src="images/pice.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+
+						<li>
+							<dl>
+								<dt><img src="images/picf.png" alt=""></dt>
+								<dd><p>信贷群</p></dd>
+							</dl>
+						</li>
+ -->

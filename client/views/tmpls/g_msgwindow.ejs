@@ -1,43 +1,53 @@
-<div class="box-in marauto" id="<%=parseInt(chat.id)%>">
-    <div class="box-in-t helght57 bgcolor p15">
-        <img src="../images/logo.png"  style="float:left;padding-top:10px;"/>
-        <h3 style = "float:left;margin-left:130px;" class="f20 cf"><!--蜜蜂金融--><%=chat.to_cname%></h3>
-    </div>
-    <div class="box-in-c bgcolor5">
-        <div class="box-c-l fleft">
-            <div class="l-c1 bgf border bor-t-n">
-                <div class="l-c1-c1 align-center mt10">
-                    <a href="javascript:void(0);" class="f14 moremsgbtn">查看更多</a>
-                </div>
-                <div class="l-c1-c3" style="overflow: auto; height: 300px;">
-
-                </div>
-            </div>
-            <div class="l-c2" style="position: relative;">
-                <img src="../images/emoji/ssmile.png" style="width:26px;height:26px;" class="chemoji" />
-                <ul class="emojipanel"></ul>
-            </div>
-            <div class="l-c3 bgf border">
-                <div>
-                    <textarea name="" id="" cols="30" rows="4" class="border0 inputmsg"></textarea>
-                </div>
-                <div class="tright l-c3-b bgcolor9">
-                    <button class="btnclose f16">关闭</button>
-                    <button class="btnsend cf f16">发送</button>
-                </div>
-
+<div class="boxin" id="<%=parseInt(chat.id)%>">
+    <div class="chat_dialog_c">
+        <div class="dialog_c_e">
+            <div class="morehua moremsgbtn" style="margin: 0 140px; padding: 10px; color:blue; cursor: pointer; text-decoration: underline;">查看更多对话</div>
+            <div class="disscuss l-c1-c3">
             </div>
         </div>
-        <div class="box-c-r fleft">
-            <div>群成员</div>
+        <!--<div class="l-c2" style="position: relative;">-->
+            <!--<img src="../images/emoji/ssmile.png" style="width:26px;height:26px;" class="chemoji" />-->
+            <!--<ul class="emojipanel"></ul>-->
+        <!--</div>-->
+        <div class="shezhi l-c2" style="position: relative;">
+            <span>
+                <img src="images/biaoqing.png" class="chemoji" alt="">
+                <ul class="emojipanel"></ul>
+            </span>
+            <!--<span>-->
+                <!--<img src="images/shangchuan.png" alt="">-->
+            <!--</span>-->
+            <span style="float:right;">在线时间：09:00~23:00</span>
+        </div>
+        <!--<div class="l-c3 bgf border">-->
+            <!--<div>-->
+                <!--<textarea name="" id="" cols="30" rows="4" class="border0 inputmsg"></textarea>-->
+            <!--</div>-->
+            <!--<div class="tright l-c3-b bgcolor9">-->
+                <!--<button class="btnclose f16">关闭</button>-->
+                <!--<button class="btnsend cf f16">发送</button>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <textarea name="" id="" cols="30" rows="10" class="inputmsg"></textarea>
+        <div class="chat_dialog_cbtns">
+            <button class=" chat_dialog_cbtn close btnclose">关闭</button>
+            <button class=" chat_dialog_cbtn send btnsend">发送</button>
+        </div>
+    </div>
+    <div class="chat_dialog_r">
+        <div class="chengyuan">
+            <p>群成员</p>
+        </div>
+        <div class="namE">
             <div class="mberlist">
 
             </div>
-            <%if(!(chat.gowner == 1 || chat.gowner == chat.user) ){%>
-            <div class="foot">
-                <span class="f14 color3 tright exitgbtn">退群</span>
-            </div>
-            <%}%>
         </div>
+        <%if(!(chat.gowner == 1 || chat.gowner == chat.user) ){%>
+        <div class="tuiqunquit">
+            <a href="javascript:void(0);" class="exitgbtn">退群</a>
+        </div>
+        <%}%>
     </div>
 </div>

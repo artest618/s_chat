@@ -1,8 +1,8 @@
-<div id="<%=fileid%>" style="margin-bottom: 3px;">
-    <span>
+<div id="<%=fileid%>" style="width:250px; overflow:hidden; text-overflow: ellipsis; margin-bottom: 3px;">
+    <div>
         <img src='<%=ficon%>' style="width: 40px; height: 40px;"  />
-        <span><%=file%></span>
-    </span>
+        <div style="width:200px;overflow: hidden;text-overflow: ellipsis;display:inline-block;" alt="<%=file%>"><%=file%></div>
+    </div>
     <div style='position: relative;width: 100px;margin-top: 5px; height: 8px;'>
         <div style='width: 100px;left:10px;position: absolute;height:2px;border:3px solid #ccc; background-color: #aaa;z-index:1;'></div>
         <div class="progress-bar" style='width:<%=percent%>%; left: 13px; top: 3px; position: absolute;height: 2px; background-color: #060;z-index:3;'></div>

@@ -1,0 +1,118 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video, input  {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    -webkit-box-sizing:border-box;
+}
+*,*:before,*:after{
+    margin: 0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+}
+html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {
+    -webkit-text-size-adjust: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    font-family:"微软雅黑";
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+ins {
+    text-decoration: none;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+a{
+    text-decoration: none;
+}
+/* body{font-size:100%;}
+  @media screen and (max-width:1120px){
+      body{font-size:90%;}
+  }   
+  @media screen and (max-width:889px){
+      body{font-size:70%;}
+  }
+  @media screen and (max-width:599px){
+      body{font-size:50%;}
+  }  */  
+.auto{margin:0 auto;}
+.clear{clear: both;width: 0;height: 0;overflow: hidden;}
+.f12{font-size: 1.2rem;line-height: 200%;}
+.f14{font-size: 1.4rem;line-height: 200%;}
+.f16{font-size: 1.6rem;line-height: 200%;}
+.f18{font-size: 1.8rem;line-height: 200%;}
+.f20{font-size: 2rem;line-height: 200%;}
+.f24{font-size: 2.4rem;line-height: 200%;}
+.maxbox{max-width: 1120px;}
+
+/* --------头部区域---*/
+.headerbg{
+    width: 100%;
+    min-width: 1120px;
+    height: 30px;
+    background:  #2F3B51;
+    border-bottom: solid 1px #525A6D;
+}
+.headerbg ul{float: right;}
+.headerbg ul li{
+    float:left;
+    margin:0 10px 0 30px;
+    line-height: 30px;
+}
+.headerbg ul li a{font-size: 1.2rem;}
+.headerbg ul li:nth-child(1):before{
+    content:url("../images/vip/person.png");
+    position:relative;
+    top: 4px;
+    left: -5px; 
+}
+.headerbg ul li:nth-child(1) a{color: #1480E3;}
+.headerbg ul li:nth-child(2):before{
+    content:url("../images/vip/help.png");
+    position:relative;
+    top: 5px;
+    left: -5px; 
+}
+.headerbg ul li:nth-child(3):before{
+    content:url("../images/vip/lead.png");
+    position:relative;
+    top: 2px;
+    left: -5px; 
+
+}
+.headerbg ul a{color: #A4A4A6;}
+

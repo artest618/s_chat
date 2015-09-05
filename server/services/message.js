@@ -119,6 +119,7 @@ var msgService= {
 
         path += '/' + date + '/';
         if(!fs.existsSync(path)){
+            rs.page = -1;
             callback(rs);
             return;
         }

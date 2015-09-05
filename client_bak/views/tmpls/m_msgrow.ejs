@@ -1,0 +1,45 @@
+<%
+for(var i in data.msgs){
+    if( parseInt(data.msgs[i].id) != parseInt(data.user.uid) ){
+%>
+<div class="row mt30 c_right">
+    <div class="col-xs-2 col-sm-1">
+        <img class="user_headicon" src="<%=data.toheadicon%>" alt="">
+    </div>
+    <div class="col-xs-10 col-sm-11 ">
+        <p>
+            <span class="f16"><%=data.msgs[i].cname%></span>
+        </p>
+        <div class="col-in bgf fleft">
+            <em class="l"></em>
+            <span class="f20"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
+    </div>
+</div>
+
+<% } else { %>
+<div class="row mt30 c_right">
+    <div class="col-xs-2 col-sm-1 col-xs-push-10 col-sm-push-11">
+        <img class="user_headicon"  src="<%=data.user.headicon ? data.user.headicon : '../images/headers/default.png'%>" alt="">
+    </div>
+    <div class="col-xs-10 col-sm-11 col-xs-pull-2 col-sm-pull-1">
+        <p class="tright">
+            <span class="f16"><%=data.msgs[i].cname%></span>
+        </p>
+        <div class="col-in bgcolor3 fright cf">
+            <em class="r"></em>
+            <span class="f20"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
+    </div>
+</div>
+<%}}%>
