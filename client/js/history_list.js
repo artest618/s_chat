@@ -78,12 +78,28 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
 
     });
     socket.on('say', function (data) {
-        if(data.from != app.from.uid){
-            $('.single_r','.history_list').each(function (i, item) {
-                if ($(item).attr('to') == parseInt(data.from)) {
+
+
+        if(data.chattype != "gchat"){
+            if(data.from != app.from.uid){
+                $('.single_r','.history_list').each(function (i, item) {
+                    if ($(item).attr('to') == parseInt(data.from)) {
+                        $(item).find('.head_name').css("color",'red');
+                        var node = $(item).find('.marauto'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                        node.html(++count);
+                    }
+                });
+            }
+        }else{
+
+            $('.more_r','.history_list').each(function (i, item) {
+                if ($(item).attr('to') == parseInt(data.to)) {
                     $(item).find('.head_name').css("color",'red');
+                    var node = $(item).find('.marauto'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                    node.html(++count);
                 }
             });
+
         }
     });
 });

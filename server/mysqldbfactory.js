@@ -2,14 +2,21 @@ var mysql=require("mysql");
 var logger = require('./logger').logger;
 var queues = require('mysql-queues');
 
-var pool = mysql.createPool({
+/*var pool = mysql.createPool({
     host: '120.131.68.151',
     user: 'bee_chat',
     password: 'bee_1234',
     database: 'chat',
     port: 3306
-});
+});*/
 
+var pool = mysql.createPool({
+ host: 'localhost',
+ user: 'root',
+ password: '1q2w3e4r',
+ database: 'chat',
+ port: 3306
+ });
 
 JDB = {
     query: function(sql,callback){
