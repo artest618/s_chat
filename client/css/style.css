@@ -67,7 +67,7 @@ html{font-size: 62.5%;}
 }
 .chat_dialog_l span img{ 
 	display: block;
-	margin: 0px auto;
+	margin: 14px auto;
 }
 
 .chat_dialog_l  span:nth-child(2) img{ 
