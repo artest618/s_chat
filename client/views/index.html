@@ -6,84 +6,7 @@
 	<link rel="stylesheet" href="../css/reset.css">
 	<link rel="stylesheet" href="../css/style.css">
 	<script src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript">
-//获取id
-function _$ (id)
-{
-	return typeof id === "string" ? document.getElementById(id) : id;
-}
-//获取tagName
-function _$$ (elem, oParent)
-{
-	return (oParent || document).getElementsByTagName(elem);
-}
-//获取class
-function _$$$ (className, oParent)
-{
-	var aClass = [];
-	var reClass = new RegExp("(//s|^)" + className + "($|//s)");
-	var aElem = _$$("*", oParent);
-	for (var i = 0; i < aElem.length; i++) reClass.test(aElem[i].className) && aClass.push(aElem[i]);
-	return aClass
-}
-//初始化对象
-function Roll ()
-{
-	this.initialize.apply(this, arguments)
-}
-Roll.prototype =
-{
-	initialize: function (obj)
-	{
-		var _this = this;
-		this.obj = _$(obj);
-		this.oUp = _$$$("up", this.obj)[0];
-		this.oDown = _$$$("down", this.obj)[0];
-		this.oList = _$$$("list", this.obj)[0];
-		this.aItem = this.oList.children;
-		this.timer = null;
-		this.iHeight = this.aItem[0].offsetHeight;
-		this.oUp.onclick = function ()
-		{
-			_this.up()
-		};
-		this.oDown.onclick = function ()
-		{
-			_this.down()
-		}
-	},
-	up: function ()
-	{
-		this.oList.insertBefore(this.aItem[this.aItem.length], this.oList.firstChild);
-		this.oList.style.top = (-this.iHeight) + "px";
-		this.doMove(0)
-	},
-	down: function ()
-	{
-		this.doMove(-this.iHeight, function ()
-		{
-			this.oList.appendChild(this.aItem[0]);
-			this.oList.style.top = 0;
-		})
-	},
-	doMove: function (iTarget, callBack)
-	{
-		var _this = this;
-		clearInterval(this.timer)
-		this.timer = setInterval(function ()
-		{
-			var iSpeed = (iTarget - _this.oList.offsetTop) / 5;
-			iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
-			_this.oList.offsetTop == iTarget ? (clearInterval(_this.timer), callBack && callBack.apply(_this)) : _this.oList.style.top = iSpeed + _this.oList.offsetTop + "px"
-		}, 30)
-	}
-};
-window.onload = function ()
-{
-	new Roll("box_wwwzzjs_net");
-};
-</script>
-	
+
 </head>
 <body>
 <div class="chat_box">
@@ -98,12 +21,14 @@ window.onload = function ()
 			<p class="chattile"></p>
 		</div>
 		<div class="chat_dialog">
-			<div class="chat_dialog_l" id="box_wwwzzjs_net">
+			<div class="chat_dialog_l">
 				
 					<span class="up"><a href="javascript:void(0);"><img src="images/pre.png" alt="" style="margin:0;margin-left:10px;"></a></span>
-					<ul class="list contactlistview">
+					<div id="box_wwwzzjs_net">
+						<ul class="list contactlistview">
 
-					</ul>
+						</ul>
+					</div>
 					<span class="down"><a href="javascript:void(0);"><img src="images/next.png" alt=""></a></span>
 				
 			</div>
