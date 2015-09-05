@@ -67,6 +67,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     getProductInfo(app.users[1].uid);
                 }
                 $('.contactlistview').find('li').on('click', function(e){
+                    $('.contactlistview').find('li').removeClass("cur")
+                    $(this).addClass("cur");
                     app.chattype = $(e.target).attr('chattype');
                     var tid = $(e.target).attr('tid');
                     showChatView(tid);
@@ -76,6 +78,11 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     getProductInfo(tid);
                 });
 
+                require(["../js/jquery.vticker.js"], function(){
+                    $('#box_wwwzzjs_net').vTicker({
+                        showItems: 7
+                    });
+                });
             },
             error: function(err){}
         });
@@ -509,6 +516,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                 node.html(++count);
                                 node.hasClass('new') || (node.addClass('new'));
                                 $('.contactlistview').find('li').unbind('click').on('click', function(e){
+                                    $('.contactlistview').find('li').removeClass("cur")
+                                    $(this).addClass("cur")
                                     var tid = $(e.target).attr('tid');
                                     showChatView(tid);
                                     app.chattype = $(e.target).attr('chattype');
