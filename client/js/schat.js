@@ -77,7 +77,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                     getProductInfo(tid);
                 });
-
                 require(["../js/jquery.vticker.js"], function(){
                     $('#box_wwwzzjs_net').vTicker({
                         showItems: 7
@@ -86,6 +85,14 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             },
             error: function(err){}
         });
+
+
+        $(".chuangkou  li").on("click",function(e){
+               window.close();
+        });
+        window.onbeforeunload = function(event) {
+            return confirm("确定离开融吧智能咨询系统?");
+        }
     }
 
     function getProductInfo(tid){
