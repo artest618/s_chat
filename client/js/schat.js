@@ -50,6 +50,31 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         //window.onbeforeunload = function(){
         //    return '您确认要离开聊天页面么？';
         //}
+
+
+        $(".chuangkou  li").on("click",function(){
+            //绑定beforeunload事件
+            $(window).bind('beforeunload',function(){
+                return '确定离开融吧智能咨询系统?';
+            });
+            var userAgent = navigator.userAgent;
+            if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Chrome") !=-1) {
+                window.location.href="about:blank";
+            } else {
+                window.opener = null;
+                window.open("", "_self");
+                window.close();
+            }
+
+            //解除绑定，一般放在提交触发事件中
+            setTimeout(function(){
+                $(window).unbind('beforeunload');
+            },500);
+        });
+
+
+
+
     });
 
     function initChatList(){
@@ -77,7 +102,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                     getProductInfo(tid);
                 });
-
                 require(["../js/jquery.vticker.js"], function(){
                     $('#box_wwwzzjs_net').vTicker({
                         showItems: 7
