@@ -10,8 +10,6 @@ var pool = mysql.createPool({
     port: 3306
 });
 
-
-
 JDB = {
     query: function(sql,callback){
         pool.getConnection(function(err,conn){

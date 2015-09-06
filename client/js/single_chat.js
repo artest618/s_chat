@@ -151,7 +151,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
             });
 
             //历史
-            getHistoryMsg(toId, '', 999999999);
+            getHistoryMsg(toId, '', 999999999,true);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg,ejs;
@@ -217,7 +217,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
 
             //更多
             $('#' + toId).find('.moremsgbtn').on('click', function(){
-                getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
+                if(parseInt($('#' + toId).attr('page')) - 1>-1){
+                    getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
+                }
             });
 
             //判断是否要写入产品信息
@@ -300,7 +302,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
         $('#' + toId).show();
     }
 
-    function getHistoryMsg(tid, date, page) {
+    function getHistoryMsg(tid, date, page,listclick) {
         var tid = parseInt(tid);
         Common.post({
             url: 'chatHistory',
@@ -324,8 +326,16 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
 
                 var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
                     user: app.from,toheadicon: user.headicon || '../images/headers/default.png'}});
-                $('#' + tid).find('.c_msg_list').append(ejs);
-                $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
+
+                ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
+                $('#' + tid).find('.c_msg_list').prepend(ejs);
+
+
+                $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
+                if(listclick){
+                    $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
+                }
+
             },
             error: function (err) {
             }
