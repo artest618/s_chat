@@ -338,10 +338,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             data: {tid: tid},
             success: function(data){
                 var ejs = new EJS({url: "views/tmpls/groupuserlist_r.ejs"}).render({users: data});
-                $("#" + tid).find('.mberlist').append(ejs);
+                $("#" + tid).find('.mberlist[utype!=3]').append(ejs);
                 if(app.from.usertype == 3){
                     $('#' + tid).find('.guserlist_r').on('click', function(e){
-                        var uid = $(e.target).attr('uid'), user;
+                        var uid = $(e.target).attr('uid'),utype=$(e.target).attr('utype'), user;
+                        if(utype == 3){
+                            return false;
+                        }
                         if(uid == app.from.uid){
                             return;
                         }
