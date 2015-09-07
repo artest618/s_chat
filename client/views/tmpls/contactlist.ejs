@@ -5,7 +5,7 @@
 			<img src="<%=data[i].groupid ? '../images/pica.png' : (data[i].isOnline ? (data[i].headicon ? data[i].headicon : '../images/picd.png') : '../images/picb.png')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>"  chattype="<%=chattype || 'single'%>" alt="">
 		</dt>
         <dd id="contact_<%=parseInt(data[i].toid || data[i].groupid)%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
-			<p tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
+			<p tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>" style="white-space: nowrap;">
 				<%=data[i].cname || data[i].groupname%>
 			</p>
 		</dd>
