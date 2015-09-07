@@ -46,7 +46,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                         app.chattype='gchat';
                         app.users = data;
                         app.from = data[0];
-                        showChatView(sendData.tid ? true : false);
+                        initChatList(sendData.tid ? true : false);
+
                         socket.emit('online', {user: app.from});
                     }
                 },
@@ -70,7 +71,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                         app.from = data[0];
                         app.pid=sendData.pid?sendData.pid:"";
                         //TODO 过滤
-                        showChatView(sendData.tid ? true : false);
+                        initChatList(sendData.tid ? true : false);
                         socket.emit('online', {user: app.from});
 
                         //向服务器添加联系人
@@ -90,6 +91,17 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
         }
 
     });
+
+    function initChatList(isTid){
+        Common.post({
+            url: 'chatList',
+            data: {},
+            success: function (data) {
+                app.chatUsers = data.schat.concat(data.gchat);
+                showChatView(isTid);
+            }
+        })
+    }
 
     function showChatView(isTid) {
         var user = app.users[1], fromId = app.from.uid, toId = user.uid||user.id;
@@ -139,7 +151,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
             });
 
             //历史
-            getHistoryMsg(toId, '', 999999999);
+            getHistoryMsg(toId, '', 999999999,true);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg,ejs;
@@ -205,7 +217,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
 
             //更多
             $('#' + toId).find('.moremsgbtn').on('click', function(){
-                getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
+                if(parseInt($('#' + toId).attr('page')) - 1>-1){
+                    getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
+                }
             });
 
             //判断是否要写入产品信息
@@ -266,10 +280,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                         $(window.document.body).scrollTop($('#' +toId).find('.c_msg_list')[0].scrollHeight);
                     },
                     onprogress: function(loaded, total, per){
-                        $('#' + au1.fileid).find('.progress-bar').css('width', per * 100+"%");
+                        $('#' + au1.fileid).find('.progress-bar').css('width', per+"%");
                     },
                     onComplete: function(file, res){
-                        $('#' + au1.fileid).find("img").css({width:"60px",height:"60px"});
                         $('#' + au1.fileid).find('.progress-bar').css('width', "100%");
                         socket.emit('say', {
                             from: app.from.uid,
@@ -289,7 +302,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
         $('#' + toId).show();
     }
 
-    function getHistoryMsg(tid, date, page) {
+    function getHistoryMsg(tid, date, page,listclick) {
         var tid = parseInt(tid);
         Common.post({
             url: 'chatHistory',
@@ -305,12 +318,24 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                 });
 
                 var user = {};
-
+                for(var i in app.chatUsers){
+                    if(app.chatUsers[i].toid == tid){
+                        user = app.chatUsers[i];
+                    }
+                }
 
                 var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
                     user: app.from,toheadicon: user.headicon || '../images/headers/default.png'}});
-                $('#' + tid).find('.c_msg_list').append(ejs);
-                $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
+
+                ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
+                $('#' + tid).find('.c_msg_list').prepend(ejs);
+
+
+                $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
+                if(listclick){
+                    $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
+                }
+
             },
             error: function (err) {
             }
