@@ -101,15 +101,42 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                     $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                     getProductInfo(tid);
+                    setHotkey();
                 });
-                require(["../js/jquery.vticker.js"], function(){
-                    $('#box_wwwzzjs_net').vTicker({
-                        showItems: 7
-                    });
-                });
+                //require(["../js/jquery.vticker.js"], function(){
+                //    $('#box_wwwzzjs_net').vTicker({
+                //        showItems: 7
+                //    });
+                //});
             },
             error: function(err){}
         });
+    }
+
+
+    function setHotkey(){
+        function Hotkey(event, targetObj, ctrlKey, shiftKey, altKey, keycode){
+            if (
+                targetObj
+                && event.ctrlKey == ctrlKey
+                && event.shiftKey == shiftKey
+                && event.altKey == altKey
+                && event.keyCode == keycode
+            )
+                targetObj.click();
+        }
+
+        function fnKeyup(event)
+        {
+            $(".btnsend").each(function(){
+                Hotkey(event, this, true, false, false, 13);
+            });
+        }
+
+        if (document.addEventListener)
+            document.addEventListener("keyup",fnKeyup,true);
+        else
+            document.attachEvent("onkeyup",fnKeyup);
     }
 
     function getProductInfo(tid){

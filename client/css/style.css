@@ -5,7 +5,7 @@ html{font-size: 62.5%;}
 }
 .chat_cont{
 	width: 736px;
-	height: 540px;
+	height: 585px;
 	margin: 0 auto;
 	border: 1px solid #F1F1F1;
 }
@@ -45,7 +45,7 @@ html{font-size: 62.5%;}
 	top: 8px;
 }
 .chat_dialog{
-	height: 453px;
+	height: 498px;
 	background: #f1f1f1;
 }
 .chat_dialog_l{
@@ -55,8 +55,9 @@ html{font-size: 62.5%;}
 	border-right:1px solid #ddd;
 }
 .chat_dialog_l .list{
-    height: 400px;
+    height: 475px;
     overflow: hidden;
+	overflow-y: scroll;
 }
 .chat_dialog_l ul li{
 	height: 56px;
@@ -85,6 +86,8 @@ html{font-size: 62.5%;}
 .chat_dialog_l ul li dl dt img{
 	display: inline-block;
 	margin-top: 5px;
+	height: 38px;
+	width: 38px;
 }
 .chat_dialog_l ul li dl dd{
 	margin-left: 50px;
@@ -118,16 +121,19 @@ overflow-y: scroll;
 }
 textarea {
 	width: 395px;
-	height: 35px;
-	line-height: 35px;
+	height: 80px;
+	line-height: 20px;
 	outline: none;
 	resize: none;
-	overflow-y: hidden;
+	overflow-y: auto;
 	overflow-x: hidden;
 	border: 1;
 	background: url(../images/bianji.png) no-repeat,#FFF;
 	background-position: 340px 50%;
 	margin-top: 5px;
+	font-size: 12px;
+	padding-right: 50px;
+	padding: 2px 50px 2px 2px;
 }
 .chat_dialog_cbtns{
 	float: right;
@@ -236,6 +242,12 @@ button.chat_dialog_rbtn{
 	display: inline-block;
 	margin:5px 0 5px 10px;
 }
+
+.disscuss dl img{
+	height:38px;
+	width:38px;
+}
+
 .disscuss dl.dlLeft dd{
 	width: 290px;
 	height: auto;
