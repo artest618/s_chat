@@ -73,7 +73,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                         //TODO 过滤
                         initChatList(sendData.tid ? true : false);
                         socket.emit('online', {user: app.from});
-
                         //向服务器添加联系人
                         Common.post({
                             url: 'addChatList',
@@ -119,6 +118,12 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                 isTid: isTid
             }});
             $('.chat_view').append(ejs);
+
+            if(!Common.urlparams.totype){
+                $("#history_header").css("display","none");
+                $("#message_to_header").css("display","block");
+            }
+
             $('#' + toId).find(".add").on("click",function(){
                 //加群
                 Common.post({
@@ -187,6 +192,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
             $(".get_list", "#" + toId).on('click', function () {
                 window.location.href = "/getHistoryList?uid=" + fromId;
             });
+
             //群列表
             $(".showGroupList","#"+toId).on("click",function(){
                 window.location.href="/getGroupMembers?gid="+toId+"&uid="+fromId+"&totype="+
