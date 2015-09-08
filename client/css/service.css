@@ -11,13 +11,13 @@
 .color3{color: #FF9348}
 .color4{color: #4F5A64;}
 .newmeg{color: red;}
-.f26{font-size: 26px;}
-.f20{font-size: 20px;}
-.f16{font-size: 16px;}
-.f14{font-size: 18px;}
-.f34{font-size: 34px;}
+.f26{font-size: 13px;}
+.f20{font-size: 10px;}
+.f16{font-size: 14px;}
+.f14{font-size: 14px;}
+.f34{font-size: 17px;}
 .f12{font-size: 16px;}
-.f30{font-size: 30px;}
+.f30{font-size: 20px;}
 .lh30{line-height: 30px;}
 .bgcolor{background-color: #F9F9FD;}
 .bodcolor{background-color:#F9F9FA;}
@@ -31,16 +31,16 @@
 .bgcolor9{background-color: #F9F9FA;}
 .bgf{background-color: #fff;}
 .marauto{margin: 0 auto;}
-.mt100{margin-top: 100px;}
+.mt100{margin-top: 50px;}
 .mt30{margin-top: 30px;}
 .mt20{margin-top: 20px;}
-.mt15{margin-top: 15px;}
+/*.mt15{margin-top: 15px;}*/
 .mt10{margin-top: 10px;}
 .mt5{margin-top: 5px;}
 .mb30{margin-bottom: 30px;}
-.paddingtop40{padding-top: 40px;}
+.paddingtop40{padding-top: 20px;}
 .w160{width: 190px;border-right: 1px solid #F3F2F2;}
-.helght140{height: 140px;}
+.helght140{height: 70px;}
 .helght57{height: 57px;}
 .fright{float:right;}
 .fleft{float: left;}
@@ -66,7 +66,7 @@
 .pleft24{padding-left: 28px;}
 .tright{text-align: right;}
 .clear{overflow: hidden;}
-.header{height: 100px;
+.header{height: 50px;
           
     }
 .header span{line-height: 100px;}
@@ -74,11 +74,12 @@
 .header em{position: absolute;
 	      display: block;
 	}
-.header em.arrow{width: 18px;
-	            height: 32px;
+.header em.arrow{width: 12px;
+	            height: 30px;
                 background-image: url(../images/arrow.jpg);
-                left:28px;
-                top:36px;
+                left:20px;
+                top:12px;
+                background-repeat: no-repeat;
 }
 .header em.arrows{width: 18px;
 	            height: 32px;
@@ -87,11 +88,13 @@
                 top:35px;
 }
 .header span.butn{position: absolute;
-            top:35px;
+            top:20px;
             right: 28px;
             background-image: url(../images/butn.jpg);
-            width:40px;
-            height: 34px; 
+            width:25px;
+            height: 20px;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
 }
 .header span.kh{
             top:35px;
@@ -101,21 +104,23 @@
             height: 34px; 
 }
 .header span.add{
-            top:35px;
-            right: 28px;
+            top:18px;
+            right: 20px;
             background-image: url(../images/add.jpg);
-            width:32px;
-            height: 32px;
+            width:23px;
+            height: 23px;
             display: block;
             position: absolute;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
 }
 
-.col-l{height: 80px;
-	   width: 80px;
+.col-l{height: 40px;
+	   width: 40px;
 	   background-image: url(../images/photo.jpg);
-       
 	   margin:0 auto;
-	   margin-top:30px; 
+	   margin-top:15px;
+       background-size: 100% auto;
 }
 .badges{height: 32px;
         line-height: 26px;
@@ -126,6 +131,7 @@
 }
 .col-in{min-width:100px;
         max-width:380px;
+        width: 230px;
         padding:20px;
         border-radius: 20px;
         position: relative;
@@ -207,7 +213,7 @@ textarea{min-height: 90px;
   text-align: center;
 }
 
-.footer{height: 98px;
+.footer{height: 50px;
         position:fixed;
         bottom: 0;
         left: 0;
@@ -215,15 +221,15 @@ textarea{min-height: 90px;
         border-top:1px solid #C2C2C2;
         background-color: #F7F8FA;
 }
-.footer input{height: 70px;
+.footer input{height: 35px;
               border-radius: 5px;
               border:1px solid #B8B7BC;
               width: 100%;
               margin-top: 14px;
 
 }
-.fbtnsend{height: 70px;
-          width: 120px;
+.fbtnsend{height: 35px;
+          width: 60px;
           border-radius: 5px;
           background-color: #FF5A00;
           border:0;
@@ -236,4 +242,12 @@ textarea{min-height: 90px;
 .chat_view_sub .bgcolor3,.chat_view_sub .fbtnsend{
     color: #FFF;
 }
-.user_headicon{width:71px;height: 71px;border-radius:50% 50%;}
+.user_headicon{width:35px;height: 35px;border-radius:50% 50%;}
+
+.col-in .message_in{
+    display: inline-block;
+    overflow: hidden;
+    white-space: normal;
+    clear: both;
+    word-break: break-word;
+}
