@@ -1,7 +1,7 @@
 <%for(var i=0; i<data.length; i++){%>
     <div class="row single_r" uid="<%=data[i].user%>" to="<%=data[i].toid%>" onclick="window.location.href='/?uid=<%=data[i].user%>&to=<%=data[i].toid%>'">
         <div class="col-xs-3 helght140 col-sm-2">
-            <div class="head_icon col-l <% if(data[i].isOnline!=1){%> gray <%}%>" style="background-size:80px 80px;background-image: url('<%=data[i].headicon?data[i].headicon:'../../images/headers/default.png'%>')"></div>
+            <div class="head_icon col-l <% if(data[i].isOnline!=1){%> gray <%}%>" style="background-size:40px 40px; background-repeat: no-repeat;  background-image: url('<%=data[i].headicon?data[i].headicon:'../../images/headers/default.png'%>')"></div>
         </div>
         <div class="col-xs-6 border-bots helght140 paddingtop40 col-sm-8">
             <!--totype 根据不同的连接到群或单聊-->
