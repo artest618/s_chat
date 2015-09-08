@@ -164,8 +164,9 @@ textarea {
 	float: left;
 }
 .chat_dialog_r dl dd.zixun{
-	padding:20px 25px 10px 25px;
+	padding: 10px 10px 14px 0px;
 	font-size: 1.4rem;
+	line-height: 22px;
 }
 button.chat_dialog_rbtn{
 	width: 94px;
