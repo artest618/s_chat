@@ -125,10 +125,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
             }
 
             //从手机端接入
-            if(!Common.urlparams.totype==3){
-                $("#history_header").css("display","none");
-                $("#message_to_header_toapp").css("display","block");
-            }
+            //if(!Common.urlparams.totype==3){
+            //    $("#history_header").css("display","none");
+            //    $("#message_to_header_toapp").css("display","block");
+            //}
 
             $('#' + toId).find(".add").on("click",function(){
                 //加群
