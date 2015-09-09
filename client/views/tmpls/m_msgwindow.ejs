@@ -15,6 +15,22 @@
             </div>
         </div>
     </div>
+    <div  id="message_to_header_toapp"  class="container-fluid border-bot header bgf" style="position: fixed;width: 100%;z-index: 99999;display: none;">
+        <div class="row">
+            <div class="col-xs-2 col-sm-1">
+                <em class="arrow get_list"></em>
+            </div>
+            <div class="col-xs-8 col-sm-10 mt15">
+                <h3 class="f30 align-center"><%=chat.to_cname%></h3>
+            </div>
+            <div class="col-xs-2 col-sm-1">
+                <% if (chat.to_type==3){%>
+                <span class="add" ></span>
+                <%}%>
+
+            </div>
+        </div>
+    </div>
     <div id="message_to_header"  class="container-fluid border-bot header bgf" style="position: fixed;width: 100%;z-index: 99999;display: none;">
         <div class="row">
             <div class="col-xs-2 col-sm-1">
