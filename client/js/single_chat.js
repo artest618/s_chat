@@ -62,10 +62,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                 data: sendData,
                 success: function (data) {
                     if(data[0].usertype==3&&data[1].usertype==3){
-                        _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
+                        _show_msg({time:2500,msg:"访问不正确，请联系管理员",title:"温馨提示"});
                         return;
                     }else if(data[0].usertype==1&&data[1].usertype==1){
-                        _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
+                        _show_msg({time:2500,msg:"访问不正确，请联系管理员",title:"温馨提示"});
                         return;
                     }else{
                         app.users = data;
@@ -152,7 +152,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                             groupnum: data.groupnum
                         }
                         if(data&&data.groupname){
-                            _show_msg({msg:"恭喜您成功加入"+data.groupname,title:"温馨提示"});
+                            _show_msg({time:2500,msg:"恭喜您成功加入"+data.groupname,title:"温馨提示"});
                         }
 
                     },
@@ -169,7 +169,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                 var msg,ejs;
                  msg = $('#' + toId).find('.inputmsg').val();
                  if(!msg){
-                     _show_msg({msg:"您发送的消息为空！",title:"温馨提示"});
+                     _show_msg({time:2500,msg:"您发送的消息为空！",title:"温馨提示"});
                      return false;
                  }
                  ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {

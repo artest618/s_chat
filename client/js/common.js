@@ -258,7 +258,7 @@ define("common", ['jquery', 'ejs'], function($, EJS){
         },
         showAlert: function(msg){
             if($(".mimi_msg").length>0){
-                _show_msg({msg:msg,title:"温馨提示"});
+                _show_msg({time:2500,msg:msg,title:"温馨提示"});
             }else{
                 if($('.edu_ui_dialog').length <= 0){
                     var ejs = new EJS({url: 'views/tmpls/dialog.ejs'}).render({msg: msg});
