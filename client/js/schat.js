@@ -82,6 +82,18 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             url: 'chatList',
             data: {},
             success: function(data){
+                function clearRepeat(schat){
+                    var len = schat.length;
+                    for(var i=0; i<len; i++){
+                        for(var j=i+1; j<len; j++){
+                            if(schat[i].uid == schat[j].uid){
+                                schat.splice(j,1);
+                                j--,len=schat.length;
+                            }
+                        }
+                    }
+                }
+                clearRepeat(data.schat);
                 app.chatUsers = data.schat.concat(data.gchat);
                 var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data.schat, chattype: 'single'});
                 $(".contactlistview").html(ejs);
