@@ -11,6 +11,7 @@ require.config({
     paths: {
         domReady: "domReady",
         ejs: "ejs",
+        mini_msg:'mini_msg',
         common: "common"
     }
 });
@@ -22,7 +23,7 @@ var app = {
     addingchat: {}
 };
 
-require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) {
+require(['zepto', 'common', 'domReady', 'ejs','mini_msg'], function ($, Common, $dom, EJS) {
     var socket = io.connect();
 
     $dom(function () {
@@ -50,7 +51,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                             data: {groupid: to},
                             success: function(data){
                                 if(data){
-                                    alert("您已退出该群！");
+                                    _show_msg({msg:"您已退出该群",title:"温馨提示"});
                                     Common.showLoading();
                                     window.location.href="/getHistoryList?uid="+uid
                                 }

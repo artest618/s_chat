@@ -11,6 +11,7 @@ require.config({
     paths: {
         domReady: "domReady",
         ejs: "ejs",
+        mini_msg:'mini_msg',
         common: "common"
     }
 });
@@ -22,7 +23,7 @@ var app = {
     addingchat: {}
 };
 
-require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) {
+require(['zepto', 'common', 'domReady', 'ejs','mini_msg'], function ($, Common, $dom, EJS) {
     var socket = io.connect();
 
     $dom(function () {
@@ -35,7 +36,7 @@ require(['zepto', 'common', 'domReady', 'ejs'], function ($, Common, $dom, EJS) 
                         app.from=data.user;
                         socket.emit('online', {user: app.from});
                     }else{
-                        alert(data&&data.error);
+                        data&&data.error?_show_msg({msg:data.error,title:"温馨提示"}):'';
                     }
                 },
                 error: function (err) {

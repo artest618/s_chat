@@ -257,14 +257,18 @@ define("common", ['jquery', 'ejs'], function($, EJS){
             }
         },
         showAlert: function(msg){
-            if($('.edu_ui_dialog').length <= 0){
-                var ejs = new EJS({url: 'views/tmpls/dialog.ejs'}).render({msg: msg});
-                $('.bigbox').append(ejs);
-                $('.edu_ui_dialog').find('.close').on('click', _t.hideAlert);
-            }
-            else{
-                $('.edu_ui_dialog').find('.edu_msg_content').html(msg);
-                $('.edu_ui_dialog').show();
+            if($(".mimi_msg").length>0){
+                _show_msg({msg:msg,title:"温馨提示"});
+            }else{
+                if($('.edu_ui_dialog').length <= 0){
+                    var ejs = new EJS({url: 'views/tmpls/dialog.ejs'}).render({msg: msg});
+                    $('.bigbox').append(ejs);
+                    $('.edu_ui_dialog').find('.close').on('click', _t.hideAlert);
+                }
+                else{
+                    $('.edu_ui_dialog').find('.edu_msg_content').html(msg);
+                    $('.edu_ui_dialog').show();
+                }
             }
         },
         hideAlert: function(){

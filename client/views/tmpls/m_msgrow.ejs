@@ -8,7 +8,7 @@ for(var i in data.msgs){
     </div>
     <div class="col-xs-10 col-sm-11 ">
         <p>
-            <span class="f16"><%=data.msgs[i].cname%></span>
+            <span class="f16"><%=data.msgs[i].cname%></span><span class="f16" style="padding: 0 10px;float:right;"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
         </p>
         <div class="col-in bgf fleft">
             <em class="l"></em>
@@ -16,11 +16,11 @@ for(var i in data.msgs){
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12">
-        <span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
-    </div>
-</div>
+<!--<div class="row">-->
+    <!--<div class="col-xs-12 col-sm-12">-->
+        <!--<span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>-->
+    <!--</div>-->
+<!--</div>-->
 
 <% } else { %>
 <div class="row mt30 c_right">
@@ -29,17 +29,17 @@ for(var i in data.msgs){
     </div>
     <div class="col-xs-10 col-sm-11 col-xs-pull-2 col-sm-pull-1">
         <p class="tright">
-            <span class="f16"><%=data.msgs[i].cname%></span>
+            <span class="f16" style="padding: 0 10px; float:left;"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span><span class="f16"><%=data.msgs[i].cname%></span>
         </p>
         <div class="col-in bgcolor3 fright cf">
             <em class="r"></em>
-            <span class="f20"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
+            <span class="f20 message_in"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12">
-        <span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
-    </div>
-</div>
+<!--<div class="row">-->
+    <!--<div class="col-xs-12 col-sm-12">-->
+        <!--<span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>-->
+    <!--</div>-->
+<!--</div>-->
 <%}}%>

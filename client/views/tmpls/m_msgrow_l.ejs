@@ -4,16 +4,16 @@
     </div>
     <div class="col-xs-10 col-sm-11 ">
         <p>
-            <span class="f16"><%=msg.cname%> </span>
+            <span class="f16" style="padding: 0 10px; float:right;"> <%=msg.datetime.split(' ')[1]%></span><span class="f16"><%=msg.cname%> </span>
         </p>
         <div class="col-in bgf fleft">
             <em class="l"></em>
-            <span class="f20"><%=msg.msg%></span>
+            <span class="f20 message_in"><%=msg.msg%></span>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12">
-        <span class="align-center disblock f16"><%=msg.datetime&&msg.datetime.split(' ')[1]%></span>
-    </div>
-</div>
+<!--<div class="row">-->
+    <!--<div class="col-xs-12 col-sm-12">-->
+        <!--<span class="align-center disblock f16"><%=msg.datetime&&msg.datetime.split(' ')[1]%></span>-->
+    <!--</div>-->
+<!--</div>-->
