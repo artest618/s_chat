@@ -24,6 +24,14 @@ var actions = {
                 if(!suser.error){
                     userSerivce.checkuser(uid, function(flag, user){
                         if(flag){
+                            if(suser.name != user.name){
+                                user.name = suser.name;
+                                userSerivce.updateUserName(user.uid, user.name, function(){});
+                            }
+                            if(suser.usertype != user.usertype){
+                                user.usertype = suser.usertype;
+                                userSerivce.updateUserType(user.uid, user.usertype, function(){});
+                            }
                             req.session.sessiondata = {user: user};
                             return res.sendfile(send_target);
                         } else{
@@ -509,7 +517,7 @@ var actions = {
         userSerivce.checkuser(uid, function(flag, user){
             if(flag){
                 userSerivce.updateUserType(uid, type, function(data){
-                    res.send({result: true});
+                    res.send({result: '用户已更新'});
                 });
             }else{
                 res.send({error: '用户不存在或已删除。'});
@@ -521,7 +529,19 @@ var actions = {
         userSerivce.checkuser(uid, function(flag, user){
             if(flag){
                 userSerivce.deleteUser(uid, function(data){
-                    res.send({result: true});
+                    res.send({result: '删除用户成功'});
+                });
+            }else{
+                res.send({error: '用户不存在或已删除。'});
+            }
+        })
+    },
+    updateUserName: function (req, res) {
+        var uid = req.query.uid, name=req.query.name;
+        userSerivce.checkuser(uid, function(flag, user){
+            if(flag){
+                userSerivce.updateUserName(uid, name, function(data){
+                    res.send({result: '更新用户名称成功'});
                 });
             }else{
                 res.send({error: '用户不存在或已删除。'});
