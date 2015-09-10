@@ -52,7 +52,7 @@ var UserService = {
             'UPDATE tb_userinfo SET usertype=' + type + ' where uid=' + uid,
             'DELETE FROM tb_group_userlist where userid=' + uid
         ];
-        JDB.oper([sql], function(res){
+        JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
         });
     },
@@ -60,7 +60,7 @@ var UserService = {
         var sql = [
             'UPDATE tb_userinfo SET delflag=1 where uid=' + uid,
         ];
-        JDB.oper([sql], function(res){
+        JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
         });
     }
