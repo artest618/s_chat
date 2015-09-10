@@ -56,9 +56,17 @@ var UserService = {
             onsuccess && onsuccess(res);
         });
     },
+    updateUserName: function(uid, name, onsuccess, onerror){
+        var sql = [
+            'UPDATE tb_userinfo SET name=\'' + name + '\' where uid=' + uid
+        ];
+        JDB.oper(sql, function(res){
+            onsuccess && onsuccess(res);
+        });
+    },
     deleteUser: function(uid, onsuccess, onerror){
         var sql = [
-            'UPDATE tb_userinfo SET delflag=1 where uid=' + uid,
+            'UPDATE tb_userinfo SET delflag=1 where uid=' + uid
         ];
         JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
