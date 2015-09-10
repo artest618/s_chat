@@ -153,6 +153,11 @@ var routedefines = [
         'pathname': '/deleteUser',
         'handler': actions.deleteUser,
         'method': 'get'
+    },
+    {
+        'pathname': '/updateUserName',
+        'handler': actions.updateUserName,
+        'method': 'get'
     }
 ];
 
