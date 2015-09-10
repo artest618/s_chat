@@ -283,7 +283,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             showChatView(tid);
                             //$('#contact_' + tid).removeClass('newmeg');
                             $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
-                            $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + data.from).find('.dialog_c_e')[0].scrollHeight;
+                            $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                         });
                         $('#' + tid).find('.applyGroup').hide();
                     },
