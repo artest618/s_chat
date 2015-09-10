@@ -262,7 +262,7 @@ define("common", ['jquery', 'ejs'], function($, EJS){
             }else{
                 if($('.edu_ui_dialog').length <= 0){
                     var ejs = new EJS({url: 'views/tmpls/dialog.ejs'}).render({msg: msg});
-                    $('.bigbox').append(ejs);
+                    $('.chat_cont').append(ejs);
                     $('.edu_ui_dialog').find('.close').on('click', _t.hideAlert);
                 }
                 else{

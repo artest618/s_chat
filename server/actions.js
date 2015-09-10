@@ -186,6 +186,10 @@ var actions = {
                 group = global.group_user_list[i];
             }
         }
+        if(!group){
+            res.send({error: '您要加的群不存在，请联系管理员！'});
+            return;
+        }
         for(var i in group.members){
             if(group.members[i].uid == user.uid){
                 res.send({error: '您已加入了该群，请勿重复申请'});
