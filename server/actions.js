@@ -501,7 +501,7 @@ var actions = {
         })
     },
     updateUserType: function(req, res){
-        var uid=req.body.uid, type=req.body.type;
+        var uid=req.query.uid, type=req.query.type;
         if(type != 2){
             res.send({error: '用户类型错误'});
             return;
@@ -517,7 +517,7 @@ var actions = {
         })
     },
     deleteUser: function(req, res){
-        var uid = req.body.uid;
+        var uid = req.query.uid;
         userSerivce.checkuser(uid, function(flag, user){
             if(flag){
                 userSerivce.deleteUser(uid, function(res){
