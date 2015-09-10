@@ -299,9 +299,13 @@ define('AjaxUpload', [], function(){
             for (var i in options) {
                 this._settings[i] = options[i];
             }
+            if(button.type&&button.type=="file"){
+                this._createInput(button);
+            }else{
+                this._createInput();
+                this._rerouteClicks();
+            }
 
-            this._createInput();
-            this._rerouteClicks();
         }
 
         // assigning methods to our class
@@ -329,36 +333,45 @@ define('AjaxUpload', [], function(){
              */
             _createInput : function(){
                 var self = this;
-                var input = d.createElement("input");
-                input.setAttribute('type', 'file');
-                input.setAttribute('id', 'absFileInput');
-                input.setAttribute('name', this._settings.name);
-                var styles = {
-                    'position' : 'absolute'
-                    ,'margin': '-5px 0 0 -175px'
-                    ,'padding': 0
-                    ,'width': '220px'
-                    ,'height': '30px'
-                    ,'fontSize': '14px'
-                    ,'opacity': 0
-                    ,'cursor': 'pointer'
-                    ,'display' : 'none'
-                    ,'zIndex' :  2147483583 //Max zIndex supported by Opera 9.0-9.2x
-                    // Strange, I expected 2147483647
-                    // Doesn't work in IE :(
-                    //,'direction' : 'ltr'
-                };
-                for (var i in styles){
-                    input.style[i] = styles[i];
+                var input;
+                if(arguments[0]){
+                    input = arguments[0];
+                    input.setAttribute('id', 'absFileInput');
+                    input.setAttribute('name', this._settings.name);
+                }else{
+                    input = d.createElement("input");
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('id', 'absFileInput');
+                    input.setAttribute('name', this._settings.name);
+                    var styles = {
+                        'position' : 'absolute'
+                        ,'margin': '-5px 0 0 -175px'
+                        ,'padding': 0
+                        ,'width': '220px'
+                        ,'height': '30px'
+                        ,'fontSize': '14px'
+                        ,'opacity': 0
+                        ,'cursor': 'pointer'
+                        ,'display' : 'none'
+                        ,'zIndex' :  2147483583 //Max zIndex supported by Opera 9.0-9.2x
+                        // Strange, I expected 2147483647
+                        // Doesn't work in IE :(
+                        //,'direction' : 'ltr'
+                    };
+                    for (var i in styles){
+                        input.style[i] = styles[i];
+                    }
+
+                    // Make sure that element opacity exists
+                    // (IE uses filter instead)
+                    if ( ! (input.style.opacity === "0")){
+                        input.style.filter = "alpha(opacity=0)";
+                    }
+
+                    this._parentDialog.appendChild(input);
                 }
 
-                // Make sure that element opacity exists
-                // (IE uses filter instead)
-                if ( ! (input.style.opacity === "0")){
-                    input.style.filter = "alpha(opacity=0)";
-                }
 
-                this._parentDialog.appendChild(input);
 
                 addEvent(input, 'change', function(){
                     // get filename from input
