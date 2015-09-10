@@ -147,12 +147,12 @@ var routedefines = [
     {
         'pathname': '/updateUserType',
         'handler': actions.updateUserType,
-        'method': 'post'
+        'method': 'get'
     },
     {
         'pathname': '/deleteUser',
         'handler': actions.deleteUser,
-        'method': 'post'
+        'method': 'get'
     }
 ];
 
