@@ -258,3 +258,98 @@ textarea{min-height: 90px;
 body{
     overflow-x: hidden;
 }
+/*******************************mini_msg****************************************/
+.mini_msg{position: relative;min-height: 480px}
+.m_dialog{
+    width: 20.75rem;
+    min-height: 15.55rem;
+    position: absolute;
+    z-index: 1101;
+    margin-left: -10.375rem;
+    left: 50%;
+    top: 50%;
+    margin-top: -10.3135rem;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.m_dialog .title{
+    height: 4.625rem;
+    background-color:rgba(253,253,253,.95);
+    text-align: center;
+    margin: 0;
+    color: #666;
+    font-size: 1.85rem;
+    border-bottom: 1px solid #ccc;
+    line-height: 4.625rem;
+}
+.m_dialog .content{
+    background-color: rgba(253,253,253,.95);
+    margin: 0;
+    min-height: 6.125rem;
+    color: #666;
+    font-size: 1.8rem;
+    text-align: center;
+    padding-top: .5rem;
+    display: table-cell;
+    vertical-align: middle;
+    width: 20.75rem;
+}
+.m_dialog .content.notitle{
+    height: 10.925rem;
+}
+
+.m_dialog .content.full{
+    height: 15.55rem;
+}
+.m_dialog .content.nobtns{
+    height: 10.8rem;
+}
+
+
+.m_dialog .m_btns{
+    height: 4.625rem;
+    text-align: center;
+    line-height: 4.625rem;
+    color: #333;
+    background-color: rgba(253,253,253,.95);
+    border-top: 1px solid #ccc;
+}
+.m_dialog .m_btns  .t-btn{
+    display: inline-block;
+    font-size: 1.85rem;
+    width: 49%;
+    height: 100%;
+    color: #333;
+}
+.m_dialog .m_btns  .t-btn.ok{
+    border-left: 1px solid #ccc;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+.t-dimer.active {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    height: 100%;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    width: 100%;
+    z-index: 1100;
+    left: 0;
+    top: 0;
+}
+.t-dimer.active {
+    opacity: 1;
+}
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+/*********************************************************************/

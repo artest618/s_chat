@@ -11,6 +11,7 @@ require.config({
     paths: {
         domReady: "domReady",
         ejs: "ejs",
+        mini_msg:'mini_msg',
         common: "common",
         jquery: 'jquery',
         AjaxUpload: 'ajaxupload'
@@ -26,14 +27,14 @@ var app = {
     addingchat: {}
 };
 
-require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Common, $dom, EJS) {
+require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], function ($, Common, $dom, EJS) {
     var socket = io.connect();
 
     $dom(function () {
         var sendData = {tid: Common.urlparams.tid, to: Common.urlparams.to,
             totype: Common.urlparams.totype,pid:Common.urlparams.pid};
         if (!sendData.tid && !sendData.to) {
-            alert("访问不正确，请联系管理员");
+            _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
             return;
         }
         if(sendData.totype&&sendData.totype==2){
@@ -61,10 +62,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                 data: sendData,
                 success: function (data) {
                     if(data[0].usertype==3&&data[1].usertype==3){
-                        alert("访问不正确，请联系管理员");
+                        _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
                         return;
                     }else if(data[0].usertype==1&&data[1].usertype==1){
-                        alert("访问不正确，请联系管理员");
+                        _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
                         return;
                     }else{
                         app.users = data;
@@ -151,7 +152,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                             groupnum: data.groupnum
                         }
                         if(data&&data.groupname){
-                            alert("恭喜您成功加入"+data.groupname);
+                            _show_msg({msg:"恭喜您成功加入"+data.groupname,title:"温馨提示"});
                         }
 
                     },
@@ -168,7 +169,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function ($, Comm
                 var msg,ejs;
                  msg = $('#' + toId).find('.inputmsg').val();
                  if(!msg){
-                     alert("您发送的消息为空！");
+                     _show_msg({msg:"您发送的消息为空！",title:"温馨提示"});
                      return false;
                  }
                  ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
