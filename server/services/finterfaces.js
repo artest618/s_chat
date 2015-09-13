@@ -41,7 +41,7 @@ var FI = {
 
                 if(userRole == 1||userRole ==3){
                     usertype = 1;
-                }else if(userRole == 2){
+                }else if(userRole == 2||userRole == 6){
                     usertype = 2;
                 }else if(userRole == 4){
                     usertype = 3
