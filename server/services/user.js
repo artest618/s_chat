@@ -58,7 +58,7 @@ var UserService = {
     },
     updateUserName: function(uid, name, onsuccess, onerror){
         var sql = [
-            'UPDATE tb_userinfo SET name=\'' + name + '\' where uid=' + uid
+            'UPDATE tb_userinfo SET name=\'' + name + '\', cname=\'' + name + '\' where uid=' + uid
         ];
         JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
