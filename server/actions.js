@@ -212,7 +212,7 @@ var actions = {
             });
         }
         else{
-            res.send({error: '每位用户最多只能加入3个客户群或客户经理群！'});
+            res.send({error: '每位用户最多只能加入5个客户群或客户经理群！'});
         }
     },
     exitGroup: function(req, res){
