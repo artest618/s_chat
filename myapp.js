@@ -199,9 +199,13 @@ for(var i=0; i<routedefines.length; i++){
 
 var users = {};
 var server = http.createServer(app);
-server.listen(app.get('port'), function(){
-    logger.info('Express server listening on port ' + app.get('port'));
-});
+
+if(module.parent){
+    server.listen(app.get('port'), function(){
+        logger.info('Express server listening on port ' + app.get('port'));
+    });
+}
+
 var seventdefines = {
     'online': sioHandler.online,
     'say': sioHandler.say,
