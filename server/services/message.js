@@ -99,7 +99,7 @@ var msgService= {
                 vals[i].datetime = util.dateFormat('yyyy-MM-dd hh:mm:ss', vals[i].datetime);
             }
             var rs = {
-                date: vals[0] && vals[0].datetime,
+                date: vals[0] && util.dateFormat('yyyy-MM-dd', vals[0].datetime),
                 page: page,
                 msg: vals
             }
