@@ -20,6 +20,9 @@ var FI = {
         //data = q.stringify(data);
 
     },
+    userPhoneFamat:function(phone){
+       return  phone.substr(0,3)+"****"+phone.substr(7,10);
+    },
     checkSigned: function(uid, callback){
         //return callback(true);
         var path = '/webservice/users/queryuser.htm?userId=' + uid;
@@ -52,9 +55,9 @@ var FI = {
                     usertype = 1;
                 }
                 var user = {
-                    name: result.userEdit.userName,
+                    name: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
                     uid: result.userEdit.userId,
-                    cname: result.userEdit.userName,
+                    cname: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
                     usertype: usertype,
                     headicon: result.userEdit.userImg
                 }
