@@ -111,3 +111,24 @@ CREATE TABLE `tb_contacthistory_list`(
   `totype` int(2) NOT NULL COMMENT '聊天对象类型 1为顾问/客户 2为群',
   `lastchattime` TIMESTAMP  COMMENT '最后一次聊天时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='聊天列表'
+
+
+-- ----------------------------
+-- Records of tb_message
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_message
+-- ----------------------------
+DROP TABLE `tb_message`;
+CREATE TABLE `tb_message`(
+  `custid` int(9) NOT NULL COMMENT '客户id'，
+  `counselorid` int(9) NOT NULL COMMENT '顾问id'，
+  `from` int(9) NOT NULL COMMENT '消息发送者id',
+  `cname` VARCHAT(16) NOT NULL COMMENT '消息发送者名称',
+  `fromtype` int(2) COMMENT '消息发送者类型',
+  `totype` int(2) COMMENT '消息接收者类型',
+  `datetime` TIMESTAMP  COMMENT '聊天时间',
+  `msgtype` VARCHAT(10) NOT NULL DEFAULT 'text' COMMENT '消息类型 text-文本消息 file-文件消息',
+  `message` VARCHAT(1024) NOT NULL COMMENT '消息内容'
+)
