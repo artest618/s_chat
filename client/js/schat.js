@@ -82,9 +82,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             url: 'chatList',
             data: {},
             success: function(data){
+                var unreaduser = null;
                 function clearRepeat(schat){
                     var len = schat.length;
                     for(var i=0; i<len; i++){
+                        if(schat[i].unreadCount > 0 && !unreaduser){
+                            unreaduser = schat[i];
+                        }
                         for(var j=i+1; j<len; j++){
                             if(schat[i].uid == schat[j].uid){
                                 schat.splice(j,1);
@@ -102,6 +106,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 if(app.from.usertype != 3 && app.users[1]){
                     showChatView(app.users[1].uid);
                     getProductInfo(app.users[1].uid);
+                } else if(unreaduser){
+                    showChatView(unreaduser.uid);
+                    if(unreaduser.usertype == 3){
+                        getProductInfo(unreaduser.uid);
+                    }else{
+                        getProductInfo(app.users[0].uid);
+                    }
                 }
                 $('.contactlistview').find('li').on('click', function(e){
                     $('.contactlistview').find('li').removeClass("cur")
@@ -231,7 +242,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             $('#' + tid).find('.btnsend').on('click', function(){
                 var msg = $('#' + tid).find('.inputmsg').val();
                 if(!msg){
-                    Common.showAlert('请输入消息后发送。');
+                    //Common.showAlert('请输入消息后发送。');
                     return;
                 }
                 var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
@@ -493,7 +504,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             //var sys = '<div style="color:#f00">系统(' + now() + '):' + '用户 ' + data.user + ' 上线了！</div>';
             $('.contactlistview').find('li').each(function(i, item){
                 if($(item).attr('tid') == parseInt(data.user.uid) ) {
-                    $(item).find('img').attr('src', data.user.headicon ? data.user.headicon : '../images/picb.png');
+                    $(item).find('img').removeClass('offlineheader');//attr('src', data.user.headicon ? data.user.headicon : '../images/picb.png');
                 }
             });
         } else {
@@ -519,7 +530,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         //showSayTo();
         $('.contactlistview').find('li').each(function(i, item){
             if($(item).attr('tid') == parseInt(data.uid) ) {
-                $(item).find('img').attr('src', '../images/custom_r3_c1.jpg');
+                $(item).find('img').removeClass('offlineheader');
+                //$(item).find('img').attr('src', '../images/custom_r3_c1.jpg');
             }
         });
     });
