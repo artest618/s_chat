@@ -1,8 +1,11 @@
-<% if(data.msgs.length>0){%>
-<p class="shijian"><%=data.msgs[0].datetime.split(' ')[0]%></p>
-<%}%>
 <%
 for(var i=data.msgs.length -1; i>=0; i--){
+    var curdate = data.msgs[i].datetime.split(' ')[0], ldate = data.msgs[i+1] && data.msgs[i+1].datetime.split(' ')[0] || '';
+    if(curdate != ldate){
+%>
+<p class="shijian"><%=data.msgs[i].datetime.split(' ')[0]%></p>
+<%}%>
+<%
     if( parseInt(data.msgs[i].id) != parseInt(data.user.uid) ){
 %>
 <dl class="dlLeft">
