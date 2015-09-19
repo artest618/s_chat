@@ -361,6 +361,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                         var ejs = new EJS({url: "views/tmpls/msgrow_r.ejs"}).render({msg: {
                             cname: app.from.cname,
                             datetime: Common.formatDate(new Date()),
+                            headicon: app.from.headicon ? app.from.headicon : '../images/picb.png',
                             msg: Common.formatMsgDisp(html) //.replace(/\n/g, '<br />')
                         }});
                         $('#' + tid).find('.l-c1-c3').append(ejs.replace(/\<\s*br\s*\/\>/g, ''));
@@ -380,7 +381,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             totype: user.totype || user.grouptype,
                             chattype: app.chattype,
                             msgtype: 'file',
-                            msg: {file: file, url: JSON.parse(res).url}
+                            msg: JSON.stringify({file: file, url: JSON.parse(res).url})
                         });
                     }
                 });
