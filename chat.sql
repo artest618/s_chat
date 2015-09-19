@@ -122,8 +122,8 @@ CREATE TABLE `tb_contacthistory_list`(
 -- ----------------------------
 DROP TABLE `tb_message`;
 CREATE TABLE `tb_message`(
-  `custid` int(9) NOT NULL COMMENT '客户id'，
-  `counselorid` int(9) NOT NULL COMMENT '顾问id'，
+  `custid` int(9) NOT NULL COMMENT '客户id',
+  `counselorid` int(9) NOT NULL COMMENT '顾问id',
   `from` int(9) NOT NULL COMMENT '消息发送者id',
   `cname` VARCHAT(16) NOT NULL COMMENT '消息发送者名称',
   `fromtype` int(2) COMMENT '消息发送者类型',
