@@ -135,3 +135,14 @@ CREATE TABLE `tb_message`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='聊天消息'
 
 ALTER TABLE `tb_message` ADD INDEX `custid_counselorid` (`custid`, `counselorid`) ;
+
+-- ----------------------------
+-- Records of tb_unread
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_unread
+-- ----------------------------
+DROP TABLE `tb_unread`;
+CREATE TABLE `tb_unread`(
+);

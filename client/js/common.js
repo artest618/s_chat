@@ -162,7 +162,7 @@ define("common", ['jquery', 'ejs'], function($, EJS){
         },
         upfiletypes: {
             'image': ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
-            'office': ['doc', 'docs', 'xls', 'xlsx', 'ppt', 'pptx'],
+            'office': ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
             'zipfile': ['rar', 'zip', 'tar', '7z']
         },
         getFileTypeByExt: function(ext){
