@@ -301,3 +301,8 @@ button.chat_dialog_rbtn{
 	color: white;
 	text-align: center;
 }
+.offlineheader{
+	-webkit-filter: grayscale(1);/* Webkit */
+	filter:gray;/* IE6-9 */
+	filter: grayscale(1);/* W3C */
+}

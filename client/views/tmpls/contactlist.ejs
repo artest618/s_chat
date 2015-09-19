@@ -2,11 +2,11 @@
 <li tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>" style="position: relative;">
     <dl tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
         <dt tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
-			<img src="<%=data[i].groupid ? '../images/pica.png' : (data[i].isOnline ? (data[i].headicon ? data[i].headicon : '../images/picd.png') : '../images/picb.png')%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>"  chattype="<%=chattype || 'single'%>" alt="">
+			<img src="<%=data[i].groupid ? '../images/pica.png' : (data[i].headicon ? data[i].headicon : '../images/picb.png')%>" class="<%=(data[i].isOnline || data[i].groupid) ? '':'offlineheader'%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>"  chattype="<%=chattype || 'single'%>" alt="">
 		</dt>
         <dd id="contact_<%=parseInt(data[i].toid || data[i].groupid)%>" tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
 			<p tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>" style="white-space: nowrap;">
-				<%=data[i].cname || data[i].groupname%>
+				<%=data[i].cname || data[i].groupname || '匿名'%>
 			</p>
 		</dd>
         <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>'>

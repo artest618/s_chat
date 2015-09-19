@@ -1,6 +1,6 @@
 <%for(var i in users){%>
 <dl uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>" class="guserlist_r">
     <dt uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>"><img src="images/dng.png" alt="" uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>"></dt>
-    <dd uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>"><span uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>"><%=users[i].cname%></span><span uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>">&nbsp;(<%=users[i].uid%>)</span></dd>
+    <dd uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>"><span uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>"><%=users[i].cname||"匿名"%></span><span uid="<%=users[i].uid%>" utype="<%=users[i].usertype%>">&nbsp;(<%=users[i].uid%>)</span></dd>
 </dl>
 <%}%>

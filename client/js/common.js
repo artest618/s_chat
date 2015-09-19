@@ -98,7 +98,7 @@ define("common", ['jquery', 'ejs'], function($, EJS){
                 path: '../images/emoji/hsmile.png'
             },
             {
-                code: '/idwts',
+                code: '/idwtsx',
                 path: '../images/emoji/idwts.png'
             },
             {

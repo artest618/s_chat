@@ -200,11 +200,9 @@ for(var i=0; i<routedefines.length; i++){
 var users = {};
 var server = http.createServer(app);
 
-if(module.parent){
-    server.listen(app.get('port'), function(){
-        logger.info('Express server listening on port ' + app.get('port'));
-    });
-}
+server.listen(app.get('port'), function(){
+    logger.info('Express server listening on port ' + app.get('port'));
+});
 
 var seventdefines = {
     'online': sioHandler.online,
@@ -223,6 +221,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('disconnect',  function(data){
         sioHandler['disconnect'](socket, data, io);
     });
+
     /*
     for(var f in seventdefines){
         if(f){
