@@ -300,7 +300,7 @@ var actions = {
      * @param res
      */
     getHistoryList:function(req,res){
-        var uid = req.query.uid?parseInt(req.query.uid):"",  user;
+        var uid = req.query.uid?parseInt(req.query.uid):"",  user ,tmp=[],flag=false;;
         actions.syncUser(req,res,function(obj){
             if(obj.error){
                 res.send(obj);
@@ -315,14 +315,30 @@ var actions = {
                             for(i in gdata){
                                 gdata[i].jointime=util.dateFormat("yyyy-MM-dd hh:mm:ss", gdata[i].jointime);
                             }
-                            data.forEach(function(item){
+                            data.forEach(function(item,i,arr){
                                 if(global.onlineUsers[item.uid]){
                                     item.isOnline = 1;
                                 } else {
                                     item.isOnline = 0;
                                 }
+                                if(tmp.length==0){
+                                    tmp.push(item);
+                                }else{
+                                    flag=false;
+                                    tmp.forEach(function(obj,j,newArr){
+                                        if(item.uid==obj.uid){
+                                            flag=true;
+                                        }
+                                    });
+                                    if(!flag){
+                                        tmp.push(item);
+                                    }
+                                }
+
+
                             });
-                            res.render("tmpls/m_histroy_page",{uid:uid,data:data,gdata:gdata});
+
+                            res.render("tmpls/m_histroy_page",{uid:uid,data:tmp,gdata:gdata});
                         }, function(err){});
 
                     });
