@@ -124,10 +124,11 @@ DROP TABLE `tb_message`;
 CREATE TABLE `tb_message`(
   `custid` int(9) NOT NULL COMMENT '客户id',
   `counselorid` int(9) NOT NULL COMMENT '顾问id',
-  `from` int(9) NOT NULL COMMENT '消息发送者id',
+  `id` int(9) NOT NULL COMMENT '消息发送者id',
   `cname` VARCHAT(16) NOT NULL COMMENT '消息发送者名称',
   `fromtype` int(2) COMMENT '消息发送者类型',
   `totype` int(2) COMMENT '消息接收者类型',
+  `chattype` VARCHAR(10) DEFAULT 'single' COMMENT '聊天类型',
   `datetime` TIMESTAMP  COMMENT '聊天时间',
   `msgtype` VARCHAT(10) NOT NULL DEFAULT 'text' COMMENT '消息类型 text-文本消息 file-文件消息',
   `message` VARCHAT(1024) NOT NULL COMMENT '消息内容'
