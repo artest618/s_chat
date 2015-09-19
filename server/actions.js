@@ -174,7 +174,7 @@ var actions = {
             page = req.body.page,
             date = req.body.date || null,
             user = req.session.sessiondata.user;
-        msgService.readMsg(tid, chattype, user, date, page, function(data){
+        msgService.readMsgFromDB(tid, chattype, user, page, function(data){
             res.send(data);
         });
     },

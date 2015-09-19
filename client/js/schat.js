@@ -232,7 +232,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
             }});
             $('.chatwindow').append(ejs);
 
-            getHistoryMsg(tid, '', 999999999, true);
+            getHistoryMsg(tid, '', 1, true);
             app.chattype == 'gchat' && getGroupUsers(tid);
 
             $('#' + tid).find('.btnclose').on('click', function(){
@@ -305,10 +305,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 });
             });
             $('#' + tid).find('.moremsgbtn').on('click', function(){
-                getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) - 1);
+                getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) + 1);
             });
             $('#' + tid).find('.exitgbtn').on('click', function(){
-                getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) - 1);
+                //getHistoryMsg(tid, $('#' + tid).attr('msgdate'), parseInt($('#' + tid).attr('page')) + 1);
                 Common.post({
                     url: 'exitGroup',
                     data: {groupid: tid},
