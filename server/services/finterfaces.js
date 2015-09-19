@@ -55,9 +55,9 @@ var FI = {
                     usertype = 1;
                 }
                 var user = {
-                    name: result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||""),
+                    name: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
                     uid: result.userEdit.userId,
-                    cname: result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||""),
+                    cname: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
                     usertype: usertype,
                     headicon: result.userEdit.userImg
                 }
