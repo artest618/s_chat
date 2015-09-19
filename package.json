@@ -1,16 +1,18 @@
 {
-  "name": "s_chat",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node myapp.js"
-  },
-  "dependencies": {
-    "express": "3.3",
-    "ejs": "*",
-    "socket.io": "*",
-    "mysql": "*",
-    "mysql-queues":"*",
-    "log4js": "0.6.26"
-  }
+    "name": "s_chat",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node myapp.js"
+    },
+    "dependencies": {
+        "express": "3.3",
+        "ejs": "*",
+        "socket.io": "*",
+        "mysql": "*",
+        "mysql-queues":"*",
+        "connect-redis":"*",
+        "express-session":"*",
+        "log4js": "0.6.26"
+    }
 }
