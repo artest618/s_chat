@@ -32,6 +32,11 @@ var actions = {
                                 user.usertype = suser.usertype;
                                 userSerivce.updateUserType(user.uid, user.usertype, function(){});
                             }
+
+                            if(suser.headicon != user.headicon){
+                                user.headicon = suser.headicon;
+                                userSerivce.updateUserHeadicon(user.uid, user.headicon, function(){});
+                            }
                             req.session.sessiondata = {user: user};
                             return res.sendfile(send_target);
                         } else{

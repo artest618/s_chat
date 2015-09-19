@@ -56,6 +56,17 @@ var UserService = {
             onsuccess && onsuccess(res);
         });
     },
+
+    updateUserHeadicon: function(uid, headicon, onsuccess, onerror){
+        var sql = [
+            'UPDATE tb_userinfo SET headicon=' + headicon + ' where uid=' + uid,
+            'DELETE FROM tb_group_userlist where userid=' + uid
+        ];
+        JDB.oper(sql, function(res){
+            onsuccess && onsuccess(res);
+        });
+    },
+
     updateUserName: function(uid, name, onsuccess, onerror){
         var sql = [
             'UPDATE tb_userinfo SET name=\'' + name + '\', cname=\'' + name + '\' where uid=' + uid
