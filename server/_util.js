@@ -101,6 +101,6 @@ var _util={};
         return str;
     }
 
-    _util.msgPageRows = 2;
+    _util.msgPageRows = 10;
 
 module.exports=_util;
