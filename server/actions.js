@@ -479,7 +479,7 @@ var actions = {
         }
         for(var i=0; i < files.length; i++){
             var file = files[i], path = file.path, oname = name = file.name, targetpath =util.upfile_root, url = util.upfile_url_bas;
-            if(util.upfile_exts.indexOf(name.split('.')[1]) == -1){
+            if(util.upfile_exts.indexOf( name.split('.')[name.split('.').length - 1].toLocaleLowerCase() ) == -1){
                 res.send({error: '您上传的文件不在允许范围内'});
                 return;
             }
