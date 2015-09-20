@@ -94,4 +94,13 @@ var _util={};
         req.end();
     };
 
+    _util.formatStrWithParams = function(str, params){
+        params.forEach(function(item){
+            str = str.replace(/\?/, item);
+        });
+        return str;
+    }
+
+    _util.msgPageRows = 10;
+
 module.exports=_util;

@@ -2,7 +2,7 @@
 <p class="shijian"><%=data.msgs[0].datetime%></p>
 <%}%>
 <%
-for(var i in data.msgs){
+for(var i=data.msgs.length -1; i>=0; i--){
     if( parseInt(data.msgs[i].id) != parseInt(data.user.uid) ){
 %>
 <dl class="dlLeft">

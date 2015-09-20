@@ -143,7 +143,8 @@ define("common", ['jquery', 'ejs'], function($, EJS){
             return msg;
         },
         formatFileMsg: function(msg){
-            if(msg  &&  typeof msg == "object"){
+            if(msg){
+                msg = JSON.parse(msg);
                 var ext = msg.file.split('.'), ext = ext[ext.length - 1];
                 return msg = new EJS({url: 'views/tmpls/filemessage.ejs'}).render({
                     url: msg.url,
