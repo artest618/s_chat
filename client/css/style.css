@@ -259,6 +259,7 @@ button.chat_dialog_rbtn{
 	background: url(../images/dung.png) no-repeat;
 	margin-left: 60px;
 	border-radius:10px 10px 10px 20px;
+
 	background-size:100% 100%;
 }
 .disscuss dl.dlRight dd{
