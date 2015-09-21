@@ -196,8 +196,8 @@ var actions = {
                 return;
             }
         }
-        group.members.push(user);
         if(userSerivce.checkUserCanAddGroup(user)){
+            group.members.push(user);
             chatService.addGroupMember(group, user, function(rlt){
                 if(rlt){
                     user.groupcount =(user.groupcount==NaN||!user.groupcount)?1:parseInt(user.groupcount) + 1;
