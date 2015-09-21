@@ -9,7 +9,7 @@
 				<%=data[i].cname || data[i].groupname || '匿名'%>
 			</p>
 		</dd>
-        <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>'>
+        <div class='newmsgtip <%=data[i].unreadCount ? "new" : ""%>' tid="<%=parseInt(data[i].toid || data[i].groupid)%>" chattype="<%=chattype || 'single'%>">
             <%=data[i].unreadCount ? data[i].unreadCount : ""%>
         </div>
     </dl>
