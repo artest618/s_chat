@@ -71,7 +71,7 @@ var handlers = {
                 }
             };
         }
-        message.addMessage(data);
+        message.addMsgToDB(data, function(){});
     }
 }
 module.exports=handlers; 

@@ -143,7 +143,8 @@ define("common", ['jquery', 'ejs'], function($, EJS){
             return msg;
         },
         formatFileMsg: function(msg){
-            if(msg  &&  typeof msg == "object"){
+            if(msg){
+                msg = JSON.parse(msg);
                 var ext = msg.file.split('.'), ext = ext[ext.length - 1];
                 return msg = new EJS({url: 'views/tmpls/filemessage.ejs'}).render({
                     url: msg.url,
@@ -161,7 +162,7 @@ define("common", ['jquery', 'ejs'], function($, EJS){
         },
         upfiletypes: {
             'image': ['png', 'jpg', 'jpeg', 'bmp', 'gif'],
-            'office': ['doc', 'docs', 'xls', 'xlsx', 'ppt', 'pptx'],
+            'office': ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
             'zipfile': ['rar', 'zip', 'tar', '7z']
         },
         getFileTypeByExt: function(ext){

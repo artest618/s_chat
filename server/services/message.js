@@ -58,6 +58,54 @@ var msgService= {
             logger.debug('record a message from ' + data.from + ': ' + JSON.stringify(record));
         });
     },
+    addMsgToDB: function(data, onsuccess){
+        //{
+        //    from: app.from.uid,
+        //        to: app.to,
+        //    fromname:app.from.cname,
+        //    toname:user.cname || user.groupname,
+        //    fromtype: app.from.usertype,
+        //    totype: user.totype || user.grouptype,
+        //    chattype: app.chattype,
+        //    msgtype: 'file',
+        //    msg: {file: file, url: JSON.parse(res).url}
+        //}
+        var sql = 'INSERT INTO tb_message (custid, counselorid, id, cname, fromtype, totype, chattype, datetime, msgtype, message) values (?, ?, ?, \'?\', ?, ?, \'?\', ?, \'?\', \'?\')';
+        var custid = data.chattype == 'single' ? (data.fromtype == 3 ? data.to : data.from) : data.to;
+        var counselorid = data.chattype == 'single' ? (data.fromtype == 3 ? data.from : data.to) : data.to;
+        var dataArr = [custid, counselorid, data.from, data.fromname, data.fromtype, data.totype, data.chattype, 'null', data.msgtype, data.msg];
+        sql = util.formatStrWithParams(sql, dataArr);
+        JDB.oper([sql], function(res){
+            onsuccess(res);
+        });
+    },
+    readMsgFromDB: function(tid, chattype, user, page, onsuccess){
+        var custid = user.usertype == 3 ? tid : user.uid;
+        var counselorid = chattype == 'single' ? (user.usertype == 3 ? user.uid : tid) : tid;
+        var sql = '';
+        if(chattype == 'single'){
+            sql = 'SELECT * FROM tb_message where custid=? and counselorid=? order by datetime desc limit ?,?';
+            sql = util.formatStrWithParams(sql, [custid, counselorid, (page-1)*util.msgPageRows, util.msgPageRows]);
+        }else{
+            sql = 'SELECT * FROM tb_message where counselorid=? limit ?,?';
+            sql = util.formatStrWithParams(sql, [counselorid, (page-1)*util.msgPageRows, page*util.msgPageRows]);
+        }
+        JDB.query(sql,function(err,vals,fields){
+            if(err){
+                logger.info(JSON.stringify(err));
+                onerror && onerror(err);
+            }
+            for(var i in vals){
+                vals[i].datetime = util.dateFormat('yyyy-MM-dd hh:mm:ss', vals[i].datetime);
+            }
+            var rs = {
+                date: vals[0] && util.dateFormat('yyyy-MM-dd', vals[0].datetime),
+                page: page,
+                msg: vals
+            }
+            onsuccess(rs);
+        });
+    },
     readMsg: function(tid, chattype, user, date, page, callback){
         var path = util.msgroot;
         if(chattype == 'single'){
