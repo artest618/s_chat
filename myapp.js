@@ -22,11 +22,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
-<<<<<<< HEAD
 app.use(express.session({  secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800000}, path: '/'}));
-=======
-app.use(express.session({ secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800000}, path: '/'}));
->>>>>>> origin/dev
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
