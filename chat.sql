@@ -148,4 +148,3 @@ ALTER TABLE `tb_message` ADD INDEX `custid_counselorid` (`custid`, `counselorid`
 DROP TABLE `tb_unread`;
 CREATE TABLE `tb_unread`(
 );
->>>>>>> origin/dev
