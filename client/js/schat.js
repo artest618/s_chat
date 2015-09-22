@@ -297,10 +297,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                         });
                         $('#' + tid).find('.applyGroup').hide();
-                        Common.showAlert('加群成功！');
                         setTimeout(function(){
                             window.location.reload();
                         },2000);
+                        Common.showAlert('加群成功！');
                     },
                     error: function(err){
 
@@ -323,10 +323,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                     $(item).remove();
                                 }
                             });
-                            Common.showAlert('退群成功！');
                             setTimeout(function(){
                                 window.location.reload();
                             },2000);
+                            Common.showAlert('退群成功！');
                         }
                     },
                     error: function(err){
