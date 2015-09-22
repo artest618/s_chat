@@ -298,6 +298,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                         });
                         $('#' + tid).find('.applyGroup').hide();
                         Common.showAlert('加群成功！');
+                        window.location.reload();
                     },
                     error: function(err){
 
@@ -321,6 +322,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                                 }
                             });
                             Common.showAlert('退群成功！');
+                            window.location.reload();
                         }
                     },
                     error: function(err){
