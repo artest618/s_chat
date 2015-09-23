@@ -132,8 +132,14 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             if(!Common.urlparams.totype){
                 $("#history_header").css("display","none");
                 $("#message_to_header").css("display","block");
+                $("#message_to_header_href").click(function(){
+                    if(Common.urlparams.pageType == 1 ||Common.urlparams.pageType == 2){
+                        window.location.href = "http://wap.r8china.com/index.htm?module=expert_detil&userId="+toId+"&expertuserId="+app.to+"&pageType="+Common.urlparams.pageType;
+                    }else if(Common.urlparams.pageType == 3){
+                        window.location.href = "http://wap.r8china.com/index.htm?module=loan_list&userId="+toId+"&pageType="+Common.urlparams.pageType;
+                    }
+                });
             }
-
             //从手机端接入
             if(Common.urlparams.totype==3){
                 $("#history_header").css("display","none");
@@ -251,9 +257,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                     data: {pid: app.pid},
                     success: function (data) {
                         $('#' + toId).find('.pro_info .pro_img').attr("src", data.productIgUrl);
-
-
-
                         var str = "<div class='f20'>"+data.productName+"</div>"+
                             "<div class='f20'>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
                             "<div class='f20'><span>"+Common.productDispValue.monthRate + ":" + data.monthRate+"%</span>"+
