@@ -68,7 +68,7 @@ var UserService = {
     },
 
     updateUserName: function(uid, name, onsuccess, onerror){
-        var cname = (name&&name.substr(0,1)+"经理")||"经理";
+        var cname = (name&&name.substr(0,1)+"缁忕悊")||"缁忕悊";
         var sql = [
             'UPDATE tb_userinfo SET name=\'' + name + '\', cname=\'' + cname + '\' where uid=' + uid
         ];
