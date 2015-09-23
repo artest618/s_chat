@@ -62,11 +62,11 @@ var FI = {
                 //    headicon: result.userEdit.userImg
                 //}
                 var phone =result.userEdit.userPhone||"12345678901";
-                var userName = (result.userEdit.userName&&(result.userEdit.userName.substr(0,1)+"经理"))||"";
+                var cName = (result.userEdit.userName&&(result.userEdit.userName.substr(0,1)+"经理"))||"";
                 var user = {
                     name: (result.userEdit.userName||(phone.substr(0,3)+"****"+phone.substr(7,10))),
                     uid: result.userEdit.userId,
-                    cname: (userName||(phone.substr(0,3)+"****"+phone.substr(7,10))),
+                    cname: (cName||(phone.substr(0,3)+"****"+phone.substr(7,10))),
                     usertype: usertype,
                     headicon: result.userEdit.userImg
                 }
