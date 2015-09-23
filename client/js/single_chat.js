@@ -35,6 +35,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             totype: Common.urlparams.totype,pid:Common.urlparams.pid};
         if (!sendData.tid && !sendData.to) {
             _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
+            goBack();
             return;
         }
         if(sendData.totype&&sendData.totype==2){
@@ -63,9 +64,11 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                 success: function (data) {
                     if(data[0].usertype==3&&data[1].usertype==3){
                         _show_msg({time:2500,msg:"访问不正确，请联系管理员",title:"温馨提示"});
+                        goBack();
                         return;
                     }else if(data[0].usertype==1&&data[1].usertype==1){
                         _show_msg({time:2500,msg:"访问不正确，请联系管理员",title:"温馨提示"});
+                        goBack();
                         return;
                     }else{
                         app.users = data;
@@ -103,6 +106,12 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
         })
     }
 
+    function goBack(num){
+        setTimeout(function(){
+            window.history.go(-1);
+        },num||2000);
+    }
+
     function showChatView(isTid) {
         var user = app.users[1], fromId = app.from.uid, toId = user.uid||user.id;
 
@@ -126,10 +135,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             }
 
             //从手机端接入
-            //if(!Common.urlparams.totype==3){
-            //    $("#history_header").css("display","none");
-            //    $("#message_to_header_toapp").css("display","block");
-            //}
+            if(Common.urlparams.totype==3){
+                $("#history_header").css("display","none");
+                $("#message_to_header_toapp").css("display","block");
+            }
 
             $('#' + toId).find(".add").on("click",function(){
                 //加群
@@ -169,7 +178,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                 var msg,ejs;
                  msg = $('#' + toId).find('.inputmsg').val();
                  if(!msg){
-                     _show_msg({time:2500,msg:"您发送的消息为空！",title:"温馨提示"});
+                     _show_msg({time:1000,msg:"您发送的消息为空！",title:"温馨提示"});
                      return false;
                  }
                  ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
