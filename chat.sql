@@ -114,8 +114,10 @@ CREATE TABLE `tb_contacthistory_list`(
 
 
 -- ----------------------------
--- Records of tb_message
+-- Records of tb_usertype
 -- ----------------------------
+
+
 
 -- ----------------------------
 -- Table structure for tb_message

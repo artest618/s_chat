@@ -32,6 +32,11 @@ var actions = {
                                 user.usertype = suser.usertype;
                                 userSerivce.updateUserType(user.uid, user.usertype, function(){});
                             }
+
+                            if(suser.headicon != user.headicon){
+                                user.headicon = suser.headicon;
+                                userSerivce.updateUserHeadicon(user.uid, user.headicon, function(){});
+                            }
                             req.session.sessiondata = {user: user};
                             return res.sendfile(send_target);
                         } else{
@@ -196,8 +201,8 @@ var actions = {
                 return;
             }
         }
-        group.members.push(user);
         if(userSerivce.checkUserCanAddGroup(user)){
+            group.members.push(user);
             chatService.addGroupMember(group, user, function(rlt){
                 if(rlt){
                     user.groupcount =(user.groupcount==NaN||!user.groupcount)?1:parseInt(user.groupcount) + 1;

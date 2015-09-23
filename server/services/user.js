@@ -49,14 +49,25 @@ var UserService = {
     },
     updateUserType: function(uid, type, onsuccess, onerror){
         var sql = [
-            'UPDATE tb_userinfo SET usertype=' + type + ' where uid=' + uid,
+            'UPDATE tb_userinfo SET usertype=' + type + ',groupcount=0 where uid=' + uid,
             'DELETE FROM tb_group_userlist where userid=' + uid
         ];
         JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
         });
     },
+
+    updateUserHeadicon: function(uid, headicon, onsuccess, onerror){
+        var sql = [
+            'UPDATE tb_userinfo SET headicon=\'' + headicon + '\' where uid=' + uid
+        ];
+        JDB.oper(sql, function(res){
+            onsuccess && onsuccess(res);
+        });
+    },
+
     updateUserName: function(uid, name, onsuccess, onerror){
+       // var cname = (name&&name.substr(0,1)+"经理")||"经理";
         var sql = [
             'UPDATE tb_userinfo SET name=\'' + name + '\', cname=\'' + name + '\' where uid=' + uid
         ];

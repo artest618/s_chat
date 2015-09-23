@@ -54,14 +54,22 @@ var FI = {
                 }else{
                     usertype = 1;
                 }
+                //var user = {
+                //    name: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
+                //    uid: result.userEdit.userId,
+                //    cname: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
+                //    usertype: usertype,
+                //    headicon: result.userEdit.userImg
+                //}
+                var phone =result.userEdit.userPhone||"12345678901";
+                //var cName = (result.userEdit.userName&&(result.userEdit.userName.substr(0,1)+"经理"))||"";
                 var user = {
-                    name: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
+                    name: (result.userEdit.userName||(phone.substr(0,3)+"****"+phone.substr(7,10))),
                     uid: result.userEdit.userId,
-                    cname: (result.userEdit.userName||userPhoneFamat(result.userEdit.userPhone||"")),
+                    cname: (result.userEdit.userName||(phone.substr(0,3)+"****"+phone.substr(7,10))),
                     usertype: usertype,
                     headicon: result.userEdit.userImg
                 }
-
                 callback(user);
             }else{
                 callback({error: '您还未登录系统或无权限进入聊天，请在登录页面进行登录！'});
