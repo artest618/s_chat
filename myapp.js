@@ -1,6 +1,6 @@
 //dependencies
 require('./server/globalcache');
-var express = require('express'), 
+var express = require('express'),
       http = require('http'),
       path = require('path'),
       actions = require('./server/actions.js'),
@@ -8,9 +8,15 @@ var express = require('express'),
       logger = require('./server/logger').logger;
 
 var app = express();
-//var session = require('express-session');
-//var RedisStore = require('connect-redis')(session);
-//var options = {};
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var options = {
+    host: "101.200.199.11",
+    port: 6379,
+    db: 1,
+    secret: 'keyboard cat'
+};
+
 
 // all environments
 app.set('port', process.env.PORT || 9003);
@@ -22,7 +28,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
-app.use(express.session({  secret: '134443', key: 'uiuvj' ,cookie: { maxAge: 1800000}, path: '/'}));
+app.use(session({ store:new RedisStore(options) ,cookie: { maxAge: 1800000}, path: '/'}));
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));

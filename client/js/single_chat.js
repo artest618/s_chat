@@ -178,7 +178,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             });
 
             //历史
-            getHistoryMsg(toId, '', 999999999,true);
+            getHistoryMsg(toId, '', 1,true);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg,ejs;
@@ -245,9 +245,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
 
             //更多
             $('#' + toId).find('.moremsgbtn').on('click', function(){
-                if(parseInt($('#' + toId).attr('page')) - 1>-1){
-                    getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
-                }
+                /*if(parseInt($('#' + toId).attr('page')) - 1>-1){*/
+                    getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) + 1);
+                /*}*/
             });
 
             //判断是否要写入产品信息
