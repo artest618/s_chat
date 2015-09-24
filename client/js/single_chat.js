@@ -201,7 +201,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                     fromname: app.from.cname,
                     toname:user.cname || user.groupname,
                     fromtype: app.from.usertype,
-                    totype: user.totype || user.grouptype,
+                    totype: user.usertype || user.grouptype,
                     chattype: app.chattype,
                     msgtype: 'text',
                     msg: msg

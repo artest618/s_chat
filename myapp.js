@@ -7,12 +7,14 @@ var express = require('express'),
       sioHandler = require('./server/sioHandler.js'),
       logger = require('./server/logger').logger;
 
+var redisConfig={port:6379,host:"101.200.199.11"};
+
 var app = express();
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var options = {
-    host: "101.200.199.11",
-    port: 6379,
+    host: redisConfig.host,
+    port: redisConfig.port,
     db: 1,
     secret: 'keyboard cat'
 };
@@ -218,7 +220,20 @@ var seventdefines = {
     'say': sioHandler.say,
     'disconnect': sioHandler.disconnect
 }
-var io = require('socket.io').listen(server);
+
+
+var io    = require('socket.io').listen(server);
+/*var redis = require('socket.io-redis');
+
+io.adapter(redis({ host: redisConfig.host, port: redisConfig.port }));
+
+adapter.pubClient.on('error', function(e){
+    console.log(e);
+});
+adapter.subClient.on('error', function(e){
+    console.log(e);
+});*/
+
 io.sockets.on('connection', function (socket) {
 
     socket.on('online', function(data){
