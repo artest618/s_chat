@@ -87,7 +87,7 @@ var msgService= {
             sql = 'SELECT * FROM tb_message where custid=? and counselorid=? order by datetime desc limit ?,?';
             sql = util.formatStrWithParams(sql, [custid, counselorid, (page-1)*util.msgPageRows, util.msgPageRows]);
         }else{
-            sql = 'SELECT * FROM tb_message where counselorid=? limit ?,?';
+            sql = 'SELECT * FROM tb_message where counselorid=? order by datetime desc limit ?,?';
             sql = util.formatStrWithParams(sql, [counselorid, (page-1)*util.msgPageRows, page*util.msgPageRows]);
         }
         JDB.query(sql,function(err,vals,fields){
