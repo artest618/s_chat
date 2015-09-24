@@ -47,44 +47,44 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         $(document).on('click', function(e){
             $(".emojipanel").hide();
         });
-        $(".closewinbtn").on('cilick', function(e){
-            if(window.confirm('您确定要离开本页面么？')){
-                Common.post({
-                    url: 'offline',
-                    data: {},
-                    success: function(){
-                        window.close();
-                    },
-                    error: function(){
-                        window.close();
-                    }
-                })
-            }
-        });
+        //$(".closewinbtn").on('click', function(e){
+        //    if(window.confirm('您确定要离开本页面么？')){
+        //        Common.post({
+        //            url: 'offline',
+        //            data: {},
+        //            success: function(){
+        //                window.close();
+        //            },
+        //            error: function(){
+        //                window.close();
+        //            }
+        //        })
+        //    }
+        //});
         //window.onbeforeunload = function(){
         //    return '您确认要离开聊天页面么？';
         //}
 
 
-        $(".chuangkou  li").on("click",function(){
-            //绑定beforeunload事件
-            $(window).bind('beforeunload',function(){
-                return '确定离开融吧智能咨询系统?';
-            });
-            var userAgent = navigator.userAgent;
-            if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Chrome") !=-1) {
-                window.location.href="about:blank";
-            } else {
-                window.opener = null;
-                window.open("", "_self");
-                window.close();
-            }
-
-            //解除绑定，一般放在提交触发事件中
-            setTimeout(function(){
-                $(window).unbind('beforeunload');
-            },500);
-        });
+        //$(".chuangkou  li").on("click",function(){
+        //    //绑定beforeunload事件
+        //    $(window).bind('beforeunload',function(){
+        //        return '确定离开融吧智能咨询系统?';
+        //    });
+        //    var userAgent = navigator.userAgent;
+        //    if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Chrome") !=-1) {
+        //        window.location.href="about:blank";
+        //    } else {
+        //        window.opener = null;
+        //        window.open("", "_self");
+        //        window.close();
+        //    }
+        //
+        //    //解除绑定，一般放在提交触发事件中
+        //    setTimeout(function(){
+        //        $(window).unbind('beforeunload');
+        //    },500);
+        //});
     });
 
     function initChatList(){
