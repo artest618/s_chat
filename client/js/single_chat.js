@@ -134,7 +134,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                 $("#message_to_header").css("display","block");
                 $("#message_to_header_href").click(function(){
                     if(Common.urlparams.pageType == 1 ||Common.urlparams.pageType == 2){
-                        window.location.href = "http://wap.r8china.com/index.htm?module=expert_detil&userId="+Common.urlparams["uid"]+"&expertuserId="+app.to+"&pageType="+Common.urlparams.pageType;
+                        window.location.href = "http://wap.r8china.com/index.htm?module=expert_detil&userId="+Common.urlparams["uid"]+"&expertuserId="+app.to+"&pageType="+Common.urlparams.pageType+"&pType="+(Common.urlparams.pType||"");
                     }else if(Common.urlparams.pageType == 3){
                         window.location.href = "http://wap.r8china.com/index.htm?module=loan_list&userId="+Common.urlparams["uid"]+"&pageType="+Common.urlparams.pageType;
                     }
