@@ -221,6 +221,12 @@ var seventdefines = {
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
 
+    var tweets = setInterval(function () {
+        getBieberTweet(function (tweet) {
+            socket.volatile.emit('bieber tweet', tweet);
+        });
+    }, 100);
+
     socket.on('online', function(data){
         sioHandler['online'](socket, data, io);
     });
@@ -228,6 +234,7 @@ io.sockets.on('connection', function (socket) {
         sioHandler['say'](socket, data, io);
     });
     socket.on('disconnect',  function(data){
+        clearInterval(tweets);
         sioHandler['disconnect'](socket, data, io);
     });
 
