@@ -26,7 +26,7 @@ var actions = {
                         if(flag){
                             if(suser.name != user.name){
                                 user.name = suser.name;
-                                userSerivce.updateUserName(user.uid, user.name, function(){});
+                                userSerivce.updateUserName(user.uid, user.name,user.usertype,function(){});
                             }
                             if(suser.usertype != user.usertype){
                                 user.usertype = suser.usertype;
