@@ -263,7 +263,7 @@ body{
 .m_dialog{
     width: 20.75rem;
     min-height: 15.55rem;
-    position: absolute;
+    position: fixed;
     z-index: 1101;
     margin-left: -10.375rem;
     left: 50%;

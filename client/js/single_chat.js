@@ -204,6 +204,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                     totype: user.usertype || user.grouptype,
                     chattype: app.chattype,
                     msgtype: 'text',
+                    to_headicon:app.from.headicon||"../images/headers/default.png",
                     msg: msg
                 });
 
@@ -348,7 +349,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                         user = app.chatUsers[i];
                     }
                 }
-
+                data.msg.sort(function(a,b){
+                    return  b.datetime<a.datetime?1:-1;
+                });
                 var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
                     user: app.from,toheadicon: user.headicon || '../images/headers/default.png'}});
 
@@ -399,6 +402,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                     var ejs = new EJS({url: "views/tmpls/m_msgrow_l.ejs"}).render({msg: {
                         cname: data.fromname,
                         datetime: Common.formatDate(new Date()),
+                        headicon:data.to_headicon||"../images/headers/default.png",
                         msg: Common.formatMsgDisp(data.msg) //.replace(/\n/g, '<br />')
                     }});
                     $('#' + data.to).find('.c_msg_list').append(ejs);
