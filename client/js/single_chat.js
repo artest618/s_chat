@@ -35,6 +35,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             totype: Common.urlparams.totype,pid:Common.urlparams.pid};
         if (!sendData.tid && !sendData.to) {
             _show_msg({msg:"访问不正确，请联系管理员",title:"温馨提示"});
+            goBack();
             return;
         }
         if(sendData.totype&&sendData.totype==2){
@@ -63,9 +64,11 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                 success: function (data) {
                     if(data[0].usertype==3&&data[1].usertype==3){
                         _show_msg({time:2500,msg:"访问不正确，请联系管理员",title:"温馨提示"});
+                        goBack();
                         return;
                     }else if(data[0].usertype==1&&data[1].usertype==1){
                         _show_msg({time:2500,msg:"访问不正确，请联系管理员",title:"温馨提示"});
+                        goBack();
                         return;
                     }else{
                         app.users = data;
@@ -103,6 +106,12 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
         })
     }
 
+    function goBack(num){
+        setTimeout(function(){
+            window.history.go(-1);
+        },num||2000);
+    }
+
     function showChatView(isTid) {
         var user = app.users[1], fromId = app.from.uid, toId = user.uid||user.id;
 
@@ -123,13 +132,19 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             if(!Common.urlparams.totype){
                 $("#history_header").css("display","none");
                 $("#message_to_header").css("display","block");
+                $("#message_to_header_href").click(function(){
+                    if(Common.urlparams.pageType == 1 ||Common.urlparams.pageType == 2){
+                        window.location.href = "http://wap.r8china.com/index.htm?module=expert_detil&userId="+Common.urlparams["uid"]+"&expertuserId="+app.to+"&pageType="+Common.urlparams.pageType;
+                    }else if(Common.urlparams.pageType == 3){
+                        window.location.href = "http://wap.r8china.com/index.htm?module=loan_list&userId="+Common.urlparams["uid"]+"&pageType="+Common.urlparams.pageType;
+                    }
+                });
             }
-
             //从手机端接入
-            //if(!Common.urlparams.totype==3){
-            //    $("#history_header").css("display","none");
-            //    $("#message_to_header_toapp").css("display","block");
-            //}
+            if(Common.urlparams.totype==3){
+                $("#history_header").css("display","none");
+                $("#message_to_header_toapp").css("display","block");
+            }
 
             $('#' + toId).find(".add").on("click",function(){
                 //加群
@@ -163,13 +178,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
             });
 
             //历史
-            getHistoryMsg(toId, '', 999999999,true);
+            getHistoryMsg(toId, '', 1,true);
             //发送
             $('#' + toId).find('.fbtnsend').on('click', function () {
                 var msg,ejs;
                  msg = $('#' + toId).find('.inputmsg').val();
                  if(!msg){
-                     _show_msg({time:2500,msg:"您发送的消息为空！",title:"温馨提示"});
+                     _show_msg({time:1000,msg:"您发送的消息为空！",title:"温馨提示"});
                      return false;
                  }
                  ejs = new EJS({url: "views/tmpls/m_msgrow_r.ejs"}).render({msg: {
@@ -230,9 +245,9 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
 
             //更多
             $('#' + toId).find('.moremsgbtn').on('click', function(){
-                if(parseInt($('#' + toId).attr('page')) - 1>-1){
-                    getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) - 1);
-                }
+                /*if(parseInt($('#' + toId).attr('page')) - 1>-1){*/
+                    getHistoryMsg(toId, $('#' + toId).attr('msgdate'), parseInt($('#' + toId).attr('page')) + 1);
+                /*}*/
             });
 
             //判断是否要写入产品信息
@@ -242,9 +257,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                     data: {pid: app.pid},
                     success: function (data) {
                         $('#' + toId).find('.pro_info .pro_img').attr("src", data.productIgUrl);
-
-
-
                         var str = "<div class='f20'>"+data.productName+"</div>"+
                             "<div class='f20'>"+ Common.productDispValue.loanLimit + ":" + data.loanLimit+"</div>"+
                             "<div class='f20'><span>"+Common.productDispValue.monthRate + ":" + data.monthRate+"%</span>"+

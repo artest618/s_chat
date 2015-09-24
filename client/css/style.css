@@ -51,7 +51,7 @@ html{font-size: 62.5%;}
 }
 .chat_dialog_l{
 	float: left;
-	width: 150px;
+	width: 160px;
 	padding-top: 8px;
 	border-right:1px solid #ddd;
 }
@@ -65,7 +65,7 @@ html{font-size: 62.5%;}
 	line-height: 51px;
 	font-size: 1.4rem;
 	color: #6f6f6f;
-	padding-left: 15px;
+	padding-left: 10px;
 }
 .chat_dialog_l span img{ 
 	display: block;
@@ -91,7 +91,7 @@ html{font-size: 62.5%;}
 	width: 38px;
 }
 .chat_dialog_l ul li dl dd{
-	margin-left: 50px;
+	margin-left: 40px;
 }
 .chat_dialog_l ul li{
 	margin-top: 10px;
@@ -101,13 +101,13 @@ html{font-size: 62.5%;}
 }
 
 .chat_dialog_c{
-width: 397px;
+width: 404px;
 height: 323px;
 float: left;
 
 }
 .dialog_c_e{
-width: 397px;
+width: 419px;
 height: 323px;
 background: #FFF;	
 margin-top: 10px;
@@ -121,7 +121,7 @@ overflow-y: scroll;
 	margin-left: 5px;
 }
 textarea {
-	width: 395px;
+	width: 410px;
 	height: 80px;
 	line-height: 20px;
 	outline: none;
@@ -150,6 +150,7 @@ textarea {
 	font-size: 1.4rem;
 	outline: none;
 	color: #FFF;
+	margin-right: -7px;
 }
 .close{
 	background: url(../images/guanbi.png);
@@ -159,13 +160,13 @@ textarea {
 	background: url(../images/send.png);
 }
 .chat_dialog_r{
-	width: 183px;
+	width: 167px;
 	padding-top: 10px;
 	padding-left: 10px;
 	float: left;
 }
 .chat_dialog_r dl dd.zixun{
-	padding: 10px 10px 14px 0px;
+	padding: 10px 10px 14px 10px;
 	font-size: 1.4rem;
 	line-height: 22px;
 }
@@ -186,7 +187,7 @@ button.chat_dialog_rbtn{
 
 }
 .chengyuan p{
-	width: 176px;
+	width: 160px;
 	height: 34px;
 	background: #ff7300;
 	font-size: 1.4rem;
@@ -195,7 +196,7 @@ button.chat_dialog_rbtn{
 	text-indent: 20px;
 }
 .namE{
-	width: 177px;
+	width: 160px;
 	height: 360px;
 	margin-top: 10px;
 	background: #f1f1f1;
@@ -210,7 +211,7 @@ button.chat_dialog_rbtn{
 	color:#E70012;
 }
 .namE div dl{
-	margin-left: 5px;
+	margin-left: 0;
 	margin-bottom: 15px;
 }
 .namE div dl dt{
@@ -259,6 +260,8 @@ button.chat_dialog_rbtn{
 	background: url(../images/dung.png) no-repeat;
 	margin-left: 60px;
 	border-radius:10px 10px 10px 20px;
+
+	background-size:100% 100%;
 }
 .disscuss dl.dlRight dd{
 	float: left;
