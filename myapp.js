@@ -225,13 +225,16 @@ var seventdefines = {
 }
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-
-    var tweets = setInterval(function () {
-        getBieberTweet(function (tweet) {
-            socket.volatile.emit('bieber tweet', tweet);
+    var say_online= setInterval(function(){
+        logger.info("轮训未推送成功的消息开始");
+        socket.on('online', function(data){
+            sioHandler['online'](socket, data, io);
         });
-    }, 100);
-
+        socket.on('say',  function(data){
+            sioHandler['say'](socket, data, io);
+        });
+        logger.info("轮训未推送成功的消息结束");
+    },1000);
     socket.on('online', function(data){
         sioHandler['online'](socket, data, io);
     });
@@ -239,8 +242,8 @@ io.sockets.on('connection', function (socket) {
         sioHandler['say'](socket, data, io);
     });
     socket.on('disconnect',  function(data){
-        clearInterval(tweets);
         sioHandler['disconnect'](socket, data, io);
+        clearInterval(say_online);
     });
 
     /*
