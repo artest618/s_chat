@@ -71,10 +71,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 $(window).unbind('beforeunload');
             },500);
         });
-
-
-
-
     });
 
     function initChatList(){
@@ -110,6 +106,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     showChatView(unreaduser.uid);
                     if(unreaduser.usertype == 3){
                         getProductInfo(unreaduser.uid);
+                    }else{
+                        getProductInfo(app.users[0].uid);
+                    }
+                } else if(data.schat.length > 0){
+                    showChatView(data.schat[0].uid);
+                    if(data.schat[0].usertype == 3){
+                        getProductInfo(data.schat[0].uid);
                     }else{
                         getProductInfo(app.users[0].uid);
                     }
