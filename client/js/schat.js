@@ -129,6 +129,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     getProductInfo(tid);
                     setHotkey();
                 });
+
+                setHotkey();
                 //require(["../js/jquery.vticker.js"], function(){
                 //    $('#box_wwwzzjs_net').vTicker({
                 //        showItems: 7
