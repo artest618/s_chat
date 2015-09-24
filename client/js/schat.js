@@ -47,6 +47,20 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         $(document).on('click', function(e){
             $(".emojipanel").hide();
         });
+        $(".closewinbtn").on('cilick', function(e){
+            if(window.confirm('您确定要离开本页面么？')){
+                Common.post({
+                    url: 'offline',
+                    data: {},
+                    success: function(){
+                        window.close();
+                    },
+                    error: function(){
+                        window.close();
+                    }
+                })
+            }
+        });
         //window.onbeforeunload = function(){
         //    return '您确认要离开聊天页面么？';
         //}

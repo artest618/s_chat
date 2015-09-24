@@ -167,6 +167,11 @@ var routedefines = [
         'pathname': '/updateUserName',
         'handler': actions.updateUserName,
         'method': 'get'
+    },
+    {
+        'pathname': '/offline',
+        'handler': actions.offline,
+        'method': 'get'
     }
 ];
 
