@@ -245,7 +245,6 @@ io.sockets.on('connection', function (socket) {
         sioHandler['disconnect'](socket, data, io);
         clearInterval(say_online);
     });
-
     /*
     for(var f in seventdefines){
         if(f){
