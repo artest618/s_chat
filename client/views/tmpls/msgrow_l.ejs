@@ -1,11 +1,17 @@
 <dl class="dlLeft">
     <dt><img src="<%=msg.headicon%>" alt=""></dt>
-    <dd>
-        <div>
-            <span><%=msg.cname%> <%=msg.datetime.split(' ')[1]%></span>
-        </div>
-        <div class="word-wrap">
-            <%=msg.msg.replace(/\n/g, '<br/>')%>
+    <dd><i><img src="../../images/leftsanjiao.png" alt=""></i>
+        <div class="box color1">
+            <div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div>
+            <div class="content">
+                <div>
+                    <span><%=msg.cname%> <%=msg.datetime.split(' ')[1]%></span>
+                </div>
+                <div class="word-wrap">
+                    <%=msg.msg.replace(/\n/g, '<br/>')%>
+                </div>
+            </div>
+            <div class="b5"></div><div class="b6"></div><div class="b7"></div><div class="b8"></div>
         </div>
     </dd>
 </dl>

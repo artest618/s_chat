@@ -10,25 +10,38 @@ for(var i=data.msgs.length -1; i>=0; i--){
 %>
 <dl class="dlLeft">
     <dt><img src="<%=data.toheadicon%>" alt=""></dt>
-    <dd>
-        <div>
-            <span><%=data.msgs[i].cname%> <%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
-        </div>
-        <div class="word-wrap">
-            <%=data.msgs[i].message.replace(/\n/g, '<br/>')%>
+    <dd><i><img src="../../images/leftsanjiao.png" alt=""></i>
+        <div class="box color1">
+            <div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div> 
+            <div class="content">  
+                  <div>
+                    <span><%=data.msgs[i].cname%> <%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
+                  </div>
+                  <div class="word-wrap">
+                    <%=data.msgs[i].message.replace(/\n/g, '<br/>')%>
+                  </div>
+            </div>
+            <div class="b5"></div><div class="b6"></div><div class="b7"></div><div class="b8"></div>    
         </div>
     </dd>
 </dl>
 <% } else { %>
 <dl class="dlRight">
     <dd>
-        <div class="tright">
-            <span class="f14 p25 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
-        </div>
-        <div class="row-r-in mt5 border2 bgcolor5">
-            <span class="word-wrap"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
-            <em class="rs"></em>
-        </div>
+        <i><img src="../../images/sanjiao.png" alt=""></i>
+        <div class="box color2">
+            <div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div> 
+            <div class="content">  
+                <div class="tright">
+                    <span class="f14 p25 color4"><%=data.msgs[i].cname%> <%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>
+                </div>
+                <div class="row-r-in mt5 border2 bgcolor5">
+                    <span class="word-wrap"><%=data.msgs[i].message.replace(/\n/g, '<br/>')%></span>
+                    <em class="rs"></em>
+                </div>
+            </div>
+            <div class="b5"></div><div class="b6"></div><div class="b7"></div><div class="b8"></div>    
+        </div>       
     </dd>
     <dt><img src="<%=data.user.headicon ? data.user.headicon : '../images/picb.png'%>" alt=""></dt>
 </dl>
