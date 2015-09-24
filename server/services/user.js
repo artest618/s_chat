@@ -66,11 +66,15 @@ var UserService = {
         });
     },
 
-    updateUserName: function(uid, name, onsuccess, onerror){
+    updateUserName: function(uid, name,usertype, onsuccess, onerror){
        // var cname = (name&&name.substr(0,1)+"经理")||"经理";
         var sql = [
             'UPDATE tb_userinfo SET name=\'' + name + '\', cname=\'' + name + '\' where uid=' + uid
         ];
+        if(usertype == 3){
+            sql.push('UPDATE tb_grouplist SET ownername=\'' + name + '\', ownercname=\'' + name + '\' groupname =\''+(name+"客户群")+'\'  where owner=' + uid +'and grouptype=2');
+            sql.push('UPDATE tb_grouplist SET ownername=\'' + name + '\', ownercname=\'' + name + '\' groupname =\''+(name+"客户群")+'\'  where owner=' + uid +'and grouptype=3')
+        }
         JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
         });

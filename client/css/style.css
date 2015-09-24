@@ -211,7 +211,7 @@ button.chat_dialog_rbtn{
 	color:#E70012;
 }
 .namE div dl{
-	margin-left: 5px;
+	margin-left: 0;
 	margin-bottom: 15px;
 }
 .namE div dl dt{
@@ -246,9 +246,67 @@ button.chat_dialog_rbtn{
 	margin:5px 0 5px 10px;
 }
 
-.disscuss dl img{
+.disscuss dl dt img{
 	height:38px;
 	width:38px;
+}
+
+.box{
+	width:290px;         /*容器宽度控制*/
+	float:left;
+	position: relative;
+	right:20px;
+}
+.box .content {padding:5px 10px;}
+.content{
+	min-height: 40px;      /*整体高度控制*/
+}
+.b1,.b2,.b3,.b4,.b5,.b6,.b7,.b8{
+height:1px;
+overflow:hidden;
+}
+.b1,.b8{
+margin:0 5px;		/*相对于垂直方向边框的偏移5px*/
+}
+.b2,.b7{
+margin:0 3px;       /*相对于垂直方向边框的偏移3px*/
+border-right:2px solid;
+border-left:2px solid;
+}
+.b3,.b6{
+margin:0 2px;        /*相对于垂直方向边框的偏移2px*/
+border-right:1px solid;
+border-left:1px solid;
+}
+.b4,.b5{
+margin:0 1px;		/*相对于垂直方向边框的偏移1px*/
+border-right:1px solid;
+border-left:1px solid;
+height:2px;
+}
+.content {
+border-right:1px solid;
+border-left:1px solid;
+overflow:hidden;
+}
+.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .content{
+border-color:#e8e8e8;																		/*左右边框色*/
+}
+.color1 .b1,.color1 .b8{
+background:#e8e8e8;																		/*上下边框色*/
+}
+.color1 .b2,.color1 .b3,.color1 .b4,.color1 .b5,.color1 .b6,.color1 .b7,.color1 .content{
+background:#e8e8e8;																	/*背景色*/
+}
+
+.color2 .b2,.color2 .b3,.color2 .b4,.color2 .b5,.color2 .b6,.color2 .b7,.color2 .content{
+border-color:#7dc6d9;																		/*左右边框色*/
+}
+.color2 .b1,.color2 .b8{
+background:#7dc6d9;																		/*上下边框色*/
+}
+.color2 .b2,.color2 .b3,.color2 .b4,.color2 .b5,.color2 .b6,.color2 .b7,.color2 .content{
+background:#7dc6d9;																	/*背景色*/
 }
 
 .disscuss dl.dlLeft dd{
@@ -256,24 +314,27 @@ button.chat_dialog_rbtn{
 	height: auto;
 	padding-left: 20px;
 	font-size: 1.4rem;
-	padding: 5px 20px;
-	background: url(../images/dung.png) no-repeat;
+	padding: 5px 10px;
+	position: relative;
+	/* background: url(../images/dung.png) no-repeat; */
 	margin-left: 60px;
-	border-radius:10px 10px 10px 20px;
-
-	background-size:100% 100%;
+	/* border-radius:10px 10px 10px 20px; 
+	background-size:100% 100%;*/
 }
 .disscuss dl.dlRight dd{
 	float: left;
+	position: relative;
 	width: 290px;
 	height: auto;
 	padding-left: 20px;
 	font-size: 1.4rem;
-	padding: 5px 20px;
-	background: url(../images/duihuak.png) no-repeat;
-	background-size:100% 100%; 
+	padding: 5px 10px;
+	/* background: url(../images/duihuak.png) no-repeat; 
+	background-size:100% 100%; */
  	margin-left: 30px;
 }
+.disscuss dl.dlRight dd i{position: absolute;right: 0px;top: 10px;}
+.disscuss dl.dlLeft dd i{position: absolute;left: -20px;top: 10px;}
 
 .disscuss .word-wrap{
 	word-wrap: break-word;

@@ -15,52 +15,48 @@ var actions = {
             res.send("用户不能与自己聊天，请检查地址是否错误！");
             return;
         }
-        if (!req.session.sessiondata || !req.session.sessiondata.user) {
-            if(!uid){
-                res.send('<script>alert("用户标识错误！");window.close();</script>');
+        if(!uid){
+            res.send('<script>alert("用户标识错误！");window.close();</script>');
+            return;
+        }
+        FI.checkSigned(uid, function(suser){
+            if(!suser.error){
+                userSerivce.checkuser(uid, function(flag, user){
+                    if(flag){
+                        if(suser.name != user.name){
+                            user.name = suser.name;
+                            userSerivce.updateUserName(user.uid, user.name,user.usertype,function(){});
+                        }
+                        if(suser.usertype != user.usertype){
+                            user.usertype = suser.usertype;
+                            userSerivce.updateUserType(user.uid, user.usertype, function(){});
+                        }
+
+                        if(suser.headicon != user.headicon){
+                            user.headicon = suser.headicon;
+                            userSerivce.updateUserHeadicon(user.uid, user.headicon, function(){});
+                        }
+                        req.session.sessiondata = {user: user};
+                        return res.sendfile(send_target);
+                    } else{
+                        //var suser = FI.syncUser(uid);
+                        if(suser.usertype != 3){
+                            userSerivce.addUser(suser, function(){
+                                req.session.sessiondata = {user: suser};
+                                res.sendfile(send_target);
+                            });
+                        }else{
+                            res.send("该顾问用户还未同步，请联系管理员。");
+                        }
+
+                        return;
+                    }
+                });
+            }else{
+                res.send(suser.error);
                 return;
             }
-            FI.checkSigned(uid, function(suser){
-                if(!suser.error){
-                    userSerivce.checkuser(uid, function(flag, user){
-                        if(flag){
-                            if(suser.name != user.name){
-                                user.name = suser.name;
-                                userSerivce.updateUserName(user.uid, user.name, function(){});
-                            }
-                            if(suser.usertype != user.usertype){
-                                user.usertype = suser.usertype;
-                                userSerivce.updateUserType(user.uid, user.usertype, function(){});
-                            }
-
-                            if(suser.headicon != user.headicon){
-                                user.headicon = suser.headicon;
-                                userSerivce.updateUserHeadicon(user.uid, user.headicon, function(){});
-                            }
-                            req.session.sessiondata = {user: user};
-                            return res.sendfile(send_target);
-                        } else{
-                            //var suser = FI.syncUser(uid);
-                            if(suser.usertype != 3){
-                                userSerivce.addUser(suser, function(){
-                                    req.session.sessiondata = {user: suser};
-                                    res.sendfile(send_target);
-                                });
-                            }else{
-                                res.send("该顾问用户还未同步，请联系管理员。");
-                            }
-
-                            return;
-                        }
-                    });
-                }else{
-                    res.send(suser.error);
-                    return;
-                }
-            });
-        }else{
-            return res.sendfile(send_target);
-        }
+        });
     },
     getUserInfo: function(req,res){
         if(!req.session.sessiondata || !req.session.sessiondata.user){
@@ -475,6 +471,10 @@ var actions = {
         var uid = req.body.uid;
         logger.info(uid + ' is offline.................');
         res.send({data: 'ok'})
+    },
+    offline: function(req, res){
+        req.session.sessiondata = null;
+        res.send("success");
     },
     upfile: function(req, res){
         var files = req.files.file,user = req.session.sessiondata.user;

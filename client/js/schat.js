@@ -47,6 +47,20 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
         $(document).on('click', function(e){
             $(".emojipanel").hide();
         });
+        $(".closewinbtn").on('cilick', function(e){
+            if(window.confirm('您确定要离开本页面么？')){
+                Common.post({
+                    url: 'offline',
+                    data: {},
+                    success: function(){
+                        window.close();
+                    },
+                    error: function(){
+                        window.close();
+                    }
+                })
+            }
+        });
         //window.onbeforeunload = function(){
         //    return '您确认要离开聊天页面么？';
         //}
@@ -71,10 +85,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                 $(window).unbind('beforeunload');
             },500);
         });
-
-
-
-
     });
 
     function initChatList(){
@@ -113,6 +123,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     }else{
                         getProductInfo(app.users[0].uid);
                     }
+                } else if(data.schat.length > 0){
+                    showChatView(data.schat[0].uid);
+                    if(data.schat[0].usertype == 3){
+                        getProductInfo(data.schat[0].uid);
+                    }else{
+                        getProductInfo(app.users[0].uid);
+                    }
                 }
                 $('.contactlistview').find('li').on('click', function(e){
                     $('.contactlistview').find('li').removeClass("cur")
@@ -126,6 +143,8 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     getProductInfo(tid);
                     setHotkey();
                 });
+
+                setHotkey();
                 //require(["../js/jquery.vticker.js"], function(){
                 //    $('#box_wwwzzjs_net').vTicker({
                 //        showItems: 7

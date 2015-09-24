@@ -1,11 +1,18 @@
 <dl class="dlRight">
     <dd>
-        <div class="tright">
-            <span class="f14 p25 color4"><%=msg.cname%> <%=msg.datetime.split(' ')[1]%></span>
-        </div>
-        <div class="row-r-in mt5 border2 bgcolor5">
-            <span class="word-wrap"><%=msg.msg.replace(/\n/g, '<br/>')%></span>
-            <em class="rs"></em>
+        <i><img src="../../images/sanjiao.png" alt=""></i>
+        <div class="box color2">
+            <div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div>
+            <div class="content">
+                <div class="tright">
+                    <span class="f14 p25 color4"><%=msg.cname%> <%=msg.datetime.split(' ')[1]%></span>
+                </div>
+                <div class="row-r-in mt5 border2 bgcolor5">
+                    <span class="word-wrap"><%=msg.msg.replace(/\n/g, '<br/>')%></span>
+                    <em class="rs"></em>
+                </div>
+            </div>
+            <div class="b5"></div><div class="b6"></div><div class="b7"></div><div class="b8"></div>
         </div>
     </dd>
     <dt><img src="<%=msg.headicon%>" alt=""></dt>
