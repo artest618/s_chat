@@ -2,8 +2,16 @@ var mysql=require("mysql");
 var logger = require('./logger').logger;
 var queues = require('mysql-queues');
 
+//var pool = mysql.createPool({
+//    host: '120.131.68.151',
+//    user: 'bee_chat',
+//    password: 'bee_1234',
+//    database: 'chat',
+//    port: 3306
+//});
+
 var pool = mysql.createPool({
-    host: '120.131.68.151',
+    host: 'rds2rij2hms78n4347r4.mysql.rds.aliyuncs.com',
     user: 'bee_chat',
     password: 'bee_1234',
     database: 'chat',
@@ -15,9 +23,13 @@ var pool = mysql.createPool({
 JDB = {
     query: function(sql,callback){
         pool.getConnection(function(err,conn){
+            const DEBUG = true;
+           // queues(conn, DEBUG);
             if(err){
                 logger.error(err);
                 callback(err,null,null);
+                //释放连接
+                conn.release();
             }else{
                 logger.info(sql);
                 conn.query(sql,function(qerr,vals,fields){
@@ -28,13 +40,14 @@ JDB = {
                 });
             }
         });
-
     },
     oper: function(sql, callback){
         pool.getConnection(function(err, conn){
            if(err){
                console.log(err);
                callback(err);
+               //释放连接
+               conn.release();
            } else {
                const DEBUG = true;
                queues(conn, DEBUG);
@@ -47,10 +60,9 @@ JDB = {
                           if(qerr){
                               conn.rollback(function(){
                                   logger.debug(sql);
-                                  conn.release();
-                                  throw qerr;
                                   //释放连接
                                   conn.release();
+                                  throw qerr;
                               });
                               excutedtracor[i] = {
                                   back: true,
@@ -88,6 +100,8 @@ JDB = {
                           }
                       }
                       if(!allbacked){
+                          //释放连接
+                          conn.release();
                           return false;
                       }else{
                           clearInterval(deffer);

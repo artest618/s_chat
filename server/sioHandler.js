@@ -41,7 +41,9 @@ var handlers = {
             clients.forEach(function (client) {
                 if (client.uid == data.to) {
                     //触发该用户客户端的 say 事件
+                    logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
                     client.emit('say', data);
+                    logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
                     userisOnline = true;
                 }
             });
