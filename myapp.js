@@ -173,7 +173,7 @@ var routedefines = [
     {
         'pathname': '/offline',
         'handler': actions.offline,
-        'method': 'get'
+        'method': 'post'
     }
 ];
 
