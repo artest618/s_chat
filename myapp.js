@@ -9,13 +9,13 @@ var express = require('express'),
 
 var app = express();
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
-var options = {
-    host: "101.200.199.11",
-    port: 6379,
-    db: 1,
-    secret: 'keyboard cat'
-};
+//var RedisStore = require('connect-redis')(session);
+//var options = {
+//    host: "101.200.199.11",
+//    port: 6379,
+//    db: 1,
+//    secret: 'keyboard cat'
+//};
 
 
 // all environments
@@ -28,7 +28,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
-app.use(session({ store:new RedisStore(options) ,cookie: { maxAge: 1800000}, path: '/'}));
+app.use(session({ cookie: { maxAge: 1800000}, path: '/'}));
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
@@ -225,16 +225,6 @@ var seventdefines = {
 }
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-    var say_online= setInterval(function(){
-        logger.info("轮训未推送成功的消息开始");
-        socket.on('online', function(data){
-            sioHandler['online'](socket, data, io);
-        });
-        socket.on('say',  function(data){
-            sioHandler['say'](socket, data, io);
-        });
-        logger.info("轮训未推送成功的消息结束");
-    },1000);
     socket.on('online', function(data){
         sioHandler['online'](socket, data, io);
     });
