@@ -17,7 +17,7 @@
     </div>
 <%}%>
 
-<%for(var i=0; i<gdata.length; i++){%>
+<% if(gdata){ for(var i=0; i<gdata.length; i++){%>
 <div class="row more_r" onclick="window.location.href='/?uid=<%=gdata[i].userid%>&to=<%=gdata[i].groupid%>&totype=2'">
     <div class="col-xs-3 helght140 col-sm-2">
         <div class="col-l"></div>
@@ -34,5 +34,5 @@
         <span class="badge disblock badges f16 marauto"></span>
     </div>
 </div>
-<%}%>
+<%}}%>
 <input type="hidden" id="current_user" value="<%=uid%>">
