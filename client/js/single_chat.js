@@ -373,24 +373,28 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                                 }
                             }
                         }
+
+
+
+                        data.msg.sort(function(a,b){
+                            return  b.datetime<a.datetime?1:-1;
+                        });
+                        var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
+                            user: app.from,toheadicon: user.headicon || '../images/headers/default.png',is_flag:flag}});
+
+                        ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
+                        $('#' + tid).find('.c_msg_list').prepend(ejs);
+
+
+                        $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
+                        if(listclick){
+                            $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
+                        }
                     });
                 }
 
 
-                data.msg.sort(function(a,b){
-                    return  b.datetime<a.datetime?1:-1;
-                });
-                var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
-                    user: app.from,toheadicon: user.headicon || '../images/headers/default.png',is_flag:flag}});
 
-                ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
-                $('#' + tid).find('.c_msg_list').prepend(ejs);
-
-
-                $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
-                if(listclick){
-                    $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
-                }
 
             },
             error: function (err) {

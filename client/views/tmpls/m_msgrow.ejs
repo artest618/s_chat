@@ -7,7 +7,7 @@ for(var i in data.msgs){
         <% if (data.is_flag==true){%>
         <img class="user_headicon" src="<%=data.toheadicon%>" alt="">
         <%}else{%>
-        <img class="user_headicon" src="<%=data.msgs[i].toheadicon%>" alt="">
+        <img class="user_headicon" src="<%=data.msgs[i].toheadicon?data.msgs[i].toheadicon:'../images/headers/default.png'%>" alt="">
         <%}%>
     </div>
     <div class="col-xs-10 col-sm-11 ">
