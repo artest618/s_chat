@@ -74,7 +74,7 @@ var UserService = {
         sql.push('UPDATE tb_group_userlist SET  username=\'' + name + '\', usercname =\''+name+'\'  where userid=' + uid);
         if(usertype == 3){
             sql.push('UPDATE tb_grouplist SET ownername=\'' + name + '\', ownercname=\'' + name + '\', groupname =\''+(name+"客户群")+'\'  where owner=' + uid +'and grouptype=2');
-            sql.push('UPDATE tb_grouplist SET ownername=\'' + name + '\', ownercname=\'' + name + '\', groupname =\''+(name+"客户群")+'\'  where owner=' + uid +'and grouptype=3')
+            sql.push('UPDATE tb_grouplist SET ownername=\'' + name + '\', ownercname=\'' + name + '\', groupname =\''+(name+"经理群")+'\'  where owner=' + uid +'and grouptype=3')
         }
         JDB.oper(sql, function(res){
             onsuccess && onsuccess(res);
