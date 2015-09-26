@@ -25,8 +25,6 @@ JDB = {
         pool.getConnection(function(err,conn){
             if(err){
                 logger.error(err);
-                //释放连接
-                conn.release();
                 callback(err,null,null);
             }else{
                 logger.info(sql);
@@ -44,9 +42,9 @@ JDB = {
         pool.getConnection(function(err, conn){
            if(err){
                console.log(err);
+               callback(err);
                //释放连接
                conn.release();
-               callback(err);
            } else {
                const DEBUG = true;
                queues(conn, DEBUG);
@@ -59,8 +57,8 @@ JDB = {
                           if(qerr){
                               conn.rollback(function(){
                                   logger.debug(sql);
-                                  conn.release();
                                   throw qerr;
+                                  conn.release();
                               });
                               excutedtracor[i] = {
                                   back: true,
@@ -108,10 +106,10 @@ JDB = {
                                   if(cerr){
                                       conn.rollback(function(){
                                           logger.error('error--'+cerr);
-                                          //释放连接
-                                          conn.release();
                                           callback(false);
                                           //throw cerr;
+                                          //释放连接
+                                          conn.release();
                                       });
                                       return false;
                                   }

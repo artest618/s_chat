@@ -81,7 +81,7 @@ var msgService= {
         }else if(data.chattype=='gchat'&&data.totype==3){
             data.chattype=data.chattype+'_3';
         }
-        var dataArr = [custid, counselorid, data.from, data.fromname, data.fromtype, data.totype, data.chattype, 'null', data.msgtype, data.msg];
+        var dataArr = [custid, counselorid, data.from, data.fromname, data.fromtype, data.totype, data.chattype, 'null', data.msgtype, data.msg,,data.toname||""];
         sql = util.formatStrWithParams(sql, dataArr);
         JDB.oper([sql], function(res){
             onsuccess(res);
