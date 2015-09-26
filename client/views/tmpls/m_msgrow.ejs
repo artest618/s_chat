@@ -4,7 +4,11 @@ for(var i in data.msgs){
 %>
 <div class="row mt30 c_right">
     <div class="col-xs-2 col-sm-1">
+        <% if (data.is_flag==true){%>
         <img class="user_headicon" src="<%=data.toheadicon%>" alt="">
+        <%}else{%>
+        <img class="user_headicon" src="<%=data.msgs[i].toheadicon%>" alt="">
+        <%}%>
     </div>
     <div class="col-xs-10 col-sm-11 ">
         <p>
