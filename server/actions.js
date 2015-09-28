@@ -130,10 +130,15 @@ var actions = {
                     item.isOnline = 0;
                 }
                 item.unreadCount = global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] || 0;
-                global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] && (
-                    global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] = 0
-                );
+                //global.unreadMsgCount[parseInt(user.uid)] && global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] && (
+                //    global.unreadMsgCount[parseInt(user.uid)][parseInt(item.uid)] = 0
+                //);
             });
+            if(global.unreadMsgCount[parseInt(user.uid)]){
+                for(var x in global.unreadMsgCount[parseInt(user.uid)]){
+                    global.unreadMsgCount[parseInt(user.uid)][x] = 0;
+                }
+            }
             list.schat = data;
             chatService.getUserGroupList(user.uid, function(data){
                 data.forEach(function(item){
