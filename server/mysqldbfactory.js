@@ -43,8 +43,6 @@ JDB = {
            if(err){
                console.log(err);
                callback(err);
-               //释放连接
-               conn.release();
            } else {
                const DEBUG = true;
                queues(conn, DEBUG);
