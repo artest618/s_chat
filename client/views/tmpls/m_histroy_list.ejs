@@ -5,13 +5,15 @@
         </div>
         <div class="col-xs-6 border-bots helght140 paddingtop40 col-sm-8">
             <!--totype 根据不同的连接到群或单聊-->
-           <a href="javascript:void(0);"><h4  class="f34 head_name"><%=data[i].cname%></h4></a>
+           <!--<a href="javascript:void(0);">-->
+               <h4  class="f34 head_name"><%=data[i].cname%></h4>
+           <!--</a>-->
             <p class="sr-only f20">
                 <span class="color1"></span>
             </p>
         </div>
         <div class="col-xs-3 border-bots helght140 paddingtop40 col-sm-2">
-            <span class="color1 f20 disblock align-center"><%=data[i].lastchattime%></span>
+            <span class="color1 f20 disblock align-center" style="display: none;"><%=data[i].lastchattime%></span>
             <span class="badge disblock badges f16 marauto"></span>
         </div>
     </div>
@@ -24,13 +26,15 @@
     </div>
     <div class="col-xs-6 border-bots helght140 paddingtop40 col-sm-8">
         <!--totype 根据不同的连接到群或单聊-->
-        <a href="javascript:void(0);"><h4  class="f34"><%=gdata[i].groupname%></h4></a>
+        <!--<a href="javascript:void(0);">-->
+            <h4  class="f34"><%=gdata[i].groupname%></h4>
+        <!--</a>-->
         <p class="sr-only f20">
             <span class="color1"></span>
         </p>
     </div>
     <div class="col-xs-3 border-bots helght140 paddingtop40 col-sm-2">
-        <span class="color1 f20 disblock align-center"><%=gdata[i].jointime%></span>
+        <span class="color1 f20 disblock align-center" style="display: none;><%=gdata[i].jointime%></span>
         <span class="badge disblock badges f16 marauto"></span>
     </div>
 </div>
