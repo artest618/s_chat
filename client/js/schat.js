@@ -609,14 +609,14 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     //当前是否正在往联系人列表添加该联系人
                     if(!app.addingchat[data.from]){
                         app.addingchat[data.from] = true;
-                        var newchat = {
+                        var newchat = [{
                             user: data.to,
                             toid: data.from,
                             totype: data.fromtype,
                             name: data.fromname,
                             cname: data.fromname,
                             headicon: ""
-                        }
+                        }];
                         var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: newchat, chattype: data.chattype});
                         $(".contactlistview").append(ejs);
                         var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
