@@ -23,13 +23,9 @@ var pool = mysql.createPool({
 JDB = {
     query: function(sql,callback){
         pool.getConnection(function(err,conn){
-            const DEBUG = true;
-           // queues(conn, DEBUG);
             if(err){
                 logger.error(err);
                 callback(err,null,null);
-                //释放连接
-                conn.release();
             }else{
                 logger.info(sql);
                 conn.query(sql,function(qerr,vals,fields){
@@ -40,14 +36,13 @@ JDB = {
                 });
             }
         });
+
     },
     oper: function(sql, callback){
         pool.getConnection(function(err, conn){
            if(err){
                console.log(err);
                callback(err);
-               //释放连接
-               conn.release();
            } else {
                const DEBUG = true;
                queues(conn, DEBUG);
@@ -60,9 +55,8 @@ JDB = {
                           if(qerr){
                               conn.rollback(function(){
                                   logger.debug(sql);
-                                  //释放连接
-                                  conn.release();
                                   throw qerr;
+                                  conn.release();
                               });
                               excutedtracor[i] = {
                                   back: true,
@@ -110,10 +104,10 @@ JDB = {
                                   if(cerr){
                                       conn.rollback(function(){
                                           logger.error('error--'+cerr);
-                                          //释放连接
-                                          conn.release();
                                           callback(false);
                                           //throw cerr;
+                                          //释放连接
+                                          conn.release();
                                       });
                                       return false;
                                   }

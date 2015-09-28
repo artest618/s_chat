@@ -106,6 +106,17 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
         })
     }
 
+    function getGroupUsers(tid,call){
+        Common.post({
+            url: 'getGroupUsers',
+            data: {tid:tid},
+            success: function (data) {
+                app.groupUsers = data;
+                call&&call(data);
+            }
+        })
+    }
+
     function goBack(num){
         setTimeout(function(){
             window.history.go(-1);
@@ -343,26 +354,47 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload','mini_msg'], functi
                     return item;
                 });
 
-                var user = {};
-                for(var i in app.chatUsers){
-                    if(app.chatUsers[i].toid == tid){
-                        user = app.chatUsers[i];
+                var user = {},flag=true;
+                if(app.chattype == 'single'){
+                    flag=true;
+                    for(var i in app.chatUsers){
+                        if(app.chatUsers[i].toid == tid){
+                            user = app.chatUsers[i];
+                        }
                     }
+                }else{
+                    flag=false;
+                    getGroupUsers(tid,function(guser){
+                        for(var i in guser){
+
+                            for(var j in  data.msg){
+                                if(guser[i].uid == data.msg[j].id){
+                                    data.msg[j].toheadicon =(guser[i].headicon|| '../images/headers/default.png');
+                                }
+                            }
+                        }
+
+
+
+                        data.msg.sort(function(a,b){
+                            return  b.datetime<a.datetime?1:-1;
+                        });
+                        var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
+                            user: app.from,toheadicon: user.headicon || '../images/headers/default.png',is_flag:flag}});
+
+                        ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
+                        $('#' + tid).find('.c_msg_list').prepend(ejs);
+
+
+                        $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
+                        if(listclick){
+                            $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
+                        }
+                    });
                 }
-                data.msg.sort(function(a,b){
-                    return  b.datetime<a.datetime?1:-1;
-                });
-                var ejs = new EJS({url: "views/tmpls/m_msgrow.ejs"}).render({data: {msgs: data.msg,
-                    user: app.from,toheadicon: user.headicon || '../images/headers/default.png'}});
-
-                ejs = ejs.replace(/\<\s*br\s*\/\>/g, '');
-                $('#' + tid).find('.c_msg_list').prepend(ejs);
 
 
-                $('#' + tid).attr('msgdate', data.date).attr('page', data.page);
-                if(listclick){
-                    $(window.document.body).scrollTop($('#' +tid).find('.c_msg_list')[0].scrollHeight);
-                }
+
 
             },
             error: function (err) {

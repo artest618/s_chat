@@ -4,7 +4,11 @@ for(var i in data.msgs){
 %>
 <div class="row mt30 c_right">
     <div class="col-xs-2 col-sm-1">
+        <% if (data.is_flag==true){%>
         <img class="user_headicon" src="<%=data.toheadicon%>" alt="">
+        <%}else{%>
+        <img class="user_headicon" src="<%=data.msgs[i].toheadicon?data.msgs[i].toheadicon:'../images/headers/default.png'%>" alt="">
+        <%}%>
     </div>
     <div class="col-xs-10 col-sm-11 ">
         <p>
@@ -21,7 +25,6 @@ for(var i in data.msgs){
         <!--<span class="align-center disblock f16"><%=data.msgs[i].datetime&&data.msgs[i].datetime.split(' ')[1]%></span>-->
     <!--</div>-->
 <!--</div>-->
-
 <% } else { %>
 <div class="row mt30 c_right">
     <div class="col-xs-2 col-sm-1 col-xs-push-10 col-sm-push-11">

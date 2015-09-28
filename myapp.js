@@ -11,6 +11,7 @@ var redisConfig={port:6379,host:"101.200.199.11"};
 
 var app = express();
 var session = require('express-session');
+
 var RedisStore = require('connect-redis')(session);
 var options = {
     host: redisConfig.host,
@@ -18,6 +19,7 @@ var options = {
     db: 1,
     secret: 'keyboard cat'
 };
+
 
 
 // all environments
@@ -30,7 +32,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
-app.use(session({ store:new RedisStore(options) ,cookie: { maxAge: 1800000}, path: '/'}));
+app.use(session({ cookie: { maxAge: 1800000}, path: '/'}));
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
@@ -249,8 +251,8 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('disconnect',  function(data){
         sioHandler['disconnect'](socket, data, io);
+        clearInterval(say_online);
     });
-
     /*
     for(var f in seventdefines){
         if(f){
