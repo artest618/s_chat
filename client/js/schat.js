@@ -609,6 +609,29 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     //当前是否正在往联系人列表添加该联系人
                     if(!app.addingchat[data.from]){
                         app.addingchat[data.from] = true;
+                        var newchat = {
+                            user: data.to,
+                            toid: data.from,
+                            totype: data.fromtype,
+                            name: data.fromname,
+                            cname: data.fromname,
+                            headicon: ""
+                        }
+                        var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: newchat, chattype: data.chattype});
+                        $(".contactlistview").append(ejs);
+                        var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
+                        node.html(++count);
+                        node.hasClass('new') || (node.addClass('new'));
+                        $('.contactlistview').find('li').unbind('click').on('click', function(e){
+                            $('.contactlistview').find('li').removeClass("cur")
+                            $(this).addClass("cur")
+                            var tid = $(e.target).attr('tid');
+                            showChatView(tid);
+                            app.chattype = $(e.target).attr('chattype');
+                            //$('#contact_' + tid).removeClass('newmeg');
+                            $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
+                            $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
+                        });
                         //向服务器添加该联系人
                         Common.post({
                             url: 'addChat',
@@ -616,22 +639,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                             success: function(data){
                                 //往聊天列表中添加该联系人
                                 app.chatUsers = app.chatUsers.concat(data);
-                                var ejs = new EJS({url: "views/tmpls/contactlist.ejs"}).render({data: data, chattype: data.chattype});
-                                $(".contactlistview").append(ejs);
                                 app.addingchat[data.from] = false;
-                                var node = $('#contact_' + data.from).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
-                                node.html(++count);
-                                node.hasClass('new') || (node.addClass('new'));
-                                $('.contactlistview').find('li').unbind('click').on('click', function(e){
-                                    $('.contactlistview').find('li').removeClass("cur")
-                                    $(this).addClass("cur")
-                                    var tid = $(e.target).attr('tid');
-                                    showChatView(tid);
-                                    app.chattype = $(e.target).attr('chattype');
-                                    //$('#contact_' + tid).removeClass('newmeg');
-                                    $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
-                                    $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
-                                });
                             },
                             error: function(err){}
                         });
