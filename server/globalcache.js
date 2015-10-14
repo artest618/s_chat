@@ -22,5 +22,8 @@ setInterval(initGroupInfo, 10*60*1000);
 //在线用户数组
 global.onlineUsers = {};
 
+//缓存活动socket链接
+global.onlineSocket = {};
+
 //未读消息数
 global.unreadMsgCount = {};
