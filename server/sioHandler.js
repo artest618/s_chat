@@ -11,6 +11,7 @@ var handlers = {
         logger.info('用户' + data.user.uid + '上线了..........');
         var user = data.user;
         socket.uid = user.uid;
+        onlineSocket[parseInt(user.uid)] = socket;
         //users 对象中不存在该用户名则插入该用户名
         if (!users[user.uid]) {
             users[user.uid] = user;
@@ -24,6 +25,7 @@ var handlers = {
         if (users[socket.uid]) {
             //从 users 对象中删除该用户名
             delete users[socket.uid];
+            delete onlineSocket[socket.uid];
             logger.info('user ' + socket.uid + ' disconnected............');
             //向其他所有用户广播该用户下线信息
             socket.broadcast.emit('offline', {uid: socket.uid});
@@ -38,40 +40,35 @@ var handlers = {
         if(data.chattype == 'single'){
             //向特定用户发送该用户发话信息
             //遍历找到该用户
-            clients.forEach(function (client) {
-                if (client.uid == data.to) {
-                    //触发该用户客户端的 say 事件
-                    logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
-                    client.emit('say', data);
-                    logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
-                    userisOnline = true;
-                }
-            });
+            //clients.forEach(function (client) {
+            //    if (client.uid == data.to) {
+
+            //    }
+            //});
+            if(onlineSocket[data.to]){
+                //触发该用户客户端的 say 事件
+                logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
+                onlineSocket[data.to].emit('say', data);
+                logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
+                userisOnline = true;
+            }
             if(!userisOnline){
                 unreadcount[data.to] = unreadcount[data.to] == undefined ? {} : unreadcount[data.to];
                 unreadcount[data.to][data.from] = unreadcount[data.to][data.from] == undefined ? 1 : ++unreadcount[data.to][data.from];
             }
         }else{
             var members = global.group_user_list[data.to].members;
-            clients.forEach(function(client){
-                for(var i in members){
-                    if(parseInt(client.uid) == parseInt(members[i].uid)){
-                        client.emit('say', data);
-                    }
-                }
-            });
             for(var i in members){
                 userisOnline = false;
-                clients.forEach(function(client){
-                    if(parseInt(client.uid) == parseInt(members[i].uid) ){
-                        userisOnline = true;
-                    }
-                });
+                if(onlineSocket[parseInt(members[i].uid)]){
+                    onlineSocket[parseInt(members[i].uid)].emit('say', data);
+                    userisOnline = true;
+                }
                 if(!userisOnline){
                     unreadcount[parseInt(members[i].uid)] = unreadcount[parseInt(members[i].uid)] == undefined ? {} : unreadcount[parseInt(members[i].uid)];
                     unreadcount[parseInt(members[i].uid)][data.to] = unreadcount[parseInt(members[i].uid)][data.to] == undefined ? 1 : ++unreadcount[parseInt(members[i].uid)][data.to];
                 }
-            };
+            }
         }
         message.addMsgToDB(data, function(){});
     }

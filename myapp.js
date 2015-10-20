@@ -7,6 +7,7 @@ var express = require('express'),
       sioHandler = require('./server/sioHandler.js'),
       logger = require('./server/logger').logger;
 
+
 var redisConfig={port:6379,host:"101.200.199.11"};
 
 var app = express();
@@ -251,7 +252,7 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('disconnect',  function(data){
         sioHandler['disconnect'](socket, data, io);
-        clearInterval(say_online);
+        //clearInterval(say_online);
     });
     /*
     for(var f in seventdefines){

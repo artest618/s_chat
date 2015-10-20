@@ -594,7 +594,7 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#' + data.to).find('.dialog_c_e')[0].scrollTop = $('#' + data.to).find('.dialog_c_e')[0].scrollHeight;
                 }
                 //当前聊天窗口并非消息要显示的窗口，提示消息
-                if($('.box .currentW').attr('id') != data.to){
+                if($('.chatwindow .currentW').attr('id') != data.to){
                     var node = $('#contact_' + data.to).siblings('.newmsgtip'), count = parseInt($.trim(node.text()) == '' ? 0 : $.trim(node.text()));
                     node.addClass('new').html(++count);
                 }
