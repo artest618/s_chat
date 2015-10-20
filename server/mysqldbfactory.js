@@ -2,21 +2,21 @@ var mysql=require("mysql");
 var logger = require('./logger').logger;
 var queues = require('mysql-queues');
 
-//var pool = mysql.createPool({
-//    host: '120.131.68.151',
-//    user: 'bee_chat',
-//    password: 'bee_1234',
-//    database: 'chat',
-//    port: 3306
-//});
-
 var pool = mysql.createPool({
-    host: 'rds2rij2hms78n4347r4.mysql.rds.aliyuncs.com',
+    host: '120.131.68.151',
     user: 'bee_chat',
     password: 'bee_1234',
     database: 'chat',
     port: 3306
 });
+
+/*var pool = mysql.createPool({
+    host: 'rds2rij2hms78n4347r4.mysql.rds.aliyuncs.com',
+    user: 'bee_chat',
+    password: 'bee_1234',
+    database: 'chat',
+    port: 3306
+});*/
 
 
 

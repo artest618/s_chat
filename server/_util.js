@@ -60,19 +60,19 @@ var _util={};
 
     //外部接口配置
     //http://120.131.68.151:8071/webservice/users/queryuser.htm?userId=374
-    //_util.fifset = {
-    //    method: "POST",
-    //    host: "120.131.68.151",//'localhost',
-    //    port: 8071, //9003,
-    //    path: "",
-    //    headers: {
-    //        //"Content-Type": 'application/x-www-form-urlencoded',
-    //        "Content-Type": 'application/json',
-    //        "Content-Length": 0
-    //    }
-    //};
-
     _util.fifset = {
+        method: "POST",
+        host: "120.131.68.151",//'localhost',
+        port: 8071, //9003,
+        path: "",
+        headers: {
+            //"Content-Type": 'application/x-www-form-urlencoded',
+            "Content-Type": 'application/json',
+            "Content-Length": 0
+        }
+    };
+
+    /*_util.fifset = {
         method: "POST",
         host: "service.r8china.com",//'localhost',
         port: "",
@@ -83,7 +83,7 @@ var _util={};
             "Content-Length": 0
         }
     };
-
+*/
     _util.sendRequest = function(path, data, callback){
         data = JSON.stringify(data);
         _util.fifset.headers['Content-Length'] = data.length;
