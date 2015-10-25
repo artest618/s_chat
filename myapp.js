@@ -231,16 +231,6 @@ var seventdefines = {
 
 
 var io    = require('socket.io').listen(server);
-var redis = require('socket.io-redis');
-
-io.adapter(redis({ host: redisConfig.host, port: redisConfig.port }));
-
-adapter.pubClient.on('error', function(e){
-    console.log(e);
-});
-adapter.subClient.on('error', function(e){
-    console.log(e);
-});
 
 io.sockets.on('connection', function (socket) {
 
