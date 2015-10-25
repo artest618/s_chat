@@ -6,7 +6,7 @@ var express = require('express'),
       actions = require('./server/actions.js'),
       sioHandler = require('./server/sioHandler.js'),
       logger = require('./server/logger').logger;
-
+var heapdump = require('heapdump');
 
 var redisConfig={port:6379,host:"101.200.199.11"};
 
@@ -33,7 +33,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser({uploadDir: './tmp'}));
 app.use(express.cookieParser('keyboard cat'));
-app.use(session({ cookie: { maxAge: 1800000}, path: '/'}));
+app.use(session({  store: new RedisStore(options), cookie: { maxAge: 1800000}, path: '/'}));
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'client')));
@@ -205,7 +205,7 @@ for(var i=0; i<routedefines.length; i++){
                 logger.info(e);
                 logger.info(e.stack);
                 if(method == 'post'){
-                    res.send({error: "服务器正忙，请稍后再�?..."});
+                    res.send({error: "服务器正忙，请稍后再试..."});
                 }
                 else {
                     res.redirect('/');
@@ -231,7 +231,7 @@ var seventdefines = {
 
 
 var io    = require('socket.io').listen(server);
-/*var redis = require('socket.io-redis');
+var redis = require('socket.io-redis');
 
 io.adapter(redis({ host: redisConfig.host, port: redisConfig.port }));
 
@@ -240,7 +240,7 @@ adapter.pubClient.on('error', function(e){
 });
 adapter.subClient.on('error', function(e){
     console.log(e);
-});*/
+});
 
 io.sockets.on('connection', function (socket) {
 
