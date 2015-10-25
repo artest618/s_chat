@@ -70,7 +70,7 @@ var msgService= {
         //    msgtype: 'file',
         //    msg: {file: file, url: JSON.parse(res).url}
         //}
-        var sql = 'INSERT INTO tb_message (custid, counselorid, id, cname, fromtype, totype, chattype, datetime, msgtype, message) values (?, ?, ?, \'?\', ?, ?, \'?\', ?, \'?\', \'?\')';
+        var sql = 'INSERT INTO tb_message (custid, counselorid, id, cname, fromtype, totype, chattype, datetime, msgtype, message, gname) values (?, ?, ?, \'?\', ?, ?, \'?\', ?, \'?\', \'?\', \'?\')';
         var custid = data.chattype == 'single' ? (data.fromtype == 3 ? data.to : data.from) : data.to;
         var counselorid = data.chattype == 'single' ? (data.fromtype == 3 ? data.from : data.to) : data.to;
 
@@ -81,7 +81,7 @@ var msgService= {
         }else if(data.chattype=='gchat'&&data.totype==3){
             data.chattype=data.chattype+'_3';
         }
-        var dataArr = [custid, counselorid, data.from, data.fromname, data.fromtype, data.totype, data.chattype, 'null', data.msgtype, data.msg,,data.toname||""];
+        var dataArr = [custid, counselorid, data.from, data.fromname, data.fromtype, data.totype, data.chattype, 'null', data.msgtype, data.msg,data.toname||""];
         sql = util.formatStrWithParams(sql, dataArr);
         JDB.oper([sql], function(res){
             onsuccess(res);
