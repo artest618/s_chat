@@ -6,7 +6,7 @@ var express = require('express'),
       actions = require('./server/actions.js'),
       sioHandler = require('./server/sioHandler.js'),
       logger = require('./server/logger').logger;
-var heapdump = require('heapdump');
+//var heapdump = require('heapdump');
 
 var redisConfig={port:6379,host:"101.200.199.11"};
 
