@@ -74,6 +74,7 @@ var chatService = {
             if(err) {
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             onsuccess(vals);
         });
