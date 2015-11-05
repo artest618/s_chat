@@ -8,7 +8,7 @@ var express = require('express'),
       logger = require('./server/logger').logger;
 //var heapdump = require('heapdump');
 
-var redisConfig={port:6379,host:"101.200.199.11"};
+var redisConfig={port:6379,host:"127.0.0.1"};
 
 var app = express();
 var session = require('express-session');
