@@ -54,6 +54,11 @@ var routedefines = [
         'method': 'get'
     },
     {
+        'pathname': '/client',
+        'handler': actions.client,
+        'method': 'get'
+    },
+    {
         'pathname': '/signin',
         'handler': actions.signinpage,
         'method': 'get'

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>聊天页面</title>
+	<script>
+		window.onload = function(){
+
+			document.querySelector("#ptku_id").onclick = function(){
+				window.location.href = "http://chat.r8china.com/?uid=875&tid=867"
+			}
+
+			document.querySelector("#dkgw_id").onclick = function(){
+				window.location.href = "http://chat.r8china.com/?uid=867"
+			}
+
+		}
+	</script>
+</head>
+<body style="width: 100%">
+	<div style="margin:50px auto;">
+		<a href="javascript:viod();" id="ptku_id">普通客户链接</a>
+
+		<a style="margin-left: 50px;" href="javascript:viod();" id="dkgw_id">贷款顾问链接</a>
+	</div>
+</body>
+</html>
