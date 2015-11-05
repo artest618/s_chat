@@ -257,6 +257,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     headicon: app.from.headicon ? app.from.headicon : '../images/picb.png',
                     msg: Common.formatMsgDisp(msg) //.replace(/\n/g, '<br />')
                 }});
+
+                var chatHistory = $('#' + tid).find('.l-c1-c3');
+                var childs = chatHistory.find('p,dl').size();
+                if (childs > 1000) {
+                  chatHistory.find('p,dl:nth-child(-n+' + (childs - 1000) + ')').remove()
+                }
+
                 $('#' + tid).find('.l-c1-c3').append(ejs);
                 $('#' + tid).find('.inputmsg').val('');
                 socket.emit('say', {
