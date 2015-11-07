@@ -1,6 +1,5 @@
 var mysql=require("mysql");
 var logger = require('./logger').logger;
-var queues = require('mysql-queues');
 
 var pool = mysql.createPool({
     host: '120.131.68.151',
@@ -19,12 +18,11 @@ var pool = mysql.createPool({
     port: 3306
 });*/
 
-
-
 JDB = {
     query: function(sql,callback){
         pool.getConnection(function(err,conn){
             if(err){
+                conn.release();
                 logger.error(err);
                 callback(err,null,null);
             }else{
@@ -39,99 +37,67 @@ JDB = {
         });
 
     },
-    oper: function(sql, callback){
-        pool.getConnection(function(err, conn){
-           if(err){
-               console.log(err);
-               callback(err);
-           } else {
-               const DEBUG = true;
-               queues(conn, DEBUG);
-               conn.beginTransaction(function(terr){
-                  if(terr){throw terr;}
-                   logger.info("start transaction...");
-                  function excutesql(sql, i){
-                      logger.debug(sql);
-                      conn.query(sql, function(qerr, result){
-                          if(qerr){
-                              conn.rollback(function(){
-                                  logger.debug(sql);
-                                  throw qerr;
-                                  conn.release();
-                              });
-                              excutedtracor[i] = {
-                                  back: true,
-                                  success: false
-                              }
-                              return false;
-                          }
-                          excutedtracor[i] = {
-                              back: true,
-                              success: true
-                          }
-                          logger.info('excuted ' + sql + 'successfully.');
-                      });
-                  }
-                  var excutedtracor = [];
-                  if(sql instanceof Array){
-                      for(var i=0; i<sql.length; i++){
-                          excutedtracor[i] = {
-                              back: false,
-                              success: false
-                          }
-                          excutesql(sql[i], i);
-                      }
-                  } else {
-                      excutesql(sql, 0);
-                  }
-                  var deffer = setInterval(function(){
-                      var allbacked = true, allsuccessed = true;
-                      for(var i in excutedtracor){
-                          if(!excutedtracor[i].back){
-                              allbacked = false;
-                          }
-                          if(!excutedtracor[i].success){
-                              allsuccessed = false;
-                          }
-                      }
-                      if(!allbacked){
-                          //释放连接
-                          conn.release();
-                          return false;
-                      }else{
-                          clearInterval(deffer);
-                          if(allsuccessed){
-                              conn.commit(function(cerr){
-                                  if(cerr){
-                                      conn.rollback(function(){
-                                          logger.error('error--'+cerr);
-                                          callback(false);
-                                          //throw cerr;
-                                          //释放连接
-                                          conn.release();
-                                      });
-                                      return false;
-                                  }
-                                  logger.info('commit successfully and transaction end.');
-                                  //释放连接
-                                  conn.release();
-                                  callback(true);
-                              });
-                          }else{
-                              conn.rollback(function(){
-                                  logger.error('error--'+cerr);
-                                  //释放连接
-                                  conn.release();
-                                  callback(false);
-                                  //throw cerr;
-                              });
-                          }
-                      }
 
-                  }, 100);
-               });
-           }
+    oper: function(sql, callback){
+      if (!Array.isArray(sql)) {
+        sql = [sql];
+      }
+
+      pool.getConnection(function(err, conn){
+        if (err) {
+          conn.release();
+          logger.error(err);
+          callback(false);
+          return;
+        }
+
+        logger.info("start transaction...");
+        conn.beginTransaction(function(err){
+          if (err) {
+            conn.release();
+            logger.error(err);
+            callback(false);
+            return;
+          }
+
+          executeSql(0);
+
+          function executeSql(i) {
+            logger.info('execute ' + sql[i]);
+            conn.query(sql[i], function(err, result){
+              if (err) {
+                logger.error(err);
+                rollback();
+                return;
+              }
+
+              if (i == (sql.length - 1)) {
+                conn.commit(function(err){
+                  if (err) {
+                    logger.error(err);
+                    rollback();
+                    return;
+                  }
+
+                  conn.release();
+                  callback(true);
+                });
+                return;
+              }
+
+              executeSql(i + 1);
+            });
+          }
+
+          function rollback() {
+            conn.rollback(function(){
+              conn.release();
+              callback(false);
+            });
+          }
+
         });
+      });
     }
 }
 
