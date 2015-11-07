@@ -102,6 +102,9 @@ var _util={};
                 callback(500, {'error': '服务器返回错误'});
             }
         });
+        req.on('error', function(e) {
+          callback(500, {'error': '服务器返回错误'});
+        });
         req.write(data);
         req.end();
     };
