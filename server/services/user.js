@@ -10,6 +10,7 @@ var UserService = {
             if(err){
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             for(var i in vals){
                 if(vals[i].delflag == 0){
