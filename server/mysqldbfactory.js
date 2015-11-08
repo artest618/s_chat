@@ -7,7 +7,8 @@ var pool = mysql.createPool({
     password: 'bee_1234',
     database: 'chat',
     port: 3306,
-    multipleStatements: true
+    multipleStatements: true,
+    connectionLimit: 20
 });
 
 /*var pool = mysql.createPool({
