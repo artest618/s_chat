@@ -110,10 +110,13 @@ var _util={};
     };
 
     _util.formatStrWithParams = function(str, params){
-        params.forEach(function(item){
-            str = str.replace(/\?/, item);
-        });
-        return str;
+      params.forEach(function(item) {
+        if (item === undefined) {
+          item = 'null';
+        }
+        str = str.replace(/\?/, item);
+      });
+      return str;
     }
 
     _util.msgPageRows = 10;
