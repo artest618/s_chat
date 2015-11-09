@@ -19,7 +19,7 @@ var handlers = {
         //向所有用户广播该用户上线信息
         io.sockets.emit('online', {users: users, user: user});
     },
-    
+
     disconnect: function(socket, data, io){
         //若 users 对象中保存了该用户名
         if (users[socket.uid]) {
@@ -31,20 +31,12 @@ var handlers = {
             socket.broadcast.emit('offline', {uid: socket.uid});
         }
     },
-    
+
     say: function(socket, data, io){
-        //clients 为存储所有连接对象的数组
         data.from = parseInt(data.from);
         data.to = parseInt(data.to);
-        var clients = io.sockets.clients(), userisOnline = false;
+        var userisOnline = false;
         if(data.chattype == 'single'){
-            //向特定用户发送该用户发话信息
-            //遍历找到该用户
-            //clients.forEach(function (client) {
-            //    if (client.uid == data.to) {
-
-            //    }
-            //});
             if(onlineSocket[data.to]){
                 //触发该用户客户端的 say 事件
                 logger.info('++++++++++++++++++向客户端'+data.to+'   发送消息');
@@ -73,4 +65,4 @@ var handlers = {
         message.addMsgToDB(data, function(){});
     }
 }
-module.exports=handlers; 
+module.exports=handlers;

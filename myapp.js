@@ -8,7 +8,7 @@ var express = require('express'),
       logger = require('./server/logger').logger;
 //var heapdump = require('heapdump');
 
-var redisConfig={port:6379,host:"101.200.199.11"};
+var redisConfig={port:6379,host:"127.0.0.1"};
 
 var app = express();
 var session = require('express-session');
@@ -51,6 +51,11 @@ var routedefines = [
     {
         'pathname': '/',
         'handler': actions.root,
+        'method': 'get'
+    },
+    {
+        'pathname': '/client',
+        'handler': actions.client,
         'method': 'get'
     },
     {
@@ -231,18 +236,6 @@ var seventdefines = {
 
 
 var io    = require('socket.io').listen(server);
-var redis = require('socket.io-redis');
-
-io.adapter = require('socket.io-adapter');
-
-io.adapter(redis({ host: redisConfig.host, port: redisConfig.port }));
-
-//adapter.pubClient.on('error', function(e){
-//    console.log(e);
-//});
-//adapter.subClient.on('error', function(e){
-//    console.log(e);
-//});
 
 io.sockets.on('connection', function (socket) {
 

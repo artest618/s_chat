@@ -141,7 +141,6 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     $('#contact_' + tid).siblings('.newmsgtip').removeClass('new').html('');
                     $('#' + tid).find('.dialog_c_e')[0].scrollTop = $('#' + tid).find('.dialog_c_e')[0].scrollHeight;
                     getProductInfo(tid);
-                    setHotkey();
                 });
 
                 setHotkey();
@@ -157,22 +156,10 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
 
 
     function setHotkey(){
-        function Hotkey(event, targetObj, ctrlKey, shiftKey, altKey, keycode){
-            if (
-                targetObj
-                && event.ctrlKey == ctrlKey
-                && event.shiftKey == shiftKey
-                && event.altKey == altKey
-                && event.keyCode == keycode
-            )
-                targetObj.click();
-        }
-
-        function fnKeyup(event)
-        {
-            $(".btnsend").each(function(){
-                Hotkey(event, this, true, false, false, 13);
-            });
+        function fnKeyup(e) {
+          if (e.keyCode == 13 && e.ctrlKey && !e.shiftKey && !e.altKey) {
+            $('.currentW .btnsend').click();
+          }
         }
 
         if (document.addEventListener)
@@ -270,6 +257,13 @@ require(['jquery', 'common', 'domReady', 'ejs', 'AjaxUpload'], function($, Commo
                     headicon: app.from.headicon ? app.from.headicon : '../images/picb.png',
                     msg: Common.formatMsgDisp(msg) //.replace(/\n/g, '<br />')
                 }});
+
+                var chatHistory = $('#' + tid).find('.l-c1-c3');
+                var childs = chatHistory.find('p,dl').size();
+                if (childs > 1000) {
+                  chatHistory.find('p,dl:nth-child(-n+' + (childs - 1000) + ')').remove()
+                }
+
                 $('#' + tid).find('.l-c1-c3').append(ejs);
                 $('#' + tid).find('.inputmsg').val('');
                 socket.emit('say', {

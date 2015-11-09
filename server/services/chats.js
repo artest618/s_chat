@@ -9,6 +9,7 @@ var chatService = {
             if(err){
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             var validvals = [];
             for(var i in vals){
@@ -34,6 +35,7 @@ var chatService = {
             if(err){
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             if(!vals || vals.length==0){//如果没有数据则插入，如果有则更新
                 self.addChat(chat,onsuccess);
@@ -54,6 +56,7 @@ var chatService = {
             if(err){
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             onsuccess(vals);
         });
@@ -64,6 +67,7 @@ var chatService = {
             if(err) {
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             onsuccess(vals);
         });
@@ -74,6 +78,7 @@ var chatService = {
             if(err) {
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             onsuccess(vals);
         });
@@ -97,6 +102,7 @@ var chatService = {
             if(err) {
                 logger.info(JSON.stringify(err));
                 onerror && onerror(err);
+                return;
             }
             onsuccess(vals);
         });
