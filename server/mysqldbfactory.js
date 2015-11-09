@@ -20,22 +20,24 @@ var pool = mysql.createPool({
 });*/
 
 JDB = {
-    query: function(sql,callback){
-        pool.getConnection(function(err,conn){
-            if(err){
-                conn.release();
-                logger.error(err);
-                callback(err,null,null);
-            }else{
-                logger.info(sql);
-                conn.query(sql,function(qerr,vals,fields){
-                    //释放连接
-                    conn.release();
-                    //事件驱动回调
-                    callback(qerr,vals,fields);
-                });
-            }
-        });
+    query: function(sql, callback){
+      pool.getConnection(function(err, conn){
+        if (err) {
+          if (conn) {
+            conn.release();
+          }
+          logger.error(err);
+          callback(err, null, null);
+        }else{
+          logger.info(sql);
+          conn.query(sql,function(qerr, vals, fields){
+            //释放连接
+            conn.release();
+            //事件驱动回调
+            callback(qerr, vals, fields);
+          });
+        }
+      });
 
     },
 
@@ -46,7 +48,9 @@ JDB = {
 
       pool.getConnection(function(err, conn){
         if (err) {
-          conn.release();
+          if (conn) {
+            conn.release();
+          }
           logger.error(err);
           callback(false);
           return;
